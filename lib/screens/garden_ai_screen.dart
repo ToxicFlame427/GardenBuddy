@@ -12,6 +12,10 @@ class GardenAIScreen extends StatefulWidget {
 class _GardenAIScreenState extends State<GardenAIScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Garden AI Screen"));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Garden AI"),
+      ),
+    );
   }
 }

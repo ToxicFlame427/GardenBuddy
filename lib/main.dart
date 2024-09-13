@@ -8,7 +8,8 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
 
-  runApp(const MaterialApp(
-    home: HomeScreen(),
+  runApp(MaterialApp(
+    home: const HomeScreen(),
+    theme: ThemeData(useMaterial3: true),
   ));
 }

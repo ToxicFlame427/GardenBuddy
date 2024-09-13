@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/screens/bottom_nav/diseases/diseases_frag.dart';
+import 'package:garden_buddy/screens/bottom_nav/plants/plants_frag.dart';
+import 'package:garden_buddy/screens/bottom_nav/settings_frag.dart';
+import 'package:garden_buddy/screens/bottom_nav/tools_frag.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,11 +16,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _bottomNavIndex = 0;
 
-  final List<Widget> _fragmentList = [
-    Text("Plants fragment"),
-    Text("Diseases fragment"),
-    Text("Tools fragment"),
-    Text("Settings fragment")
+  final List<Widget> _fragmentList = const [
+    PlantsFragment(),
+    DiseasesFragment(),
+    ToolsFragment(),
+    SettingsFragment()
   ];
 
   void _setFragment(int index) {
