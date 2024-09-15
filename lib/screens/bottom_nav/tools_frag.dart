@@ -15,7 +15,7 @@ class ToolsFragment extends StatelessWidget {
           children: [
             const Text(
               "Helpful Tools",
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.green,
                 fontSize: 30,
                 fontFamily: "Khand",

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/screens/bottom_nav/plants/plant_favorites.dart';
+import 'package:garden_buddy/screens/bottom_nav/plants/plant_search.dart';
 
 class PlantsFragment extends StatefulWidget {
   const PlantsFragment({super.key});
@@ -50,7 +52,7 @@ class _PlantsFragmentState extends State<PlantsFragment>
         ),
         body: TabBarView(
             controller: _tabController,
-            children: const [Text("Plant search"), Text("Plant favorites")]),
+            children: const [PlantSearch(), FavoritePlants()]),
       ),
     );
   }

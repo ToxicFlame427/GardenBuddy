@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/tool.dart';
 import 'package:garden_buddy/screens/garden_ai_screen.dart';
+import 'package:garden_buddy/screens/scanner_screen.dart';
 
 class ToolCard extends StatelessWidget {
   const ToolCard({super.key, required this.toolObject});
@@ -13,10 +14,10 @@ class ToolCard extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (ctx) => const GardenAIScreen()));
         break;
       case "Plant Identification":
-        Navigator.push(context, MaterialPageRoute(builder: (ctx) => const Text("Haha hello")));
+        Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ScannerScreen(scannerType: "Plant Identification")));
         break;
       case "Health Assessment":
-        Navigator.push(context, MaterialPageRoute(builder: (ctx) => const Text("Go away")));
+        Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ScannerScreen(scannerType: "Health Assessment")));
         break;
     }
   }

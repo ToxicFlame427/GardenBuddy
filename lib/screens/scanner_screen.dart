@@ -15,8 +15,12 @@ class _ScannerScreenState extends State<ScannerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      
+      appBar: AppBar(
+        title: Text(widget.scannerType),
+        backgroundColor: Colors.green,
+        centerTitle: false,
+      ),
+      body: const Text("This is the camera scanner screen"),
     );
   }
 }
