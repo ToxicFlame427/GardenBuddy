@@ -4,6 +4,17 @@
 <dict>
     <key>GADApplicationIdentifier</key>
     <string>ca-app-pub-6754306508338066~1717293110</string>
+
+<!--For getting image permissions-->
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Allow access to photo library</string>
+
+<key>NSCameraUsageDescription</key>
+<string>Allow access to camera to capture photos</string>
+
+<key>NSMicrophoneUsageDescription</key>
+<string>Allow access to microphone</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
