@@ -36,7 +36,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   shimmer: ^3.0.0
-  in_app_purchase: ^3.2.0
   google_mobile_ads: ^5.1.0
   image_picker: ^1.1.2
   dash_chat_2: ^0.0.21

@@ -137,13 +137,15 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
               child: DashChat(
                   inputOptions: InputOptions(trailing: [
                     IconButton(
-                        onPressed: _sendMediaMessage, icon: const Icon(Icons.image))
+                        onPressed: _sendMediaMessage,
+                        icon: const Icon(Icons.image))
                   ]),
                   currentUser: currentUser,
                   onSend: _sendMessage,
                   messages: messages),
             ),
-            if (messages.isEmpty) const Text("Send a message to Garden AI to chat!")
+            if (messages.isEmpty)
+              const Text("Send a message to Garden AI to chat!")
           ]),
         ));
   }

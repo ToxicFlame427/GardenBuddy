@@ -1,4 +1,4 @@
-package com.example.garden_buddy
+package com.toxicflame427.gardenbuddy
 
 import io.flutter.embedding.android.FlutterActivity
 

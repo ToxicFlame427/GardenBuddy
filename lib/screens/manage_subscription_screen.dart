@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/widgets/subscription_perks_chart.dart';
 
 class ManageSubscriptionScreen extends StatelessWidget {
   const ManageSubscriptionScreen({super.key});
+
+  // Future fetchSubs(BuildContext context) async {
+  //   final offers = await PurchasesApi.fetchOffers();
+
+  //   if (offers.isEmpty) {
+  //     print("No subscriptions found");
+  //   } else {
+  //     final offer = offers.first;
+  //     print("Offer: $offer");
+
+  //     final packages = offers
+  //         .map((offer) => offer.availablePackages)
+  //         .expand((pair) => pair)
+  //         .toList();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +64,7 @@ class ManageSubscriptionScreen extends StatelessWidget {
                         height: 25,
                       )),
                   const Flexible(
-                    child: const Text(
+                    child: Text(
                       "Subscribe to Garden Buddy for more!",
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.clip,
