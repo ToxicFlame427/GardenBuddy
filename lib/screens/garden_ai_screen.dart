@@ -24,6 +24,8 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
   ChatUser modelUser = ChatUser(
       id: "1", firstName: "Garden AI", profileImage: "assets/icons/icon.jpg");
 
+  XFile? file;
+
   @override
   void initState() {
     super.initState();
@@ -74,22 +76,21 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
     } catch (e) {
       print(e);
     }
+
+    // Reset the file to nothing and update the state
+    setState(() {
+      file = null;
+    });
   }
 
-  void _sendMediaMessage() async {
+  void _pickImage() async {
     ImagePicker picker = ImagePicker();
-    XFile? file = await picker.pickImage(source: ImageSource.gallery);
+    file = await picker.pickImage(source: ImageSource.gallery);
 
-    if (file != null) {
-      ChatMessage chatMessage = ChatMessage(
-          user: currentUser,
-          createdAt: DateTime.now(),
-          text: "Describe this picture",
-          medias: [
-            ChatMedia(url: file.path, fileName: "", type: MediaType.image)
-          ]);
-      _sendMessage(chatMessage);
-    }
+    // Set the new state to have the tiny image in the corner
+    setState(() {
+      file = file;
+    });
   }
 
   // Show dialog about garden AI
@@ -136,12 +137,39 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
             Flexible(
               child: DashChat(
                   inputOptions: InputOptions(trailing: [
-                    IconButton(
-                        onPressed: _sendMediaMessage,
-                        icon: const Icon(Icons.image))
+                    Column(children: [
+                      if (file != null)
+                        GestureDetector(
+                          onTap: () => {
+                            setState(() {
+                              file = null;
+                            })
+                          },
+                          child: Image.memory(
+                            File(file!.path).readAsBytesSync(),
+                            height: 30,
+                            width: 40,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      IconButton(
+                          onPressed: _pickImage, icon: const Icon(Icons.image))
+                    ])
                   ]),
                   currentUser: currentUser,
-                  onSend: _sendMessage,
+                  onSend: (message) {
+                    if (message.medias == null && file == null) {
+                      _sendMessage(message);
+                    } else {
+                      ChatMessage newMsg = message;
+                      newMsg.medias = [];
+                      newMsg.medias?.add(ChatMedia(
+                          url: file!.path,
+                          fileName: file!.name,
+                          type: MediaType.image));
+                      _sendMessage(newMsg);
+                    }
+                  },
                   messages: messages),
             ),
             if (messages.isEmpty)
