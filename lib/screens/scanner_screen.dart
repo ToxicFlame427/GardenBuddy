@@ -1,6 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/screens/results_screen.dart';
+import 'package:garden_buddy/widgets/credit_circle.dart';
+import 'package:garden_buddy/widgets/custom_info_dialog.dart';
+import 'package:garden_buddy/widgets/picture_quality_card.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ScannerScreen extends StatefulWidget {
   const ScannerScreen({super.key, required this.scannerType});
@@ -25,13 +29,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   Future<void> _setupCameraController() async {
-    List<CameraDescription> _cameras = await availableCameras();
-    if (_cameras.isNotEmpty) {
+    List<CameraDescription> cameras = await availableCameras();
+    if (cameras.isNotEmpty) {
       setState(() {
-        cameras = _cameras;
+        cameras = cameras;
         // _cameras.first = Front camera, _camera.last = Back camera
         cameraController =
-            CameraController(_cameras.last, ResolutionPreset.high);
+            CameraController(cameras.last, ResolutionPreset.high);
       });
 
       cameraController?.initialize().then((_) {
@@ -40,16 +44,59 @@ class _ScannerScreenState extends State<ScannerScreen> {
     }
   }
 
+  void _showScannerDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CustomInfoDialog(
+              title: widget.scannerType == "Plant Identification"
+                  ? "About Plant ID"
+                  : "About Health Assess",
+              description: widget.scannerType == "Plant Identification"
+                  ? "Plant identifications are powered by Garden AI and will generate a textual response. Please note that as this is powered by an AI model, it is not completely accurate. For this reason, each generation has a regenerate button for responses that may not be accurate. Please do not rely on this response alone and DO NOT taste nature without professional confirmation!"
+                  : "Plant health assessments are powered by Garden AI and will generate a textual response. Please note that as this is powered by an AI model, it is not completely accurate. For this reason, each generation has a regenerate button for responses that may not be accurate. Please do not rely on this response alone. Some responses from heath assessments may suggest you to see a plant expert. This means that the cause of the issue is unknown or unclear in the image.",
+              imageAsset: "assets/icons/icon.jpg",
+              buttonText: "Got it!",
+              onClose: () {
+                Navigator.pop(context);
+              });
+        });
+  }
+
   Widget _conditionalCamera() {
     // Return the camera view if the controller is initialized correctly
     if (cameraController == null ||
         cameraController?.value.isInitialized == false) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.camera_alt,
+              color: Colors.grey.shade400,
+              size: 50,
+            ),
+            Text(
+              "There is no camera available\nat this moment.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Colors.grey.shade400,
+                  fontSize: 20),
+            )
+          ],
+        ),
       );
     }
 
-    return CameraPreview(cameraController!);
+    return Transform.scale(
+        scale: (1 /
+            (cameraController!.value.aspectRatio *
+                MediaQuery.of(context).size.aspectRatio)),
+        alignment: Alignment.topCenter,
+        child: CameraPreview(cameraController!));
   }
 
   @override
@@ -58,16 +105,24 @@ class _ScannerScreenState extends State<ScannerScreen> {
       appBar: AppBar(
         title: Text(
           widget.scannerType,
-          style: const TextStyle(
-            color: Colors.white
-          ),
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.green,
         centerTitle: false,
+        actions: [
+          const CreditCircle(value: 3),
+          IconButton(
+            onPressed: _showScannerDialog,
+            icon: const Icon(Icons.info),
+            color: Colors.white,
+          )
+        ],
         iconTheme: const IconThemeData().copyWith(color: Colors.white),
       ),
       body: Stack(
         children: [
+          // Transform used to make the preview be in fullscreen
+          // Todo
           _conditionalCamera(),
           SafeArea(
               child: Column(
@@ -76,12 +131,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Best practices card
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text("Rules go here bub"),
-                ),
-              ),
+              const PictureQualityCard(),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Row(
@@ -90,8 +140,21 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                        onPressed: () {
-                          // TODO: Allow user to pick an image from gallery
+                        onPressed: () async {
+                          // User picks an image from gallery
+                          // Open the results screen by passing the chosen image
+                          ImagePicker picker = ImagePicker();
+                          XFile? file = await picker.pickImage(
+                              source: ImageSource.gallery);
+                          if (file != null) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ScannerResultScreen(
+                                        picture: file,
+                                        scannerType: widget.scannerType)));
+                          }
+                          // Else, do nothing
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green),
@@ -107,16 +170,17 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      ScannerResultScreen(picture: picture, scannerType: widget.scannerType,)));
+                                  builder: (context) => ScannerResultScreen(
+                                        picture: picture,
+                                        scannerType: widget.scannerType,
+                                      )));
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green),
                         child: const Text(
                           "Take Picture",
                           style: TextStyle(color: Colors.white),
-                        )
-                    )
+                        ))
                   ],
                 ),
               )

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/widgets/subscription_perks_chart.dart';
 
 class ManageSubscriptionScreen extends StatelessWidget {

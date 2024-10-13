@@ -1,4 +1,6 @@
 PODS:
+  - camera_avfoundation (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - Google-Mobile-Ads-SDK (11.2.0):
     - GoogleUserMessagingPlatform (>= 1.1)
@@ -25,6 +27,7 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
+  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - Flutter (from `Flutter`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
@@ -40,6 +43,8 @@ SPEC REPOS:
     - GoogleUserMessagingPlatform
 
 EXTERNAL SOURCES:
+  camera_avfoundation:
+    :path: ".symlinks/plugins/camera_avfoundation/ios"
   Flutter:
     :path: Flutter
   google_mobile_ads:
@@ -58,6 +63,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
+  camera_avfoundation: dd002b0330f4981e1bbcb46ae9b62829237459a4
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   Google-Mobile-Ads-SDK: 5a6d005a6cb5b5e8f4c7b69ca05cdea79c181139
   google_mobile_ads: 9379c80fdfa9988fb0e105a407890ff8deb3cf86
