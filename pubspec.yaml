@@ -42,6 +42,7 @@ dependencies:
   google_generative_ai: ^0.4.6
   url_launcher: ^6.3.0
   camera: ^0.11.0+2
+  purchases_flutter: ^8.1.5
 
 dev_dependencies:
   flutter_test:
