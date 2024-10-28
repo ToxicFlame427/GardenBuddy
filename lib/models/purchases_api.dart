@@ -1,14 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class PurchasesApi {
-  static const _apiKey = "goog_cByUBxntCAXbKegCwKpwgvLDamA";
+  static const _googleApiKey = "goog_cByUBxntCAXbKegCwKpwgvLDamA";
+  static const _appleApiKey = "appl_CLNGGUFetZSXpyQtIKfzhoQcMNq";
 
   static Future init() async {
     // ignore: deprecated_member_use
     await Purchases.setDebugLogsEnabled(true);
-    // ignore: deprecated_member_use
-    await Purchases.setup(_apiKey);
+
+    PurchasesConfiguration config = PurchasesConfiguration(Platform.isAndroid ? _googleApiKey : _appleApiKey);
+    await Purchases.configure(config);
   }
 
   static Future<List<Offering>> fetchOffers() async {

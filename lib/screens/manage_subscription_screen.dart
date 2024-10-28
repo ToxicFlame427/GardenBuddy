@@ -130,7 +130,9 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                 child: SizedBox(
                     width: double.infinity,
                     child: Text(
-                      offers == null ? "Please wait..." : "Subscribe for ${offers![0].storeProduct.priceString}/month",
+                      offers == null
+                          ? "Please wait..."
+                          : "Subscribe for ${offers![0].storeProduct.priceString}/month",
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.white),
                     )),
