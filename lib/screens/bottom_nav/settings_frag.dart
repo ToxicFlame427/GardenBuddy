@@ -16,17 +16,13 @@ class SettingsFragment extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Text(
+              Text(
                 "Settings",
-                style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 30,
-                    fontFamily: "Khand",
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
                   onPressed: () {
                     // Send to Manage subscription page
@@ -38,7 +34,7 @@ class SettingsFragment extends StatelessWidget {
                   )),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
                   onPressed: () {
                     // TODO: Open dialog to confirm app leave
@@ -46,17 +42,13 @@ class SettingsFragment extends StatelessWidget {
                   child: const Text(
                     "Report a bug",
                     style: TextStyle(color: Colors.white),
-                  )),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+                  )
+                ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                 child: Text(
                   "App Information",
-                  style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 30,
-                      fontFamily: "Khand",
-                      fontWeight: FontWeight.bold),
-                ),
+                  style: Theme.of(context).textTheme.headlineLarge),
               ),
               const CreditTextObject(
                   text: "Tool images provided by",

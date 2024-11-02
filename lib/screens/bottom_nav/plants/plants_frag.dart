@@ -37,9 +37,9 @@ class _PlantsFragmentState extends State<PlantsFragment>
           bottom:
               TabBar(
                 controller: _tabController,
-                labelColor: Colors.green,
-                unselectedLabelColor: Colors.green,
-                indicatorColor: Colors.green,
+                labelColor: Theme.of(context).colorScheme.primary,
+                unselectedLabelColor: Theme.of(context).colorScheme.primary,
+                indicatorColor: Theme.of(context).colorScheme.primary,
                 indicatorSize: TabBarIndicatorSize.tab,
                 tabs: const [
                   Tab(

@@ -25,6 +25,7 @@ class ToolCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).cardColor,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
@@ -57,11 +58,7 @@ class ToolCard extends StatelessWidget {
                   children: [
                     Text(
                       toolObject.title,
-                      style: const TextStyle(
-                          color: Colors.green,
-                          fontSize: 22,
-                          fontFamily: "Khand",
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     Text(
                       toolObject.description,

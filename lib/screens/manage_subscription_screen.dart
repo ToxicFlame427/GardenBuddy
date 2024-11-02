@@ -56,15 +56,17 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/background_garden.jpg"),
-                fit: BoxFit.cover)),
+                fit: BoxFit.cover,
+              )
+            ),
       ),
       Container(
         constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
             Colors.transparent,
-            Color.fromARGB(128, 255, 255, 255),
-            Colors.white
+            Theme.of(context).cardColor.withAlpha(200),
+            Theme.of(context).cardColor.withAlpha(128)
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
       ),
@@ -88,16 +90,12 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                         width: 25,
                         height: 25,
                       )),
-                  const Flexible(
+                  Flexible(
                     child: Text(
                       "Subscribe to Garden Buddy for more!",
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.clip,
-                      style: TextStyle(
-                          color: Colors.green,
-                          fontFamily: "Khand",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22),
+                      style: Theme.of(context).textTheme.headlineMedium
                     ),
                   ),
                 ],
@@ -111,7 +109,6 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                     : "By subscribing to Garden Buddy you will receive certain perks! A payment of ${offers![0].storeProduct.priceString} recurs every month and automatically gets charged until cancellation. You can cancel your subscription of your app stores dashboard by clicking the cancel button below. You can cancel at anytime and your subscription will still be in effect until the next billing cycle where your perks will be removed and you will no longer be charge for the subscription Subscriptions to our service are not required. Feel free to contact us about any issues!",
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 12),
               ),
@@ -126,7 +123,7 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                   // TODO: Open subscription prompt based on platform
                   makePurchase();
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
                 child: SizedBox(
                     width: double.infinity,
                     child: Text(
@@ -144,7 +141,7 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                 onPressed: () {
                   // TODO: Show user to subscriptions page based on platform
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
                 child: const SizedBox(
                     width: double.infinity,
                     child: Text(

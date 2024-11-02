@@ -18,18 +18,18 @@ class GbIconTextfield extends StatelessWidget {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green, width: 2.0),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2.0),
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey, width: 2.0),
         ),
         label: Text(hint),
         labelStyle: const TextStyle(color: Colors.grey),
-        floatingLabelStyle: const TextStyle(color: Colors.green),
+        floatingLabelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
         suffixIcon: IconButton(
           onPressed: onPressed,
-          color: Colors.green,
+          color: Theme.of(context).colorScheme.primary,
           icon: Icon(icon),
         ),
       ),

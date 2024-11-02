@@ -3,6 +3,7 @@ import 'package:garden_buddy/screens/bottom_nav/diseases/diseases_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/plants/plants_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/settings_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/tools_frag.dart';
+import 'package:garden_buddy/theming/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
       // Bottom navigation bar controls what the home screen sees
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.green,
-        selectedItemColor: Colors.lime,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: ThemeColors.greenLight,
         unselectedItemColor: Colors.white,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.eco), label: "Plants"),

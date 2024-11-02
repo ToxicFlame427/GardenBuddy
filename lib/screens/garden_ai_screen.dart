@@ -119,7 +119,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
             "Garden AI",
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.green,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: false,
           actions: [
             const CreditCircle(value: 3),

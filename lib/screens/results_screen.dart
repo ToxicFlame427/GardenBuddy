@@ -26,7 +26,7 @@ class _ScannerResultState extends State<ScannerResultScreen> {
             color: Colors.white
           ),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         iconTheme: const IconThemeData().copyWith(color: Colors.white),
       ),
     );

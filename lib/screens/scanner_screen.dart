@@ -107,7 +107,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
           widget.scannerType,
           style: const TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: false,
         actions: [
           const CreditCircle(value: 3),
@@ -157,7 +157,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           // Else, do nothing
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green),
+                            backgroundColor: Theme.of(context).colorScheme.primary),
                         child: const Text(
                           "Gallery",
                           style: TextStyle(color: Colors.white),
@@ -176,7 +176,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                                       )));
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green),
+                            backgroundColor: Theme.of(context).colorScheme.primary),
                         child: const Text(
                           "Take Picture",
                           style: TextStyle(color: Colors.white),

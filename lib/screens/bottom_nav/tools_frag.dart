@@ -13,14 +13,10 @@ class ToolsFragment extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Text(
+            Text(
               "Helpful Tools",
-              style: TextStyle(
-                color: Colors.green,
-                fontSize: 30,
-                fontFamily: "Khand",
-                fontWeight: FontWeight.bold
-            ),),
+              style: Theme.of(context).textTheme.headlineLarge
+            ),
             ToolCard(toolObject: toolArray[0]),
             ToolCard(toolObject: toolArray[1]),
             ToolCard(toolObject: toolArray[2])

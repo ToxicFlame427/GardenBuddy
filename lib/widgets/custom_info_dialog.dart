@@ -41,12 +41,7 @@ class CustomInfoDialog extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                   child: Text(
                     title,
-                    style: const TextStyle(
-                        color: Colors.green,
-                        fontSize: 22,
-                        fontFamily: "Khand",
-                        fontWeight: FontWeight.bold),
-                  ),
+                    style: Theme.of(context).textTheme.headlineMedium),
                 ),
               ],
             ),
@@ -59,8 +54,8 @@ class CustomInfoDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
-                    style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Colors.green)),
+                    style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primary)),
                     onPressed: onClose,
                     child: Text(
                       buttonText,

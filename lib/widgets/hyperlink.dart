@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/theming/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Hyperlink extends StatelessWidget {
@@ -15,12 +16,12 @@ class Hyperlink extends StatelessWidget {
         onTap: () => launchUrl(Uri.parse(urlString)),
         child: Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
-            color: Colors.blue,
+            color: ThemeColors.teal1,
             decoration: TextDecoration.underline,
-            decorationColor: Colors.blue
+            decorationColor: ThemeColors.teal1
           ),
         ),
       ),
