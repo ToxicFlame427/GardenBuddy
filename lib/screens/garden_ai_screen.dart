@@ -136,7 +136,14 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
             // Uses verified library for chat screen making UI building much easier
             Flexible(
               child: DashChat(
-                  inputOptions: InputOptions(trailing: [
+                messageOptions: MessageOptions(
+                  currentUserContainerColor: Theme.of(context).colorScheme.primary,
+                  textColor: Theme.of(context).colorScheme.scrim,
+                  currentUserTextColor: Theme.of(context).colorScheme.scrim,
+                  containerColor: Theme.of(context).cardColor
+                ),
+                  inputOptions: InputOptions(
+                    trailing: [
                     Column(children: [
                       if (file != null)
                         GestureDetector(
@@ -153,7 +160,10 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                           ),
                         ),
                       IconButton(
-                          onPressed: _pickImage, icon: const Icon(Icons.image))
+                          onPressed: _pickImage,
+                          icon: const Icon(Icons.image),
+                          color: Theme.of(context).colorScheme.primary,
+                      )
                     ])
                   ]),
                   currentUser: currentUser,
@@ -173,7 +183,10 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                   messages: messages),
             ),
             if (messages.isEmpty)
-              const Text("Send a message to Garden AI to chat!")
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: Text("Send a message to Garden AI to chat!"),
+              )
           ]),
         ));
   }

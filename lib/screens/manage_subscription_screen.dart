@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/widgets/subscription_perks_chart.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ManageSubscriptionScreen extends StatefulWidget {
   const ManageSubscriptionScreen({super.key});
@@ -55,10 +58,9 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/background_garden.jpg"),
-                fit: BoxFit.cover,
-              )
-            ),
+          image: AssetImage("assets/images/background_garden.jpg"),
+          fit: BoxFit.cover,
+        )),
       ),
       Container(
         constraints: const BoxConstraints.expand(),
@@ -91,12 +93,10 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                         height: 25,
                       )),
                   Flexible(
-                    child: Text(
-                      "Subscribe to Garden Buddy for more!",
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.clip,
-                      style: Theme.of(context).textTheme.headlineMedium
-                    ),
+                    child: Text("Subscribe to Garden Buddy for more!",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.clip,
+                        style: Theme.of(context).textTheme.headlineMedium),
                   ),
                 ],
               ),
@@ -108,28 +108,30 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                     ? "Please wait... fetching subscriptions"
                     : "By subscribing to Garden Buddy you will receive certain perks! A payment of ${offers![0].storeProduct.priceString} recurs every month and automatically gets charged until cancellation. You can cancel your subscription of your app stores dashboard by clicking the cancel button below. You can cancel at anytime and your subscription will still be in effect until the next billing cycle where your perks will be removed and you will no longer be charge for the subscription Subscriptions to our service are not required. Feel free to contact us about any issues!",
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
               ),
             ),
             const Spacer(),
             const SubPerksChart(),
-            // TODO: These buttons to be conditional later
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
               child: ElevatedButton(
-                onPressed: () async {
-                  // TODO: Open subscription prompt based on platform
-                  makePurchase();
-                },
-                style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
+                onPressed: !PurchasesApi.subStatus
+                    ? () async {
+                        makePurchase();
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary),
                 child: SizedBox(
                     width: double.infinity,
                     child: Text(
                       offers == null
                           ? "Please wait..."
-                          : "Subscribe for ${offers![0].storeProduct.priceString}/month",
+                          : !PurchasesApi.subStatus
+                              ? "Subscribe for ${offers![0].storeProduct.priceString}/month"
+                              : "You are already subscribed!",
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.white),
                     )),
@@ -139,9 +141,17 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: Show user to subscriptions page based on platform
+                  // Open manage subscriptions page depending of the type of device
+                  if (Platform.isAndroid) {
+                    launchUrl(Uri.parse(
+                        "https://play.google.com/store/account/subscriptions"));
+                  } else {
+                    launchUrl(Uri.parse(
+                        'https://apps.apple.com/account/subscriptions'));
+                  }
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary),
                 child: const SizedBox(
                     width: double.infinity,
                     child: Text(

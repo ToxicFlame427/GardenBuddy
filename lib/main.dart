@@ -11,55 +11,55 @@ Future main() async {
   MobileAds.instance.initialize();
   await PurchasesApi.init();
 
+  // Check the current sub status, as internet connection is needed to use basically any part of the application
+  PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
+
   runApp(MaterialApp(
     home: const HomeScreen(),
+    // Theme data for the entire app both light and dark
+    // MARK: Light Theme
     theme: ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.light(
-        primary: ThemeColors.green2,
-        secondary: ThemeColors.green1,
-        tertiary: ThemeColors.green3,
-        primaryContainer: ThemeColors.accentGray,
-      ),
+          primary: ThemeColors.green2,
+          secondary: ThemeColors.green1,
+          tertiary: ThemeColors.green3,
+          primaryContainer: ThemeColors.accentGray,
+          scrim: Colors.black),
       textTheme: TextTheme(
-        headlineLarge: TextStyle(
-          color: ThemeColors.green2,
-          fontSize: 30,
-          fontFamily: "Khand",
-          fontWeight: FontWeight.bold
-        ),
-        headlineMedium: TextStyle(
-          color: ThemeColors.green2,
-          fontSize: 22,
-          fontFamily: "Khand",
-          fontWeight: FontWeight.bold
-        )
-      ),
+          headlineLarge: TextStyle(
+              color: ThemeColors.green2,
+              fontSize: 30,
+              fontFamily: "Khand",
+              fontWeight: FontWeight.bold),
+          headlineMedium: TextStyle(
+              color: ThemeColors.green2,
+              fontSize: 22,
+              fontFamily: "Khand",
+              fontWeight: FontWeight.bold)),
       cardColor: ThemeColors.accentGray,
     ),
 
+    // MARK: Dark theme
     darkTheme: ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.dark(
-        primary: ThemeColors.green1,
-        secondary: ThemeColors.green2,
-        tertiary: ThemeColors.green3,
-        primaryContainer: ThemeColors.accentGrayDark,
-      ),
+          primary: ThemeColors.green1,
+          secondary: ThemeColors.green2,
+          tertiary: ThemeColors.green3,
+          primaryContainer: ThemeColors.accentGrayDark,
+          scrim: Colors.white),
       textTheme: TextTheme(
-        headlineLarge: TextStyle(
-          color: ThemeColors.green2,
-          fontSize: 30,
-          fontFamily: "Khand",
-          fontWeight: FontWeight.bold
-        ),
-        headlineMedium: TextStyle(
-          color: ThemeColors.green2,
-          fontSize: 22,
-          fontFamily: "Khand",
-          fontWeight: FontWeight.bold
-        )
-      ),
+          headlineLarge: TextStyle(
+              color: ThemeColors.green2,
+              fontSize: 30,
+              fontFamily: "Khand",
+              fontWeight: FontWeight.bold),
+          headlineMedium: TextStyle(
+              color: ThemeColors.green2,
+              fontSize: 22,
+              fontFamily: "Khand",
+              fontWeight: FontWeight.bold)),
       cardColor: ThemeColors.accentGrayDark,
     ),
   ));
