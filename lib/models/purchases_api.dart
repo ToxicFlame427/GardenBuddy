@@ -40,7 +40,8 @@ class PurchasesApi {
     }
   }
 
-  // MARK: NOT SURE IF THIS WILL WORK, MORE TESTING IS NEEDED
+  // NOT SURE IF THIS WILL WORK, MORE TESTING IS NEEDED
+  // JK, it works pretty well, but a connection to the app is always needed to get a response
   static Future<bool> checkSubStatus() async {
     bool subActive = false;
 

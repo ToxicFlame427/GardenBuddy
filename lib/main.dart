@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/home_screen.dart';
 import 'package:garden_buddy/theming/colors.dart';
@@ -13,6 +14,9 @@ Future main() async {
 
   // Check the current sub status, as internet connection is needed to use basically any part of the application
   PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
+
+  // Fetch the connection types to ensure internet connection
+  await getConnectionTypes();
 
   runApp(MaterialApp(
     home: const HomeScreen(),
