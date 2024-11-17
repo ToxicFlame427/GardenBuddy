@@ -1,13 +1,19 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/models/purchases_api.dart';
+import 'package:garden_buddy/widgets/banner_ad.dart';
 import 'package:garden_buddy/widgets/credit_circle.dart';
 import 'package:garden_buddy/widgets/custom_info_dialog.dart';
+import 'package:garden_buddy/widgets/no_connection_widget.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:swipe_refresh/swipe_refresh.dart';
 
 class GardenAIScreen extends StatefulWidget {
   const GardenAIScreen({super.key});
@@ -25,6 +31,11 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
       id: "1", firstName: "Garden AI", profileImage: "assets/icons/icon.jpg");
 
   XFile? file;
+
+  // For network integrity
+  bool networkIntegrity = checkConnectionIntegrity();
+  final StreamController<SwipeRefreshState> _refreshController =
+      StreamController<SwipeRefreshState>();
 
   @override
   void initState() {
@@ -134,55 +145,88 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
         body: SafeArea(
           child: Column(children: [
             // Uses verified library for chat screen making UI building much easier
+            // May be hard to see: Ternary for network integrity
             Flexible(
-              child: DashChat(
-                messageOptions: MessageOptions(
-                  currentUserContainerColor: Theme.of(context).colorScheme.primary,
-                  textColor: Theme.of(context).colorScheme.scrim,
-                  currentUserTextColor: Theme.of(context).colorScheme.scrim,
-                  containerColor: Theme.of(context).cardColor
-                ),
-                  inputOptions: InputOptions(
-                    trailing: [
-                    Column(children: [
-                      if (file != null)
-                        GestureDetector(
-                          onTap: () => {
-                            setState(() {
-                              file = null;
-                            })
-                          },
-                          child: Image.memory(
-                            File(file!.path).readAsBytesSync(),
-                            height: 30,
-                            width: 40,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      IconButton(
-                          onPressed: _pickImage,
-                          icon: const Icon(Icons.image),
-                          color: Theme.of(context).colorScheme.primary,
+              child: networkIntegrity
+                  ? Column(children: [
+                    // MARK: DONT TOUCH, REAL BANNER IDS
+                      BannerAdView(
+                        androidBannerId:
+                          "ca-app-pub-6754306508338066/2146896939",
+                        iOSBannerId:
+                          "ca-app-pub-6754306508338066/6325070548",
+                        isTest: adTesting,
+                        isShown: !PurchasesApi.subStatus,
+                        bannerSize: AdSize.largeBanner,
+                      ),
+                      Flexible(
+                        child: DashChat(
+                            messageOptions: MessageOptions(
+                                currentUserContainerColor:
+                                    Theme.of(context).colorScheme.primary,
+                                textColor: Theme.of(context).colorScheme.scrim,
+                                currentUserTextColor:
+                                    Theme.of(context).colorScheme.scrim,
+                                containerColor: Theme.of(context).cardColor),
+                            inputOptions: InputOptions(trailing: [
+                              Column(children: [
+                                if (file != null)
+                                  GestureDetector(
+                                    onTap: () => {
+                                      setState(() {
+                                        file = null;
+                                      })
+                                    },
+                                    child: Image.memory(
+                                      File(file!.path).readAsBytesSync(),
+                                      height: 30,
+                                      width: 40,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                IconButton(
+                                  onPressed: _pickImage,
+                                  icon: const Icon(Icons.image),
+                                  color: Theme.of(context).colorScheme.primary,
+                                )
+                              ])
+                            ]),
+                            currentUser: currentUser,
+                            onSend: (message) {
+                              if (message.medias == null && file == null) {
+                                _sendMessage(message);
+                              } else {
+                                ChatMessage newMsg = message;
+                                newMsg.medias = [];
+                                newMsg.medias?.add(ChatMedia(
+                                    url: file!.path,
+                                    fileName: file!.name,
+                                    type: MediaType.image));
+                                _sendMessage(newMsg);
+                              }
+                            },
+                            messages: messages),
                       )
                     ])
-                  ]),
-                  currentUser: currentUser,
-                  onSend: (message) {
-                    if (message.medias == null && file == null) {
-                      _sendMessage(message);
-                    } else {
-                      ChatMessage newMsg = message;
-                      newMsg.medias = [];
-                      newMsg.medias?.add(ChatMedia(
-                          url: file!.path,
-                          fileName: file!.name,
-                          type: MediaType.image));
-                      _sendMessage(newMsg);
-                    }
-                  },
-                  messages: messages),
+                  : Stack(children: [
+                      NoConnectionWidget(),
+                      SwipeRefresh.adaptive(
+                        indicatorColor: Theme.of(context).colorScheme.primary,
+                        stateStream: _refreshController.stream,
+                        onRefresh: () async {
+                          await getConnectionTypes();
+
+                          setState(() {
+                            networkIntegrity = checkConnectionIntegrity();
+                            _refreshController.sink
+                                .add(SwipeRefreshState.hidden);
+                          });
+                        },
+                        children: [SizedBox(width: 100)],
+                      )
+                    ]),
             ),
-            if (messages.isEmpty)
+            if (messages.isEmpty && networkIntegrity)
               const Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
                 child: Text("Send a message to Garden AI to chat!"),
