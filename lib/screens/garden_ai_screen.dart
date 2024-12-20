@@ -6,7 +6,9 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
+import 'package:garden_buddy/screens/manage_subscription_screen.dart';
 import 'package:garden_buddy/widgets/banner_ad.dart';
+import 'package:garden_buddy/widgets/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/credit_circle.dart';
 import 'package:garden_buddy/widgets/custom_info_dialog.dart';
 import 'package:garden_buddy/widgets/no_connection_widget.dart';
@@ -52,7 +54,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
     });
 
     try {
-      // HOLY FUCK! This is some confusing code
+      // HOLY BALLS! This is some confusing code
       // Yadda yadda, it makes messages work between user and model
       //String message = chatMessage.text;
       List<Uint8List>? images;
@@ -81,6 +83,10 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
           setState(() {
             messages = [mMessage, ...messages];
             chatHistory.add(Content.text(response));
+            // When a response is generated, subtract form the Ai credits count, for usubscribed users
+            if (!PurchasesApi.subStatus) {
+              aiCount--;
+            }
           });
         }
       });
@@ -122,6 +128,33 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
         });
   }
 
+  // Show dialog about subscribing for more credits
+  void _showSubDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmationDialog(
+            title: "Out of credits!",
+            description:
+                "It appears that you have ran out of credits to chat with Garden AI. You must wait until tomorrow for three more credits or you can subscribe for unlimited credits.",
+            imageAsset: "assets/icons/icon.jpg",
+            negativeButtonText: "No thanks!",
+            positiveButtonText: "Subscribe",
+            onNegative: () {
+              Navigator.pop(context);
+            },
+            onPositive: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) => const ManageSubscriptionScreen()));
+            },
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,7 +166,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
           backgroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: false,
           actions: [
-            const CreditCircle(value: 3),
+            CreditCircle(value: aiCount),
             IconButton(
               onPressed: _showGardenAIDialog,
               icon: const Icon(Icons.info),
@@ -149,12 +182,11 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
             Flexible(
               child: networkIntegrity
                   ? Column(children: [
-                    // MARK: DONT TOUCH, REAL BANNER IDS
+                      // MARK: DONT TOUCH, REAL BANNER IDS
                       BannerAdView(
                         androidBannerId:
-                          "ca-app-pub-6754306508338066/2146896939",
-                        iOSBannerId:
-                          "ca-app-pub-6754306508338066/6325070548",
+                            "ca-app-pub-6754306508338066/2146896939",
+                        iOSBannerId: "ca-app-pub-6754306508338066/6325070548",
                         isTest: adTesting,
                         isShown: !PurchasesApi.subStatus,
                         bannerSize: AdSize.largeBanner,
@@ -193,16 +225,22 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                             ]),
                             currentUser: currentUser,
                             onSend: (message) {
-                              if (message.medias == null && file == null) {
-                                _sendMessage(message);
+                              // If the person is subscribed, or the AI count is higher than 0, then the message can be sent...
+                              if (PurchasesApi.subStatus || aiCount > 0) {
+                                if (message.medias == null && file == null) {
+                                  _sendMessage(message);
+                                } else {
+                                  ChatMessage newMsg = message;
+                                  newMsg.medias = [];
+                                  newMsg.medias?.add(ChatMedia(
+                                      url: file!.path,
+                                      fileName: file!.name,
+                                      type: MediaType.image));
+                                  _sendMessage(newMsg);
+                                }
+                                // Otherwise, recommend the user a subscription
                               } else {
-                                ChatMessage newMsg = message;
-                                newMsg.medias = [];
-                                newMsg.medias?.add(ChatMedia(
-                                    url: file!.path,
-                                    fileName: file!.name,
-                                    type: MediaType.image));
-                                _sendMessage(newMsg);
+                                _showSubDialog();
                               }
                             },
                             messages: messages),

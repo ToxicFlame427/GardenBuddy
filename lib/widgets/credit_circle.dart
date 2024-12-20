@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/models/purchases_api.dart';
 
 class CreditCircle extends StatelessWidget {
   const CreditCircle({super.key, required this.value});
@@ -17,7 +18,7 @@ class CreditCircle extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
           child: Text(
-            value.toString(),
+            PurchasesApi.subStatus ? "\u221E" : value.toString(),
             style: const TextStyle(
               fontSize: 20,
               color: Colors.white,

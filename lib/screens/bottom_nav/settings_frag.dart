@@ -1,12 +1,71 @@
-
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
+import 'package:garden_buddy/widgets/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/credit_text_object.dart';
 import 'package:garden_buddy/widgets/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/hyperlink.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class SettingsFragment extends StatelessWidget {
+// Must be stateful for getting package details
+class SettingsFragment extends StatefulWidget {
   const SettingsFragment({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _SettingsFragmentState();
+  }
+}
+
+class _SettingsFragmentState extends State<SettingsFragment> {
+  // Blank for storing package information
+  PackageInfo _packageInfo = PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
+    installerStore: 'Unknown',
+  );
+
+  // Get the package information
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
+
+  @override
+  void initState() {
+    _initPackageInfo();
+    super.initState();
+  }
+
+  // Show dialog about garden AI
+  void _showBugReportDialog(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmationDialog(
+            title: "Report a Bug?",
+            description:
+                "If you have spotted a bug, please let us know so we can fix this issue as soon as possible!",
+            imageAsset: "assets/icons/icon.jpg",
+            negativeButtonText: "No thanks!",
+            positiveButtonText: "Report bug",
+            onNegative: () {
+              Navigator.pop(context);
+            },
+            onPositive: () {
+              launchUrl(Uri.parse(
+                  "https://www.toxicflame427.xyz/pages/bug_report.html"));
+              Navigator.pop(context);
+            },
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +85,11 @@ class SettingsFragment extends StatelessWidget {
                   ),
                   onPressed: () {
                     // Send to Manage subscription page
-                    Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ManageSubscriptionScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (ctx) =>
+                                const ManageSubscriptionScreen()));
                   },
                   child: const Text(
                     "Manage Subscription",
@@ -37,18 +100,16 @@ class SettingsFragment extends StatelessWidget {
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
                   onPressed: () {
-                    // TODO: Open dialog to confirm app leave
+                    _showBugReportDialog(context);
                   },
                   child: const Text(
                     "Report a bug",
                     style: TextStyle(color: Colors.white),
-                  )
-                ),
+                  )),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                child: Text(
-                  "App Information",
-                  style: Theme.of(context).textTheme.headlineLarge),
+                child: Text("App Information",
+                    style: Theme.of(context).textTheme.headlineLarge),
               ),
               const CreditTextObject(
                   text: "Tool images provided by",
@@ -73,8 +134,7 @@ class SettingsFragment extends StatelessWidget {
                   url: "https://hotpot.ai/"),
               HorizontalRule(color: Colors.grey.shade500, height: 2),
               const Text("Developed by Koewen Hoffman (ToxicFlame427)"),
-              const Text("Version name - "),
-              const Text("Update revision - v"),
+              Text("Version ${_packageInfo.version}"),
               const Hyperlink(
                   label: "Visit Our Website",
                   urlString: "https://toxicflame427.xyz"),

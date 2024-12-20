@@ -33,9 +33,11 @@ class PurchasesApi {
     try {
       await Purchases.purchasePackage(package);
       // MARK: Purchase was successful
+      subStatus = await checkSubStatus();
       return true;
     } catch (e) {
       // MARK: Purchase did not occur or failed
+      subStatus = false;
       return false;
     }
   }
