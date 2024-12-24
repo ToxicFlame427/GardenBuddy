@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/screens/bottom_nav/diseases/disease_search.dart';
 
 class DiseasesFragment extends StatefulWidget {
   const DiseasesFragment({super.key});
@@ -49,7 +50,7 @@ class _DiseasesFragmentState extends State<DiseasesFragment>
         ),
         body: TabBarView(
             controller: _tabController,
-            children: const [Text("Disease search"), Text("Saved Diseases")]),
+            children: const [DiseaseSearch(), Text("Saved Diseases")]),
       ),
     );
   }

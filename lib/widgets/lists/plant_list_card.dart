@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PlantListCard extends StatelessWidget {
-  const PlantListCard({super.key, required this.imageAddress, required this.plantName, required this.scientificName, required this.plantId});
+  const PlantListCard(
+      {super.key,
+      required this.imageAddress,
+      required this.plantName,
+      required this.scientificName,
+      required this.plantId});
 
-  final String imageAddress;
+  final String? imageAddress;
   final String plantName;
   final String scientificName;
   final int plantId;
@@ -12,7 +17,7 @@ class PlantListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).cardColor,
+        color: Theme.of(context).cardColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -23,7 +28,9 @@ class PlantListCard extends StatelessWidget {
               ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    imageAddress,
+                    imageAddress != null
+                        ? imageAddress!
+                        : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=",
                     height: 90,
                     width: 90,
                     fit: BoxFit.cover,
@@ -50,15 +57,16 @@ class PlantListCard extends StatelessWidget {
                       );
                     },
                   )),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+              SizedBox(width: 10),
+              Flexible(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       plantName,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           fontSize: 22,
                           fontFamily: "Khand",
@@ -67,10 +75,13 @@ class PlantListCard extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(scientificName)
+                    Text(
+                      scientificName,
+                      overflow: TextOverflow.ellipsis,
+                    )
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ));

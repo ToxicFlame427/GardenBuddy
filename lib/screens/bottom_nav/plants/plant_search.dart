@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/models/api/perenual/plant_species_list.dart';
+import 'package:garden_buddy/models/services/perenual_api_services.dart';
 import 'package:garden_buddy/widgets/gb_icon_text_field.dart';
+import 'package:garden_buddy/widgets/lists/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_list_card.dart';
 import 'package:garden_buddy/widgets/no_connection_widget.dart';
 import 'package:swipe_refresh/swipe_refresh.dart';
@@ -18,6 +21,30 @@ class PlantSearch extends StatefulWidget {
 
 class _PlantSearchState extends State<PlantSearch> {
   final _searchBarController = TextEditingController();
+  PlantSpeciesList? plantList;
+  bool plantListIsLoaded = false;
+
+  getPlantList() async {
+    plantList = await PerenualAPIServices.getPlantSpeciesList();
+
+    // Check and change according to the plant list
+    if (plantList != null) {
+      setState(() {
+        plantListIsLoaded = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // When loaded, immedialty attempt to fetch the species list
+    print("Getting plant list...");
+    if (!plantListIsLoaded) {
+      getPlantList();
+    }
+  }
 
   // For network integrity
   bool networkIntegrity = checkConnectionIntegrity();
@@ -47,17 +74,32 @@ class _PlantSearchState extends State<PlantSearch> {
                 onPressed: () {
                   print(_searchBarController.text);
                 }),
-            Expanded(
+            // MARK: PUT PLANT SPECIES LIST HERE
+            Visibility(
+              visible: plantListIsLoaded,
+              replacement: Expanded(
+                  child: ListView.builder(
+                      itemCount: 7,
+                      itemBuilder: (context, index) {
+                        return ListCardLoading();
+                      }
+                  )
+              ),
+              child: Expanded(
                 child: ListView.builder(
-                    itemCount: 7,
-                    itemBuilder: (ctx, index) {
-                      return const PlantListCard(
-                          imageAddress:
-                              "https://cdn.shopify.com/s/files/1/0148/1945/9126/files/Dill_flower.jpg",
-                          plantName: "Dill",
-                          scientificName: "Anethum graveolens",
-                          plantId: 1);
-                    }))
+                    itemCount: plantList?.data.length,
+                    itemBuilder: (context, index) {
+                      return PlantListCard(
+                        plantName: plantList!.data[index].commonName,
+                        scientificName:
+                            plantList!.data[index].scientificName[0],
+                        imageAddress:
+                            plantList?.data[index].defaultImage?.smallUrl,
+                        plantId: plantList!.data[index].id,
+                      );
+                    }),
+              ),
+            )
           ],
         ),
       );
