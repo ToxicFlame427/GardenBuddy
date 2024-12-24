@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
-import 'package:garden_buddy/models/api/perenual/plant_species_list.dart';
 import 'package:garden_buddy/models/services/perenual_api_services.dart';
 import 'package:garden_buddy/widgets/gb_icon_text_field.dart';
 import 'package:garden_buddy/widgets/lists/list_card_loading.dart';
@@ -21,14 +20,14 @@ class PlantSearch extends StatefulWidget {
 
 class _PlantSearchState extends State<PlantSearch> {
   final _searchBarController = TextEditingController();
-  PlantSpeciesList? plantList;
   bool plantListIsLoaded = false;
 
   getPlantList() async {
-    plantList = await PerenualAPIServices.getPlantSpeciesList();
+    PerenualAPIServices.plantList =
+        await PerenualAPIServices.getPlantSpeciesList();
 
     // Check and change according to the plant list
-    if (plantList != null) {
+    if (PerenualAPIServices.plantList != null) {
       setState(() {
         plantListIsLoaded = true;
       });
@@ -39,10 +38,19 @@ class _PlantSearchState extends State<PlantSearch> {
   void initState() {
     super.initState();
 
+    // If the plant list is not null, then loading is already complete
+    if(PerenualAPIServices.plantList != null) {
+      setState(() {
+        plantListIsLoaded = true;
+      });
+    }
+
     // When loaded, immedialty attempt to fetch the species list
-    print("Getting plant list...");
-    if (!plantListIsLoaded) {
+    if (!plantListIsLoaded && PerenualAPIServices.plantList == null) {
+      print("Getting plant list...");
       getPlantList();
+    } else {
+      print("Plant list already persists, show list.");
     }
   }
 
@@ -82,20 +90,19 @@ class _PlantSearchState extends State<PlantSearch> {
                       itemCount: 7,
                       itemBuilder: (context, index) {
                         return ListCardLoading();
-                      }
-                  )
-              ),
+                      })),
               child: Expanded(
                 child: ListView.builder(
-                    itemCount: plantList?.data.length,
+                    itemCount: PerenualAPIServices.plantList?.data.length,
                     itemBuilder: (context, index) {
                       return PlantListCard(
-                        plantName: plantList!.data[index].commonName,
-                        scientificName:
-                            plantList!.data[index].scientificName[0],
-                        imageAddress:
-                            plantList?.data[index].defaultImage?.smallUrl,
-                        plantId: plantList!.data[index].id,
+                        plantName: PerenualAPIServices
+                            .plantList!.data[index].commonName,
+                        scientificName: PerenualAPIServices
+                            .plantList!.data[index].scientificName[0],
+                        imageAddress: PerenualAPIServices
+                            .plantList?.data[index].defaultImage?.smallUrl,
+                        plantId: PerenualAPIServices.plantList!.data[index].id,
                       );
                     }),
               ),

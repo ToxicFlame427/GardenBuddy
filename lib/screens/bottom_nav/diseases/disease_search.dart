@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
-import 'package:garden_buddy/models/api/perenual/diseases_list.dart';
 import 'package:garden_buddy/models/services/perenual_api_services.dart';
 import 'package:garden_buddy/widgets/gb_icon_text_field.dart';
 import 'package:garden_buddy/widgets/lists/list_card_loading.dart';
@@ -21,14 +20,13 @@ class DiseaseSearch extends StatefulWidget {
 
 class _DiseaseSearchState extends State<DiseaseSearch> {
   final _searchBarController = TextEditingController();
-  DiseasesList? diseaseList;
   bool diseaseListIsLoaded = false;
 
-  getdiseaseList() async {
-    diseaseList = await PerenualAPIServices.getDiseaseList();
+  getDiseaseList() async {
+    PerenualAPIServices.diseaseList = await PerenualAPIServices.getDiseaseList();
 
-    // Check and change according to the plant list
-    if (diseaseList != null) {
+    // Check and change according to the disease list
+    if (PerenualAPIServices.diseaseList != null) {
       setState(() {
         diseaseListIsLoaded = true;
       });
@@ -39,10 +37,19 @@ class _DiseaseSearchState extends State<DiseaseSearch> {
   void initState() {
     super.initState();
 
+    // If the plant list is not null, then loading is already complete
+    if(PerenualAPIServices.diseaseList != null) {
+      setState(() {
+        diseaseListIsLoaded = true;
+      });
+    }
+
     // When loaded, immedialty attempt to fetch the species list
-    print("Getting disease list...");
-    if (!diseaseListIsLoaded) {
-      getdiseaseList();
+    if (!diseaseListIsLoaded && PerenualAPIServices.diseaseList == null) {
+      print("Getting disease list...");
+      getDiseaseList();
+    } else {
+      print("Disease list already persists, show list.");
     }
   }
 
@@ -85,16 +92,16 @@ class _DiseaseSearchState extends State<DiseaseSearch> {
                       })),
               child: Expanded(
                 child: ListView.builder(
-                    itemCount: diseaseList?.data.length,
+                    itemCount: PerenualAPIServices.diseaseList?.data.length,
                     itemBuilder: (context, index) {
                       // TODO: Replace with custom disease list card
                       return PlantListCard(
-                        plantName: diseaseList!.data[index].commonName,
-                        scientificName: diseaseList!.data[index].scientificName,
-                        imageAddress: diseaseList!.data[index].images.isEmpty
+                        plantName: PerenualAPIServices.diseaseList!.data[index].commonName,
+                        scientificName: PerenualAPIServices.diseaseList!.data[index].scientificName,
+                        imageAddress: PerenualAPIServices.diseaseList!.data[index].images.isEmpty
                             ? null
-                            : diseaseList!.data[index].images[0].smallUrl,
-                        plantId: diseaseList!.data[index].id,
+                            : PerenualAPIServices.diseaseList!.data[index].images[0].smallUrl,
+                        plantId: PerenualAPIServices.diseaseList!.data[index].id,
                       );
                     }),
               ),
