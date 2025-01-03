@@ -24,7 +24,8 @@ class _PlantSearchState extends State<PlantSearch> {
 
   getPlantList() async {
     PerenualAPIServices.plantList =
-        await PerenualAPIServices.getPlantSpeciesList();
+        await PerenualAPIServices.getPlantSpeciesList(
+            _searchBarController.text);
 
     // Check and change according to the plant list
     if (PerenualAPIServices.plantList != null) {
@@ -39,7 +40,7 @@ class _PlantSearchState extends State<PlantSearch> {
     super.initState();
 
     // If the plant list is not null, then loading is already complete
-    if(PerenualAPIServices.plantList != null) {
+    if (PerenualAPIServices.plantList != null) {
       setState(() {
         plantListIsLoaded = true;
       });
@@ -79,7 +80,15 @@ class _PlantSearchState extends State<PlantSearch> {
                 hint: "Search plants",
                 controller: _searchBarController,
                 icon: Icons.search,
-                onPressed: () {
+                onPressed: () async {
+                  // Before doing anything, reset the list to being null
+                  setState(() {
+                    plantListIsLoaded = false;
+                    PerenualAPIServices.plantList = null;
+                  });
+
+                  // After the state is called, then try to load a new request with the new query
+                  PerenualAPIServices.plantList = await PerenualAPIServices.getPlantSpeciesList(_searchBarController.text);
                   print(_searchBarController.text);
                 }),
             // MARK: PUT PLANT SPECIES LIST HERE
@@ -97,12 +106,14 @@ class _PlantSearchState extends State<PlantSearch> {
                     itemBuilder: (context, index) {
                       return PlantListCard(
                         plantName: PerenualAPIServices
-                            .plantList!.data[index].commonName,
+                            .plantList!.data[index].name,
                         scientificName: PerenualAPIServices
-                            .plantList!.data[index].scientificName[0],
-                        imageAddress: PerenualAPIServices
-                            .plantList?.data[index].defaultImage?.smallUrl,
-                        plantId: PerenualAPIServices.plantList!.data[index].id,
+                            .plantList!.data[index].scientificName,
+                        imageAddress: PerenualAPIServices.plantList!.data[index].images.isEmpty
+                        ? null :
+                        PerenualAPIServices
+                            .plantList?.data[index].images[0].url,
+                        plantId: PerenualAPIServices.plantList!.data[index].apiId,
                       );
                     }),
               ),

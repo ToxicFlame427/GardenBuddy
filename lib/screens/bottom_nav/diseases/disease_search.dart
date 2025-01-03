@@ -23,7 +23,7 @@ class _DiseaseSearchState extends State<DiseaseSearch> {
   bool diseaseListIsLoaded = false;
 
   getDiseaseList() async {
-    PerenualAPIServices.diseaseList = await PerenualAPIServices.getDiseaseList();
+    //PerenualAPIServices.diseaseList = await PerenualAPIServices.getDiseaseList();
 
     // Check and change according to the disease list
     if (PerenualAPIServices.diseaseList != null) {

@@ -1,141 +1,105 @@
 import 'dart:convert';
 
-PlantSpeciesList plantSpeciesListFromJson(String str) =>
-    PlantSpeciesList.fromJson(json.decode(str));
+PlantSpeciesList plantSpeciesListFromJson(String str) => PlantSpeciesList.fromJson(json.decode(str));
 
-String plantSpeciesListToJson(PlantSpeciesList data) =>
-    json.encode(data.toJson());
+String plantSpeciesListToJson(PlantSpeciesList data) => json.encode(data.toJson());
 
 class PlantSpeciesList {
-  List<Datum> data;
-  int to;
-  int perPage;
-  int currentPage;
-  int from;
-  int lastPage;
-  int total;
+    List<Datum> data;
+    int itemCount;
+    int page;
+    String status;
+    String message;
 
-  PlantSpeciesList({
-    required this.data,
-    required this.to,
-    required this.perPage,
-    required this.currentPage,
-    required this.from,
-    required this.lastPage,
-    required this.total,
-  });
+    PlantSpeciesList({
+        required this.data,
+        required this.itemCount,
+        required this.page,
+        required this.status,
+        required this.message,
+    });
 
-  factory PlantSpeciesList.fromJson(Map<String, dynamic> json) =>
-      PlantSpeciesList(
+    factory PlantSpeciesList.fromJson(Map<String, dynamic> json) => PlantSpeciesList(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        to: json["to"],
-        perPage: json["per_page"],
-        currentPage: json["current_page"],
-        from: json["from"],
-        lastPage: json["last_page"],
-        total: json["total"],
-      );
+        itemCount: json["itemCount"],
+        page: json["page"],
+        status: json["status"],
+        message: json["message"],
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "to": to,
-        "per_page": perPage,
-        "current_page": currentPage,
-        "from": from,
-        "last_page": lastPage,
-        "total": total,
-      };
+        "itemCount": itemCount,
+        "page": page,
+        "status": status,
+        "message": message,
+    };
 }
 
 class Datum {
-  int id;
-  String commonName;
-  List<String> scientificName;
-  List<String> otherName;
-  String cycle;
-  String watering;
-  List<String> sunlight;
-  DefaultImage? defaultImage;
+    int apiId;
+    String name;
+    String growingCycle;
+    List<Image> images;
+    String isSpeciesOrVariety;
+    List<String> otherNames;
+    String scientificName;
 
-  Datum({
-    required this.id,
-    required this.commonName,
-    required this.scientificName,
-    required this.otherName,
-    required this.cycle,
-    required this.watering,
-    required this.sunlight,
-    required this.defaultImage,
-  });
+    Datum({
+        required this.apiId,
+        required this.name,
+        required this.growingCycle,
+        required this.images,
+        required this.isSpeciesOrVariety,
+        required this.otherNames,
+        required this.scientificName,
+    });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["id"],
-        commonName: json["common_name"],
-        scientificName:
-            List<String>.from(json["scientific_name"].map((x) => x)),
-        otherName: List<String>.from(json["other_name"].map((x) => x)),
-        cycle: json["cycle"],
-        watering: json["watering"],
-        sunlight: List<String>.from(
-            json["sunlight"].map((x) => x)),
-        defaultImage: json["default_image"] == null
-            ? null
-            : DefaultImage.fromJson(json["default_image"]),
-      );
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        apiId: json["apiId"],
+        name: json["name"],
+        growingCycle: json["growingCycle"],
+        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        isSpeciesOrVariety: json["isSpeciesOrVariety"],
+        otherNames: List<String>.from(json["otherNames"].map((x) => x)),
+        scientificName: json["scientificName"],
+    );
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "common_name": commonName,
-        "scientific_name": List<dynamic>.from(scientificName.map((x) => x)),
-        "other_name": List<dynamic>.from(otherName.map((x) => x)),
-        "cycle": cycle,
-        "watering": watering,
-        "sunlight":
-            List<dynamic>.from(sunlight.map((x) => x)),
-        "default_image": defaultImage?.toJson(),
-      };
+    Map<String, dynamic> toJson() => {
+        "apiId": apiId,
+        "name": name,
+        "growingCycle": growingCycle,
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "isSpeciesOrVariety": isSpeciesOrVariety,
+        "otherNames": List<dynamic>.from(otherNames.map((x) => x)),
+        "scientificName": scientificName,
+    };
 }
 
-class DefaultImage {
-  int license;
-  String licenseName;
-  String licenseUrl;
-  String originalUrl;
-  String regularUrl;
-  String mediumUrl;
-  String smallUrl;
-  String thumbnail;
+class Image {
+    String credit;
+    String imageLicense;
+    String originalUrl;
+    String url;
 
-  DefaultImage({
-    required this.license,
-    required this.licenseName,
-    required this.licenseUrl,
-    required this.originalUrl,
-    required this.regularUrl,
-    required this.mediumUrl,
-    required this.smallUrl,
-    required this.thumbnail,
-  });
+    Image({
+        required this.credit,
+        required this.imageLicense,
+        required this.originalUrl,
+        required this.url,
+    });
 
-  factory DefaultImage.fromJson(Map<String, dynamic> json) => DefaultImage(
-        license: json["license"],
-        licenseName: json["license_name"],
-        licenseUrl: json["license_url"],
-        originalUrl: json["original_url"],
-        regularUrl: json["regular_url"],
-        mediumUrl: json["medium_url"],
-        smallUrl: json["small_url"],
-        thumbnail: json["thumbnail"],
-      );
+    factory Image.fromJson(Map<String, dynamic> json) => Image(
+        credit: json["credit"],
+        imageLicense: json["imageLicense"],
+        originalUrl: json["originalUrl"],
+        url: json["url"],
+    );
 
-  Map<String, dynamic> toJson() => {
-        "license": license,
-        "license_name": licenseName,
-        "license_url": licenseUrl,
-        "original_url": originalUrl,
-        "regular_url": regularUrl,
-        "medium_url": mediumUrl,
-        "small_url": smallUrl,
-        "thumbnail": thumbnail,
-      };
+    Map<String, dynamic> toJson() => {
+        "credit": credit,
+        "imageLicense": imageLicense,
+        "originalUrl": originalUrl,
+        "url": url,
+    };
 }
