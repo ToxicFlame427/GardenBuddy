@@ -22,9 +22,7 @@ class _ScannerResultState extends State<ScannerResultScreen> {
       appBar: AppBar(
         title: Text(
           "${widget.scannerType} Results",
-          style: const TextStyle(
-            color: Colors.white
-          ),
+          style: TextStyle(color: Colors.white, fontFamily: "Khand", fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         iconTheme: const IconThemeData().copyWith(color: Colors.white),

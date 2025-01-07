@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garden_buddy/widgets/vertical_rule.dart';
+import 'package:garden_buddy/widgets/formatting/vertical_rule.dart';
 
 class SubPerksChart extends StatelessWidget {
   const SubPerksChart({super.key});

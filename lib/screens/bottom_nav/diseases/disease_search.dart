@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
-import 'package:garden_buddy/models/services/perenual_api_services.dart';
+import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/widgets/gb_icon_text_field.dart';
 import 'package:garden_buddy/widgets/lists/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_list_card.dart';
@@ -26,7 +26,7 @@ class _DiseaseSearchState extends State<DiseaseSearch> {
     //PerenualAPIServices.diseaseList = await PerenualAPIServices.getDiseaseList();
 
     // Check and change according to the disease list
-    if (PerenualAPIServices.diseaseList != null) {
+    if (GardenAPIServices.diseaseList != null) {
       setState(() {
         diseaseListIsLoaded = true;
       });
@@ -38,14 +38,14 @@ class _DiseaseSearchState extends State<DiseaseSearch> {
     super.initState();
 
     // If the plant list is not null, then loading is already complete
-    if(PerenualAPIServices.diseaseList != null) {
+    if (GardenAPIServices.diseaseList != null) {
       setState(() {
         diseaseListIsLoaded = true;
       });
     }
 
     // When loaded, immedialty attempt to fetch the species list
-    if (!diseaseListIsLoaded && PerenualAPIServices.diseaseList == null) {
+    if (!diseaseListIsLoaded && GardenAPIServices.diseaseList == null) {
       print("Getting disease list...");
       getDiseaseList();
     } else {
@@ -92,16 +92,23 @@ class _DiseaseSearchState extends State<DiseaseSearch> {
                       })),
               child: Expanded(
                 child: ListView.builder(
-                    itemCount: PerenualAPIServices.diseaseList?.data.length,
+                    itemCount: GardenAPIServices.diseaseList?.data.length,
                     itemBuilder: (context, index) {
                       // TODO: Replace with custom disease list card
                       return PlantListCard(
-                        plantName: PerenualAPIServices.diseaseList!.data[index].commonName,
-                        scientificName: PerenualAPIServices.diseaseList!.data[index].scientificName,
-                        imageAddress: PerenualAPIServices.diseaseList!.data[index].images.isEmpty
+                        plantName: GardenAPIServices
+                            .diseaseList!.data[index].commonName,
+                        scientificName: GardenAPIServices
+                            .diseaseList!.data[index].scientificName,
+                        imageAddress: GardenAPIServices
+                                .diseaseList!.data[index].images.isEmpty
                             ? null
-                            : PerenualAPIServices.diseaseList!.data[index].images[0].smallUrl,
-                        plantId: PerenualAPIServices.diseaseList!.data[index].id,
+                            : GardenAPIServices
+                                .diseaseList!.data[index].images[0].smallUrl,
+                        plantId: GardenAPIServices.diseaseList!.data[index].id,
+                        onTapAction: () => {
+                          // Nothing happens, yet...
+                        },
                       );
                     }),
               ),

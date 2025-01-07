@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _fragmentList = const [
     PlantsFragment(),
-    DiseasesFragment(),
+    //DiseasesFragment(),
     ToolsFragment(),
     SettingsFragment()
   ];
@@ -42,8 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor: Colors.white,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.eco), label: "Plants"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.coronavirus), label: "Diseases"),
+          //BottomNavigationBarItem(icon: Icon(Icons.coronavirus), label: "Diseases"),
           BottomNavigationBarItem(icon: Icon(Icons.edit), label: "Tools"),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), label: "Settings"),

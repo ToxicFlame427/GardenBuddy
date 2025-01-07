@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
-import 'package:garden_buddy/models/services/perenual_api_services.dart';
+import 'package:garden_buddy/models/services/garden_api_services.dart';
+import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer.dart';
 import 'package:garden_buddy/widgets/gb_icon_text_field.dart';
 import 'package:garden_buddy/widgets/lists/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_list_card.dart';
@@ -23,12 +24,11 @@ class _PlantSearchState extends State<PlantSearch> {
   bool plantListIsLoaded = false;
 
   getPlantList() async {
-    PerenualAPIServices.plantList =
-        await PerenualAPIServices.getPlantSpeciesList(
-            _searchBarController.text);
+    GardenAPIServices.plantList =
+        await GardenAPIServices.getPlantSpeciesList(_searchBarController.text);
 
     // Check and change according to the plant list
-    if (PerenualAPIServices.plantList != null) {
+    if (GardenAPIServices.plantList != null) {
       setState(() {
         plantListIsLoaded = true;
       });
@@ -40,14 +40,14 @@ class _PlantSearchState extends State<PlantSearch> {
     super.initState();
 
     // If the plant list is not null, then loading is already complete
-    if (PerenualAPIServices.plantList != null) {
+    if (GardenAPIServices.plantList != null) {
       setState(() {
         plantListIsLoaded = true;
       });
     }
 
     // When loaded, immedialty attempt to fetch the species list
-    if (!plantListIsLoaded && PerenualAPIServices.plantList == null) {
+    if (!plantListIsLoaded && GardenAPIServices.plantList == null) {
       print("Getting plant list...");
       getPlantList();
     } else {
@@ -84,11 +84,13 @@ class _PlantSearchState extends State<PlantSearch> {
                   // Before doing anything, reset the list to being null
                   setState(() {
                     plantListIsLoaded = false;
-                    PerenualAPIServices.plantList = null;
+                    GardenAPIServices.plantList = null;
                   });
 
                   // After the state is called, then try to load a new request with the new query
-                  PerenualAPIServices.plantList = await PerenualAPIServices.getPlantSpeciesList(_searchBarController.text);
+                  GardenAPIServices.plantList =
+                      await GardenAPIServices.getPlantSpeciesList(
+                          _searchBarController.text);
                   print(_searchBarController.text);
                 }),
             // MARK: PUT PLANT SPECIES LIST HERE
@@ -102,18 +104,27 @@ class _PlantSearchState extends State<PlantSearch> {
                       })),
               child: Expanded(
                 child: ListView.builder(
-                    itemCount: PerenualAPIServices.plantList?.data.length,
+                    itemCount: GardenAPIServices.plantList?.data.length,
                     itemBuilder: (context, index) {
                       return PlantListCard(
-                        plantName: PerenualAPIServices
-                            .plantList!.data[index].name,
-                        scientificName: PerenualAPIServices
+                        plantName:
+                            GardenAPIServices.plantList!.data[index].name,
+                        scientificName: GardenAPIServices
                             .plantList!.data[index].scientificName,
-                        imageAddress: PerenualAPIServices.plantList!.data[index].images.isEmpty
-                        ? null :
-                        PerenualAPIServices
-                            .plantList?.data[index].images[0].url,
-                        plantId: PerenualAPIServices.plantList!.data[index].apiId,
+                        imageAddress: GardenAPIServices
+                                .plantList!.data[index].images.isEmpty
+                            ? null
+                            : GardenAPIServices
+                                .plantList?.data[index].images[0].url,
+                        plantId: GardenAPIServices.plantList!.data[index].apiId,
+                        onTapAction: () {
+                          Navigator.push(
+                            context, MaterialPageRoute(builder: (ctx) => PlantSpeciesViewer(
+                              plantName: GardenAPIServices.plantList!.data[index].name,
+                              apiId: GardenAPIServices.plantList!.data[index].apiId)
+                            )
+                          );
+                        },
                       );
                     }),
               ),

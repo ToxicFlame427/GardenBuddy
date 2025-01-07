@@ -8,9 +8,9 @@ import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
 import 'package:garden_buddy/widgets/banner_ad.dart';
-import 'package:garden_buddy/widgets/confirmation_dialog.dart';
+import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/credit_circle.dart';
-import 'package:garden_buddy/widgets/custom_info_dialog.dart';
+import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
 import 'package:garden_buddy/widgets/no_connection_widget.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -161,7 +161,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
         appBar: AppBar(
           title: const Text(
             "Garden AI",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontFamily: "Khand", fontWeight: FontWeight.bold),
           ),
           backgroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: false,
