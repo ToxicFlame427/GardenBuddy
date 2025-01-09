@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
-import 'package:garden_buddy/models/api/perenual/plant_species_details.dart';
+import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_data.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_loading.dart';
@@ -27,7 +27,7 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
   bool plantIsFavorite = false;
   PlantSpeciesDetails? plantDetails;
 
-  // Immediately request the data from the API based on the API ID of the passed plant 
+  // Immediately request the data from the API based on the API ID of the passed plant
   getPlantDetails() async {
     plantDetails = await GardenAPIServices.getPlantSpeciesDetails(widget.apiId);
 
@@ -61,7 +61,10 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
       appBar: AppBar(
         title: Text(
           widget.plantName,
-          style: TextStyle(color: Colors.white, fontFamily: "Khand", fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Khand",
+              fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:garden_buddy/models/api/perenual/plant_species_details.dart';
+import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/widgets/image.dart' as NetworkImage;
+import 'package:garden_buddy/widgets/formatting/five_way_meter.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
+import 'package:garden_buddy/widgets/formatting/lifecycle_object.dart';
 import 'package:garden_buddy/widgets/variation_card.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -48,7 +50,7 @@ class PlantSpeciesViewerData extends StatelessWidget {
                 },
               )
             else
-              Text("No Image available"),
+              SizedBox(height: 50, child: Text("No Image available")),
 
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,18 +61,19 @@ class PlantSpeciesViewerData extends StatelessWidget {
                     VariationCard(label: plantData!.data.speciesOrVariety),
                     VariationCard(label: plantData!.data.growingCycle),
                   ]),
-                  Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: IconButton(
-                          onPressed: () {
-                            // Press to zoom
-                          },
-                          icon: Icon(Icons.zoom_in),
-                          style: IconButton.styleFrom(
-                              backgroundColor:
-                                  Color.fromARGB(175, 125, 125, 125),
-                              iconSize: 22),
-                          color: Colors.white))
+                  if (plantData!.data.images.isNotEmpty)
+                    Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: IconButton(
+                            onPressed: () {
+                              // Press to zoom
+                            },
+                            icon: Icon(Icons.zoom_in),
+                            style: IconButton.styleFrom(
+                                backgroundColor:
+                                    Color.fromARGB(175, 125, 125, 125),
+                                iconSize: 22),
+                            color: Colors.white))
                 ])
           ]),
 
@@ -96,7 +99,30 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   plantData!.data.description,
                   style: TextStyle(fontSize: 13),
                 ),
-                HorizontalRule(color: Theme.of(context).cardColor, height: 5)
+                HorizontalRule(color: Theme.of(context).cardColor, height: 5),
+                // MARK: Value Meters
+                Text(
+                  "Meters",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                FiveWayMeter(
+                    onInfoTap: () {},
+                    value: plantData!.data.maintenanceLevel,
+                    label: "Maintenance level"),
+                FiveWayMeter(
+                    onInfoTap: () {},
+                    value: plantData!.data.growthRate,
+                    label: "Growth rate"),
+                HorizontalRule(color: Theme.of(context).cardColor, height: 5),
+                Text(
+                  "Lifecycle",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                LifeCycleObject(
+                    label: "Seed",
+                    valueUnit: plantData!.data.seedGerminationTime.unit,
+                    valueRange: plantData!.data.seedGerminationTime.time,
+                    imageAsset: "assets/icons/icon.jpg")
               ],
             ),
           )

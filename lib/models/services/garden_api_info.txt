@@ -1,0 +1,13 @@
+Endpoints:
+URL: http://gardenplantsapi.online
+Species list: /plant-species-list
+    - Params
+        - fq (String) = (Filter Query) "species" "variety" or "both": Default = "both"
+        - sq (String) = (Search Query) Any search keyword: Default = empty
+        - limit (Int) = Amount of plants to get per page: Default = 10
+        - page (Int) = Get the elements on a certain page after a search or retreival: Default = 1
+
+Single plant species information: /single-plant-species/{apiId}; apiId provided by the API via species list
+
+Add plant: /add-plant
+    - POST request to add a plant with the default JSON starter class

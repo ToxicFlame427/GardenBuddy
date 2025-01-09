@@ -24,8 +24,8 @@ class _PlantSearchState extends State<PlantSearch> {
   bool plantListIsLoaded = false;
 
   getPlantList() async {
-    GardenAPIServices.plantList =
-        await GardenAPIServices.getPlantSpeciesList(_searchBarController.text);
+    GardenAPIServices.plantList = await GardenAPIServices.getPlantSpeciesList(
+        "species", _searchBarController.text);
 
     // Check and change according to the plant list
     if (GardenAPIServices.plantList != null) {
@@ -88,9 +88,7 @@ class _PlantSearchState extends State<PlantSearch> {
                   });
 
                   // After the state is called, then try to load a new request with the new query
-                  GardenAPIServices.plantList =
-                      await GardenAPIServices.getPlantSpeciesList(
-                          _searchBarController.text);
+                  getPlantList();
                   print(_searchBarController.text);
                 }),
             // MARK: PUT PLANT SPECIES LIST HERE
@@ -102,7 +100,8 @@ class _PlantSearchState extends State<PlantSearch> {
                       itemBuilder: (context, index) {
                         return ListCardLoading();
                       })),
-              child: Expanded(
+              child: GardenAPIServices.plantList?.data.isNotEmpty ?? true ?
+              Expanded(
                 child: ListView.builder(
                     itemCount: GardenAPIServices.plantList?.data.length,
                     itemBuilder: (context, index) {
@@ -119,15 +118,29 @@ class _PlantSearchState extends State<PlantSearch> {
                         plantId: GardenAPIServices.plantList!.data[index].apiId,
                         onTapAction: () {
                           Navigator.push(
-                            context, MaterialPageRoute(builder: (ctx) => PlantSpeciesViewer(
-                              plantName: GardenAPIServices.plantList!.data[index].name,
-                              apiId: GardenAPIServices.plantList!.data[index].apiId)
-                            )
-                          );
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => PlantSpeciesViewer(
+                                      plantName: GardenAPIServices
+                                          .plantList!.data[index].name,
+                                      apiId: GardenAPIServices
+                                          .plantList!.data[index].apiId)));
                         },
                       );
                     }),
-              ),
+              )
+              // If the list is empty, show the user that there are no search/filter results
+              : Expanded(
+                child: Center(
+                  child: Text(
+                    "There are no results! \nTry searching by a similar name or change filter settings.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.scrim
+                    ),
+                  )
+                  )
+                )
             )
           ],
         ),

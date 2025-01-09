@@ -41,7 +41,7 @@ class Datum {
     String name;
     String growingCycle;
     List<Image> images;
-    String isSpeciesOrVariety;
+    String speciesOrVariety;
     List<String> otherNames;
     String scientificName;
 
@@ -50,7 +50,7 @@ class Datum {
         required this.name,
         required this.growingCycle,
         required this.images,
-        required this.isSpeciesOrVariety,
+        required this.speciesOrVariety,
         required this.otherNames,
         required this.scientificName,
     });
@@ -60,7 +60,7 @@ class Datum {
         name: json["name"],
         growingCycle: json["growingCycle"],
         images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
-        isSpeciesOrVariety: json["isSpeciesOrVariety"],
+        speciesOrVariety: json["speciesOrVariety"],
         otherNames: List<String>.from(json["otherNames"].map((x) => x)),
         scientificName: json["scientificName"],
     );
@@ -70,7 +70,7 @@ class Datum {
         "name": name,
         "growingCycle": growingCycle,
         "images": List<dynamic>.from(images.map((x) => x.toJson())),
-        "isSpeciesOrVariety": isSpeciesOrVariety,
+        "isSpeciesOrVariety": speciesOrVariety,
         "otherNames": List<dynamic>.from(otherNames.map((x) => x)),
         "scientificName": scientificName,
     };

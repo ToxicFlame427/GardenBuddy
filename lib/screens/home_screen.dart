@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:garden_buddy/screens/bottom_nav/diseases/diseases_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/plants/plants_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/settings_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/tools_frag.dart';
