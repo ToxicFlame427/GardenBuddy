@@ -25,7 +25,7 @@ class _PlantSearchState extends State<PlantSearch> {
 
   getPlantList() async {
     GardenAPIServices.plantList = await GardenAPIServices.getPlantSpeciesList(
-        "species", _searchBarController.text);
+        "both", _searchBarController.text);
 
     // Check and change according to the plant list
     if (GardenAPIServices.plantList != null) {
