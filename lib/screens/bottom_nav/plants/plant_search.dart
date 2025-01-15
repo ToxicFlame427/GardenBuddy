@@ -93,55 +93,54 @@ class _PlantSearchState extends State<PlantSearch> {
                 }),
             // MARK: PUT PLANT SPECIES LIST HERE
             Visibility(
-              visible: plantListIsLoaded,
-              replacement: Expanded(
-                  child: ListView.builder(
-                      itemCount: 7,
-                      itemBuilder: (context, index) {
-                        return ListCardLoading();
-                      })),
-              child: GardenAPIServices.plantList?.data.isNotEmpty ?? true ?
-              Expanded(
-                child: ListView.builder(
-                    itemCount: GardenAPIServices.plantList?.data.length,
-                    itemBuilder: (context, index) {
-                      return PlantListCard(
-                        plantName:
-                            GardenAPIServices.plantList!.data[index].name,
-                        scientificName: GardenAPIServices
-                            .plantList!.data[index].scientificName,
-                        imageAddress: GardenAPIServices
-                                .plantList!.data[index].images.isEmpty
-                            ? null
-                            : GardenAPIServices
-                                .plantList?.data[index].images[0].url,
-                        plantId: GardenAPIServices.plantList!.data[index].apiId,
-                        onTapAction: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (ctx) => PlantSpeciesViewer(
-                                      plantName: GardenAPIServices
-                                          .plantList!.data[index].name,
-                                      apiId: GardenAPIServices
-                                          .plantList!.data[index].apiId)));
-                        },
-                      );
-                    }),
-              )
-              // If the list is empty, show the user that there are no search/filter results
-              : Expanded(
-                child: Center(
-                  child: Text(
-                    "There are no results! \nTry searching by a similar name or change filter settings.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.scrim
-                    ),
-                  )
-                  )
-                )
-            )
+                visible: plantListIsLoaded,
+                replacement: Expanded(
+                    child: ListView.builder(
+                        itemCount: 7,
+                        itemBuilder: (context, index) {
+                          return ListCardLoading();
+                        })),
+                child: GardenAPIServices.plantList?.data.isNotEmpty ?? true
+                    ? Expanded(
+                        child: ListView.builder(
+                            itemCount: GardenAPIServices.plantList?.data.length,
+                            itemBuilder: (context, index) {
+                              return PlantListCard(
+                                plantName: GardenAPIServices
+                                    .plantList!.data[index].name,
+                                scientificName: GardenAPIServices
+                                    .plantList!.data[index].scientificName,
+                                imageAddress: GardenAPIServices
+                                        .plantList!.data[index].images.isEmpty
+                                    ? null
+                                    : GardenAPIServices
+                                        .plantList?.data[index].images[0].url,
+                                plantId: GardenAPIServices
+                                    .plantList!.data[index].apiId,
+                                onTapAction: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (ctx) => PlantSpeciesViewer(
+                                              plantName: GardenAPIServices
+                                                  .plantList!.data[index].name,
+                                              apiId: GardenAPIServices
+                                                  .plantList!
+                                                  .data[index]
+                                                  .apiId)));
+                                },
+                              );
+                            }),
+                      )
+                    // If the list is empty, show the user that there are no search/filter results
+                    : Expanded(
+                        child: Center(
+                            child: Text(
+                        "There are no results! \nTry searching by a similar name or change filter settings.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.scrim),
+                      ))))
           ],
         ),
       );
