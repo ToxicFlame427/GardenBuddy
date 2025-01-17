@@ -13,7 +13,8 @@ Future main() async {
   await PurchasesApi.init();
 
   // Check the current sub status, as internet connection is needed to use basically any part of the application
-  PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
+  //UNCOMMENT BEFORE RELEASE TODO: PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
+  PurchasesApi.subStatus = true;
 
   // Fetch the connection types to ensure internet connection
   await getConnectionTypes();
