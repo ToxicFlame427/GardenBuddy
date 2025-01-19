@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:garden_buddy/keys.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class PurchasesApi {
-  static const _googleApiKey = "goog_cByUBxntCAXbKegCwKpwgvLDamA";
-  static const _appleApiKey = "appl_CLNGGUFetZSXpyQtIKfzhoQcMNq";
   static bool subStatus = false;
 
   static Future init() async {
@@ -13,7 +12,7 @@ class PurchasesApi {
     await Purchases.setDebugLogsEnabled(true);
 
     PurchasesConfiguration config = PurchasesConfiguration(
-        Platform.isAndroid ? _googleApiKey : _appleApiKey);
+        Platform.isAndroid ? Keys.googleApiKey : Keys.appleApiKey);
     await Purchases.configure(config);
   }
 

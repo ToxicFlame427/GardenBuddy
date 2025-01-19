@@ -6,7 +6,6 @@ import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
 import 'package:garden_buddy/widgets/lists/plant_id_card.dart';
-import 'package:garden_buddy/widgets/lists/plant_list_card.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -57,8 +56,6 @@ class _ScannerResultState extends State<ScannerResultScreen> {
       // Format the string to exclude the json code profiling "json```<code>```"
       String formatString = response!
           .substring(response!.indexOf("{"), response!.lastIndexOf("}") + 1);
-
-      print(formatString);
 
       // Set the respective scanner to the correcponding object recieved
       if (widget.scannerType == "Plant Identification") {
@@ -133,27 +130,23 @@ class _PlantIdResultsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Identification AI Generated (Gemini)",
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-            ListView.builder(
+      padding: EdgeInsets.all(8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Identification AI Generated (Gemini)",
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          ListView.builder(
               shrinkWrap: true,
               itemCount: data.idItems.length,
               itemBuilder: (context, index) {
                 return PlantIdCard(data: data.idItems[index]);
-              }
-            ),
-          ],
-        ),
+              }),
+        ],
+      ),
     );
   }
 }
@@ -165,8 +158,7 @@ class _HealthAssessResultsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Text("Health assessment results");
   }
 }
 
