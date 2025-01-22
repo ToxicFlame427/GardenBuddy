@@ -4,7 +4,7 @@ class PlantIdResponse {
     List<IdItem> idItems;
 
     PlantIdResponse({
-        required this.idItems,
+      required this.idItems,
     });
 
     factory PlantIdResponse.fromRawJson(String str) => PlantIdResponse.fromJson(json.decode(str));
@@ -21,16 +21,16 @@ class PlantIdResponse {
 }
 
 class IdItem {
-    String commonName;
-    String scientificName;
+    String? commonName;
+    String? scientificName;
     int idProbabliltyPercentage;
-    String description;
+    String? description;
 
     IdItem({
-        required this.commonName,
-        required this.scientificName,
+        this.commonName,
+        this.scientificName,
         required this.idProbabliltyPercentage,
-        required this.description,
+        this.description,
     });
 
     factory IdItem.fromRawJson(String str) => IdItem.fromJson(json.decode(str));

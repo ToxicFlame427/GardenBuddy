@@ -19,12 +19,12 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - purchases_flutter (8.3.2):
+  - purchases_flutter (8.4.1):
     - Flutter
-    - PurchasesHybridCommon (= 13.13.0)
-  - PurchasesHybridCommon (13.13.0):
-    - RevenueCat (= 5.14.0)
-  - RevenueCat (5.14.0)
+    - PurchasesHybridCommon (= 13.15.1)
+  - PurchasesHybridCommon (13.15.1):
+    - RevenueCat (= 5.14.5)
+  - RevenueCat (5.14.5)
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
@@ -94,9 +94,9 @@ SPEC CHECKSUMS:
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  purchases_flutter: 863da2ed8084053125cefd78524aa8e4047e1cb3
-  PurchasesHybridCommon: a712dcce0d81fa39dada521292408816146ca58c
-  RevenueCat: 34f4147c8d26d2f3c691be4e3c9f033698e557f2
+  purchases_flutter: c3f090330bcb8ec22008c97d677858fe6f08ba83
+  PurchasesHybridCommon: 734baecf69d858f811ccd01488a9cf6c1e1c4f6b
+  RevenueCat: 4c0e809f7c7428cbe8d79cbb9a0dc7551e71e74e
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3

@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
 import 'package:garden_buddy/widgets/banner_ad.dart';
@@ -47,10 +48,10 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
   // Function to send the AI a message
   void _sendMessage(ChatMessage chatMessage) {
     setState(() {
-      messages = [chatMessage, ...messages];
+      AiConstants.messages = [chatMessage, ...AiConstants.messages];
 
       // Add the chat
-      chatHistory.add(Content.text(chatMessage.text));
+      AiConstants.chatHistory.add(Content.text(chatMessage.text));
     });
 
     try {
@@ -62,30 +63,30 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
         images = [File(chatMessage.medias!.first.url).readAsBytesSync()];
       }
 
-      aiModel
-          .startChat(history: chatHistory)
+      AiConstants.chatModel
+          .startChat(history: AiConstants.chatHistory)
           .sendMessage(images == null
               ? Content.text(chatMessage.text)
               : Content("user", [DataPart("image/jpeg", images[0])]))
           .then((value) {
-        ChatMessage? lastMessage = messages.firstOrNull;
+        ChatMessage? lastMessage = AiConstants.messages.firstOrNull;
         if (lastMessage != null && lastMessage.user == modelUser) {
-          lastMessage = messages.removeAt(0);
+          lastMessage = AiConstants.messages.removeAt(0);
           String response = value.text!;
           lastMessage.text += response;
           setState(() {
-            messages = [lastMessage!, ...messages];
+            AiConstants.messages = [lastMessage!, ...AiConstants.messages];
           });
         } else {
           String response = value.text!;
           ChatMessage mMessage = ChatMessage(
               user: modelUser, createdAt: DateTime.now(), text: response);
           setState(() {
-            messages = [mMessage, ...messages];
-            chatHistory.add(Content.text(response));
+            AiConstants.messages = [mMessage, ...AiConstants.messages];
+            AiConstants.chatHistory.add(Content.text(response));
             // When a response is generated, subtract form the Ai credits count, for usubscribed users
             if (!PurchasesApi.subStatus) {
-              aiCount--;
+              AiConstants.aiCount--;
             }
           });
         }
@@ -166,7 +167,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
           backgroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: false,
           actions: [
-            CreditCircle(value: aiCount),
+            CreditCircle(value: AiConstants.aiCount),
             IconButton(
               onPressed: _showGardenAIDialog,
               icon: const Icon(Icons.info),
@@ -226,7 +227,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                             currentUser: currentUser,
                             onSend: (message) {
                               // If the person is subscribed, or the AI count is higher than 0, then the message can be sent...
-                              if (PurchasesApi.subStatus || aiCount > 0) {
+                              if (PurchasesApi.subStatus || AiConstants.aiCount > 0) {
                                 if (message.medias == null && file == null) {
                                   _sendMessage(message);
                                 } else {
@@ -243,7 +244,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                                 _showSubDialog();
                               }
                             },
-                            messages: messages),
+                            messages: AiConstants.messages),
                       )
                     ])
                   : Stack(children: [
@@ -264,7 +265,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                       )
                     ]),
             ),
-            if (messages.isEmpty && networkIntegrity)
+            if (AiConstants.messages.isEmpty && networkIntegrity)
               const Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
                 child: Text("Send a message to Garden AI to chat!"),

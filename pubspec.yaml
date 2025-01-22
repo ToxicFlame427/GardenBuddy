@@ -92,9 +92,7 @@ flutter:
     - assets/icons/spoiled_icon.png
 
     # Images
-    - assets/images/ai_chat_gif.gif
     - assets/images/background_garden.jpg
-    - assets/images/example_screenshot.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
