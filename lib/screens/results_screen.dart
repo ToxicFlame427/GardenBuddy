@@ -64,17 +64,13 @@ class _ScannerResultState extends State<ScannerResultScreen> {
     setState(() {
       response = getter.text;
 
-      // Format the string to exclude the json code profiling "json```<code>```"
-      String formatString = response!
-          .substring(response!.indexOf("{"), response!.lastIndexOf("}") + 1);
-
-      print(formatString);
+      print(response);
 
       // Set the respective scanner to the correcponding object recieved
       if (widget.scannerType == "Plant Identification") {
-        idResponse = PlantIdResponse.fromRawJson(formatString);
+        idResponse = PlantIdResponse.fromRawJson(response!);
       } else {
-        healthResponse = HealthAssessmentResponse.fromRawJson(formatString);
+        healthResponse = HealthAssessmentResponse.fromRawJson(response!);
       }
 
       recievedResult = true;
