@@ -35,6 +35,10 @@ migrate_working_dir/
 /build/
 /lib/keys.dart
 
+# Oh yeah... gonna need to ignore these ones!
+garden_buddy_keystore.jks
+/android/key.properties
+
 # Symbolication related
 app.*.symbols
 
