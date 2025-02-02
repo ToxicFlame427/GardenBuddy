@@ -28,14 +28,35 @@ class _ScannerScreenState extends State<ScannerScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    // As long as the cmaer controller is not null, dispose of the camera after the state ends
+    if (cameraController != null) {
+      cameraController!.dispose();
+    }
+    super.dispose();
+  }
+
   Future<void> _setupCameraController() async {
     List<CameraDescription> cameras = await availableCameras();
     if (cameras.isNotEmpty) {
+      // Set the flash to be turned off if the camera controller is not null
+      if (cameraController != null) {
+        cameraController!.setFlashMode(FlashMode.off);
+      }
       setState(() {
         cameras = cameras;
         // _cameras.first = Front camera, _camera.last = Back camera
-        cameraController =
-            CameraController(cameras.last, ResolutionPreset.high);
+        if (cameras.first.lensDirection == CameraLensDirection.back) {
+          cameraController =
+              CameraController(cameras.first, ResolutionPreset.high);
+        } else if (cameras.last.lensDirection == CameraLensDirection.back) {
+          cameraController =
+              CameraController(cameras.last, ResolutionPreset.high);
+        } else {
+          cameraController =
+              CameraController(cameras.first, ResolutionPreset.high);
+        }
       });
 
       cameraController?.initialize().then((_) {
@@ -105,7 +126,10 @@ class _ScannerScreenState extends State<ScannerScreen> {
       appBar: AppBar(
         title: Text(
           widget.scannerType,
-          style: const TextStyle(color: Colors.white, fontFamily: "Khand", fontWeight: FontWeight.bold),
+          style: const TextStyle(
+              color: Colors.white,
+              fontFamily: "Khand",
+              fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: false,
@@ -157,7 +181,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           // Else, do nothing
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primary),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary),
                         child: const Text(
                           "Gallery",
                           style: TextStyle(color: Colors.white),
@@ -176,7 +201,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
                                       )));
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primary),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary),
                         child: const Text(
                           "Take Picture",
                           style: TextStyle(color: Colors.white),

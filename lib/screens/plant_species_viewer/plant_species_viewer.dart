@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
+import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_data.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_loading.dart';
@@ -23,6 +24,7 @@ class PlantSpeciesViewer extends StatefulWidget {
 
 // This state handle everything that comes to and from the API and displays it accordingly
 class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
+  final DbService _dbService = DbService.instance;
   bool plantDataIsLoaded = false;
   bool plantIsFavorite = false;
   PlantSpeciesDetails? plantDetails;
@@ -37,6 +39,19 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
         plantDataIsLoaded = true;
       });
     }
+  }
+
+  void addFavoritePlant() {
+    _dbService.addFavPlant(plantDetails!);
+
+    setState(() {
+      print("Data supposedly added to the database?");
+      plantIsFavorite = !plantIsFavorite;
+    });
+  }
+
+  void removeFavoritePlant() {
+    
   }
 
   @override
@@ -69,10 +84,7 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
         actions: [
           IconButton(
             onPressed: () {
-              // TODO: Either add or remove the favorite plant
-              setState(() {
-                plantIsFavorite = !plantIsFavorite;
-              });
+              addFavoritePlant();
             },
             icon:
                 Icon(plantIsFavorite ? Icons.favorite : Icons.favorite_border),

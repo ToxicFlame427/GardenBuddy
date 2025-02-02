@@ -5,11 +5,11 @@ PODS:
     - Flutter
     - FlutterMacOS
   - Flutter (1.0.0)
-  - Google-Mobile-Ads-SDK (11.10.0):
+  - Google-Mobile-Ads-SDK (11.13.0):
     - GoogleUserMessagingPlatform (>= 1.1)
-  - google_mobile_ads (5.2.0):
+  - google_mobile_ads (5.3.1):
     - Flutter
-    - Google-Mobile-Ads-SDK (~> 11.10.0)
+    - Google-Mobile-Ads-SDK (~> 11.13.0)
     - webview_flutter_wkwebview
   - GoogleUserMessagingPlatform (2.7.0)
   - image_picker_ios (0.0.1):
@@ -19,12 +19,12 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - purchases_flutter (8.4.1):
+  - purchases_flutter (8.4.4):
     - Flutter
-    - PurchasesHybridCommon (= 13.15.1)
-  - PurchasesHybridCommon (13.15.1):
-    - RevenueCat (= 5.14.5)
-  - RevenueCat (5.14.5)
+    - PurchasesHybridCommon (= 13.16.2)
+  - PurchasesHybridCommon (13.16.2):
+    - RevenueCat (= 5.15.0)
+  - RevenueCat (5.15.0)
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
@@ -88,19 +88,19 @@ SPEC CHECKSUMS:
   camera_avfoundation: dd002b0330f4981e1bbcb46ae9b62829237459a4
   connectivity_plus: 18382e7311ba19efcaee94442b23b32507b20695
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  Google-Mobile-Ads-SDK: 13e6e98edfd78ad8d8a791edb927658cc260a56f
-  google_mobile_ads: 2a538d8e42b1813809782792e48f8cf4374c2180
+  Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
+  google_mobile_ads: fe0e2c1764ad95323dd0e3081d0bb2d58411f957
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  purchases_flutter: c3f090330bcb8ec22008c97d677858fe6f08ba83
-  PurchasesHybridCommon: 734baecf69d858f811ccd01488a9cf6c1e1c4f6b
-  RevenueCat: 4c0e809f7c7428cbe8d79cbb9a0dc7551e71e74e
+  purchases_flutter: 65fd04a8d218300ae57a6163810f35c3b333c2c1
+  PurchasesHybridCommon: 9fbb4c76f20b8e9b74f13b9045c6ed90727f935b
+  RevenueCat: 90e7642834cabc3e04e396117776bfb3f50debbf
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
-  webview_flutter_wkwebview: 0982481e3d9c78fd5c6f62a002fcd24fc791f1e4
+  webview_flutter_wkwebview: a4af96a051138e28e29f60101d094683b9f82188
 
 PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 

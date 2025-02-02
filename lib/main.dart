@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
+import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/screens/home_screen.dart';
 import 'package:garden_buddy/theming/colors.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -15,6 +16,9 @@ Future main() async {
   // Check the current sub status, as internet connection is needed to use basically any part of the application
   //UNCOMMENT BEFORE RELEASE TODO: PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
   PurchasesApi.subStatus = true;
+
+  // Initially fetch the favorite plants
+  DbService.favoritePlantsList = await DbService.instance.getFavoritePlants();
 
   // Fetch the connection types to ensure internet connection
   await getConnectionTypes();
