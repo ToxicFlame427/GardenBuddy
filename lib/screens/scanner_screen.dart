@@ -41,9 +41,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
     List<CameraDescription> cameras = await availableCameras();
     if (cameras.isNotEmpty) {
       // Set the flash to be turned off if the camera controller is not null
-      if (cameraController != null) {
-        cameraController!.setFlashMode(FlashMode.off);
-      }
       setState(() {
         cameras = cameras;
         // _cameras.first = Front camera, _camera.last = Back camera
@@ -60,7 +57,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
       });
 
       cameraController?.initialize().then((_) {
-        setState(() {});
+        setState(() {
+          if (cameraController != null) {
+            cameraController!.setFlashMode(FlashMode.off);
+          }
+        });
       });
     }
   }
