@@ -16,11 +16,12 @@ class DbService {
 
   // Column properties
   final String _favPlantPropId = "id";
+  final String _favPlantPropName = "name";
   final String _favPlantPropJsonContent = "jsonContent";
   final String _favPlantPropLocalImageDir = "localImageDir";
 
   // Data storage - Use globally for comparisons
-  static List<PlantSpeciesDetails> favoritePlantsList = [];
+  static List<DBPlantRow> favoritePlantsList = [];
 
   DbService._constructor();
 
@@ -41,6 +42,7 @@ class DbService {
         db.execute('''
           CREATE TABLE $_favoritePlantsTable (
             $_favPlantPropId INTEGER PRIMARY KEY,
+            $_favPlantPropName TEXT NOT NULL,
             $_favPlantPropJsonContent TEXT NOT NULL,
             $_favPlantPropLocalImageDir TEXT NOT NULL
           )
@@ -63,12 +65,16 @@ class DbService {
     final db = await database;
     // The primary key is automatic, there is no need to add it to the schema
     db.insert(_favoritePlantsTable, {
+      _favPlantPropName: plantDetails.data.name,
       _favPlantPropJsonContent: content,
       _favPlantPropLocalImageDir: imageDir
     });
+
+    // After adding a favorite plant, update the favorites array
+    favoritePlantsList = await getFavoritePlants();
   }
 
-  Future<List<PlantSpeciesDetails>> getFavoritePlants() async {
+  Future<List<DBPlantRow>> getFavoritePlants() async {
     final db = await database;
     final data = await db.query(_favoritePlantsTable);
     List<PlantSpeciesDetails> convertedList = [];
@@ -77,6 +83,7 @@ class DbService {
     List<DBPlantRow> plants = data
         .map((e) => DBPlantRow(
             id: e[_favPlantPropId] as int,
+            name: e[_favPlantPropName] as String,
             jsonContent: e[_favPlantPropJsonContent] as String,
             localImageDir: e[_favPlantPropLocalImageDir] as String))
         .toList();
@@ -90,7 +97,7 @@ class DbService {
     }
 
     // Return the converted list!
-    return convertedList;
+    return plants;
   }
 
   // MARK: Danger zone!!
@@ -98,7 +105,13 @@ class DbService {
     // Send those fuckers to the aether!
   }
 
-  void deleteFavPlant(int id) {
+  void deleteFavPlant(String plantName) async {
+    final db = await database;
     // "I want this twink obliterated" - Nutter Butter
+    await db.delete(_favoritePlantsTable,
+        where: "$_favPlantPropName = ?", whereArgs: [plantName]);
+
+    // After deletion, update the favorites array
+    favoritePlantsList = await getFavoritePlants();
   }
 }

@@ -8,7 +8,7 @@ class AiConstants {
       model: "gemini-1.5-flash-latest", apiKey: Keys.geminiApiKey);
 
   static final GenerativeModel plantIdModel = GenerativeModel(
-    model: "gemini-1.5-flash-latest",
+    model: "gemini-2.0-flash-exp",
     apiKey: Keys.geminiApiKey,
     generationConfig: GenerationConfig(
         responseMimeType: "application/json",
@@ -28,7 +28,7 @@ class AiConstants {
   );
 
   static final GenerativeModel healthAssessModel = GenerativeModel(
-    model: "gemini-1.5-flash-latest",
+    model: "gemini-2.0-flash-exp",
     apiKey: Keys.geminiApiKey,
     generationConfig: GenerationConfig(
         responseMimeType: "application/json",

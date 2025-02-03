@@ -11,10 +11,14 @@ import 'package:swipe_refresh/swipe_refresh.dart';
 
 class PlantSpeciesViewer extends StatefulWidget {
   const PlantSpeciesViewer(
-      {super.key, required this.plantName, required this.apiId});
+      {super.key,
+      required this.plantName,
+      required this.apiId,
+      this.offlineDetails});
 
   final String plantName;
   final int apiId;
+  final PlantSpeciesDetails? offlineDetails;
 
   @override
   State<PlantSpeciesViewer> createState() {
@@ -38,6 +42,31 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
       setState(() {
         plantDataIsLoaded = true;
       });
+
+      checkFavorite();
+    }
+  }
+
+  void checkFavorite() {
+    if (plantDataIsLoaded) {
+      // Check if the plant is already in the favorites list
+      for (var i = 0; i < DbService.favoritePlantsList.length; i++) {
+        // If the plant is not already a favorite, check the next elements
+        if (!plantIsFavorite) {
+          setState(() {
+            // Check the name of the plant with the name of the plant from the database
+            if (plantDetails!.data.name ==
+                DbService.favoritePlantsList[i].name) {
+              plantIsFavorite = true;
+            } else {
+              plantIsFavorite = false;
+            }
+          });
+        } else {
+          // If a favorite was found, break the loop
+          break;
+        }
+      }
     }
   }
 
@@ -50,13 +79,28 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
     });
   }
 
-  void removeFavoritePlant() {
-    
+  void removeFavoritePlant() async {
+    _dbService.deleteFavPlant(plantDetails!.data.name);
+
+    setState(() {
+      print("Data was possibly deleted?");
+      plantIsFavorite = !plantIsFavorite;
+    });
   }
 
   @override
   void initState() {
     super.initState();
+
+    // No matter what, automatic handling of null values is already being checked
+    if (widget.offlineDetails != null) {
+      setState(() {
+        plantDetails = widget.offlineDetails;
+        plantDataIsLoaded = true;
+      });
+
+      checkFavorite();
+    }
 
     // When loaded, immedialty attempt to fetch the species list
     if (!plantDataIsLoaded && plantDetails == null) {
@@ -84,7 +128,11 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
         actions: [
           IconButton(
             onPressed: () {
-              addFavoritePlant();
+              if (plantIsFavorite) {
+                removeFavoritePlant();
+              } else {
+                addFavoritePlant();
+              }
             },
             icon:
                 Icon(plantIsFavorite ? Icons.favorite : Icons.favorite_border),

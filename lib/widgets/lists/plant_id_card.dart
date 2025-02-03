@@ -45,10 +45,12 @@ class _PlantIdCardState extends State<PlantIdCard> {
                         scale: 1.2,
                         child: CircularProgressIndicator(
                           value:
-                              widget.data.idProbabliltyPercentage.toDouble() / 100,
+                              widget.data.idProbabliltyPercentage.toDouble() /
+                                  100,
                           color: ThemeColors.teal1,
                           backgroundColor: Theme.of(context).hintColor,
-                          semanticsValue: "${widget.data.idProbabliltyPercentage}%",
+                          semanticsValue:
+                              "${widget.data.idProbabliltyPercentage}%",
                           semanticsLabel: "Match probability",
                         ),
                       )
@@ -58,7 +60,9 @@ class _PlantIdCardState extends State<PlantIdCard> {
                       "Match\nProbability",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          height: 0.8, fontSize: 12, fontWeight: FontWeight.w500),
+                          height: 0.8,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500),
                     )
                   ]),
                   SizedBox(width: 10),
@@ -86,16 +90,16 @@ class _PlantIdCardState extends State<PlantIdCard> {
                           height: 10,
                         ),
                         Text(
-                          "Tap to show desription",
-                          style:
-                              TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+                          "Tap to show description",
+                          style: TextStyle(
+                              fontSize: 12, fontStyle: FontStyle.italic),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              if(showMore)
+              if (showMore)
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
                   child: Text(widget.data.description!),
