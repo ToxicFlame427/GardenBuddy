@@ -93,6 +93,13 @@ flutter:
     - assets/icons/plant_icon.png
     - assets/icons/potted_plant.png
     - assets/icons/spoiled_icon.png
+    - assets/icons/harvest.png
+    - assets/icons/plant.png
+    - assets/icons/pruning.png
+    - assets/icons/seeds.png
+    - assets/icons/sowing.png
+    - assets/icons/sunlight.png
+    - assets/icons/watering.png
 
     # Images
     - assets/images/background_garden.jpg

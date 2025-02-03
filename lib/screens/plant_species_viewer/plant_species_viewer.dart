@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
@@ -7,7 +5,6 @@ import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_data.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_loading.dart';
-import 'package:swipe_refresh/swipe_refresh.dart';
 
 class PlantSpeciesViewer extends StatefulWidget {
   const PlantSpeciesViewer(
@@ -74,7 +71,6 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
     _dbService.addFavPlant(plantDetails!);
 
     setState(() {
-      print("Data supposedly added to the database?");
       plantIsFavorite = !plantIsFavorite;
     });
   }
@@ -83,7 +79,6 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
     _dbService.deleteFavPlant(plantDetails!.data.name);
 
     setState(() {
-      print("Data was possibly deleted?");
       plantIsFavorite = !plantIsFavorite;
     });
   }
@@ -104,15 +99,13 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
 
     // When loaded, immedialty attempt to fetch the species list
     if (!plantDataIsLoaded && plantDetails == null) {
-      print("Getting plant details with API ID of ${widget.apiId}...");
       getPlantDetails();
     }
   }
 
   // For network integrity
   bool networkIntegrity = checkConnectionIntegrity();
-  final StreamController<SwipeRefreshState> _refreshController =
-      StreamController<SwipeRefreshState>();
+  //final StreamController<SwipeRefreshState> _refreshController =StreamController<SwipeRefreshState>();
 
   @override
   Widget build(BuildContext context) {

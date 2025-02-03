@@ -1,6 +1,5 @@
 // Used to communicate wiht the local database
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
-import 'package:garden_buddy/models/api/garden_api/plant_species_list.dart';
 import 'package:garden_buddy/models/db_plant_row.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

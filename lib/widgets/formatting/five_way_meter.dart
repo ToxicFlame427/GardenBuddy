@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/theming/colors.dart';
-import 'package:garden_buddy/widgets/formatting/lifecycle_object.dart';
 
 class FiveWayMeter extends StatelessWidget {
   const FiveWayMeter(

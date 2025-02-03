@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:garden_buddy/widgets/formatting/vertical_rule.dart';
 
 class LifeCycleObject extends StatelessWidget {
   const LifeCycleObject(
