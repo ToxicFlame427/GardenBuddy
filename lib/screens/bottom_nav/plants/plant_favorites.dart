@@ -58,22 +58,20 @@ class _FavoritePlantsState extends State<FavoritePlants> {
                   return PlantListCard(
                     plantName: convertedList[index].data.name,
                     scientificName: convertedList[index].data.scientificName,
-                    // TODO: Also, handle these issues as well, where the image is a local path
+                    // TODO: Handle a local image address rather than a network image
                     imageAddress: convertedList[index].data.images.isEmpty
                         ? null
                         : convertedList[index].data.images[0].url,
                     plantId: convertedList[index].data.apiId,
                     onTapAction: () {
-                      // TODO: Modify this to handle offline data such as the database data
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (ctx) => PlantSpeciesViewer(
-                                  plantName: convertedList[index].data.name,
-                                  apiId: 0,
-                                  offlineDetails: convertedList[index],
-                            )
-                          ));
+                                    plantName: convertedList[index].data.name,
+                                    apiId: 0,
+                                    offlineDetails: convertedList[index],
+                                  )));
                     },
                   );
                 }),

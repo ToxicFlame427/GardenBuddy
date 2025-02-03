@@ -6,8 +6,8 @@ import 'package:garden_buddy/screens/home_screen.dart';
 import 'package:garden_buddy/theming/colors.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-// Main app entry point
-Future main() async {
+// Just organizing initialization stuff
+void initializeStuff() async {
   // Initialize mobile ads
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
@@ -22,6 +22,11 @@ Future main() async {
 
   // Fetch the connection types to ensure internet connection
   await getConnectionTypes();
+}
+
+// Main app entry point
+Future main() async {
+  initializeStuff();
 
   runApp(MaterialApp(
     home: const HomeScreen(),
