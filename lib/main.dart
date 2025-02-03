@@ -7,7 +7,7 @@ import 'package:garden_buddy/theming/colors.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 // Just organizing initialization stuff
-void initializeStuff() async {
+Future<void> initializeStuff() async {
   // Initialize mobile ads
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
@@ -26,7 +26,7 @@ void initializeStuff() async {
 
 // Main app entry point
 Future main() async {
-  initializeStuff();
+  await initializeStuff();
 
   runApp(MaterialApp(
     home: const HomeScreen(),
