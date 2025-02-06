@@ -43,7 +43,7 @@ class GardenAPIServices {
     var client = http.Client();
 
     // Craft the correct URL for the API request
-    var url = Uri.parse("$_baseUrlPlants$_plantDetailsEndpoint/$apiId&key=${Keys.gardenApiKey}");
+    var url = Uri.parse("$_baseUrlPlants$_plantDetailsEndpoint/$apiId?key=${Keys.gardenApiKey}");
     var response = await client.get(url);
 
     // Check the status code based on the response code given
