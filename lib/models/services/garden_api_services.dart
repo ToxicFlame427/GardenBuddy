@@ -1,3 +1,4 @@
+import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_list.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +23,7 @@ class GardenAPIServices {
 
     // Craft the correct URL for the API request
     var url = Uri.parse(
-        "$_baseUrlPlants$_speciesListEndpoint?limit=$plantsListLength&page=$plantsListPage&fq=$filterQuery&sq=$searchQuery");
+        "$_baseUrlPlants$_speciesListEndpoint?limit=$plantsListLength&page=$plantsListPage&fq=$filterQuery&sq=$searchQuery&key=${Keys.gardenApiKey}");
     var response = await client.get(url);
 
     // Check the status code based on the response code given
@@ -42,7 +43,7 @@ class GardenAPIServices {
     var client = http.Client();
 
     // Craft the correct URL for the API request
-    var url = Uri.parse("$_baseUrlPlants$_plantDetailsEndpoint/$apiId");
+    var url = Uri.parse("$_baseUrlPlants$_plantDetailsEndpoint/$apiId&key=${Keys.gardenApiKey}");
     var response = await client.get(url);
 
     // Check the status code based on the response code given

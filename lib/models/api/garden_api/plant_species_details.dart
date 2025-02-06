@@ -1,135 +1,141 @@
 import 'dart:convert';
 
-String plantSpeciesDetailsToJson(PlantSpeciesDetails data) => json.encode(data.toJson());
+String plantSpeciesDetailsToJson(PlantSpeciesDetails data) =>
+    json.encode(data.toJson());
 
-class PlantSpeciesDetails{
-    Data data;
-    String status;
-    String message;
+class PlantSpeciesDetails {
+  Data data;
+  String status;
+  String message;
 
-    PlantSpeciesDetails({
-        required this.data,
-        required this.status,
-        required this.message,
-    });
+  PlantSpeciesDetails({
+    required this.data,
+    required this.status,
+    required this.message,
+  });
 
-    factory PlantSpeciesDetails.fromRawJson(String str) => PlantSpeciesDetails.fromJson(json.decode(str));
+  factory PlantSpeciesDetails.fromRawJson(String str) =>
+      PlantSpeciesDetails.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory PlantSpeciesDetails.fromJson(Map<String, dynamic> json) => PlantSpeciesDetails(
+  factory PlantSpeciesDetails.fromJson(Map<String, dynamic> json) =>
+      PlantSpeciesDetails(
         data: Data.fromJson(json["data"]),
         status: json["status"],
         message: json["message"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "data": data.toJson(),
         "status": status,
         "message": message,
-    };
+      };
 }
 
-class Data{
-    int apiId;
-    AverageHeight averageHeight;
-    AverageHeight averageSpread;
-    String name;
-    String description;
-    List<String> floweringMonths;
-    String floweringSeason;
-    bool fruitIsEdible;
-    String growingCycle;
-    int growthRate;
-    HardinessZones hardinessZones;
-    List<String> harvestMonths;
-    String harvestSeason;
-    String harvestingGuide;
-    bool hasFlowers;
-    bool hasSeeds;
-    List<Image> images;
-    bool containerFriendly;
-    bool frostTolerant;
-    bool heatTolerant;
-    bool indoorFriendly;
-    bool medicinal;
-    bool poisonousToHumans;
-    bool poisonousToPets;
-    bool saltTolerant;
-    String speciesOrVariety;
-    bool leavesAreEdible;
-    int maintenanceLevel;
-    Time maturityTime;
-    List<String> otherNames;
-    AverageHeight plantSpacing;
-    List<String> plantingMonths;
-    String plantingSeason;
-    List<String> preferredSoil;
-    List<String> preferredSunlight;
-    String pruningGuide;
-    String scientificName;
-    Time seedGerminationTime;
-    bool seedsAreEdible;
-    String soilPh;
-    String sowingGuide;
-    String wateringGuide;
+class Data {
+  int apiId;
+  AverageHeight averageHeight;
+  AverageHeight averageSpread;
+  String name;
+  String description;
+  List<String> floweringMonths;
+  String floweringSeason;
+  bool fruitIsEdible;
+  String growingCycle;
+  int growthRate;
+  HardinessZones hardinessZones;
+  List<String> harvestMonths;
+  String harvestSeason;
+  String harvestingGuide;
+  bool hasFlowers;
+  bool hasSeeds;
+  bool hasCorms;
+  List<Image> images;
+  bool containerFriendly;
+  bool frostTolerant;
+  bool heatTolerant;
+  bool indoorFriendly;
+  bool medicinal;
+  bool poisonousToHumans;
+  bool poisonousToPets;
+  bool saltTolerant;
+  String speciesOrVariety;
+  bool leavesAreEdible;
+  int maintenanceLevel;
+  Time maturityTime;
+  List<String> otherNames;
+  AverageHeight plantSpacing;
+  List<String> plantingMonths;
+  String plantingSeason;
+  List<String> preferredSoil;
+  List<String> preferredSunlight;
+  String pruningGuide;
+  String scientificName;
+  Time seedGerminationTime;
+  bool seedsAreEdible;
+  String soilPh;
+  String sowingGuide;
+  String wateringGuide;
 
-    Data({
-        required this.apiId,
-        required this.averageHeight,
-        required this.averageSpread,
-        required this.name,
-        required this.description,
-        required this.floweringMonths,
-        required this.floweringSeason,
-        required this.fruitIsEdible,
-        required this.growingCycle,
-        required this.growthRate,
-        required this.hardinessZones,
-        required this.harvestMonths,
-        required this.harvestSeason,
-        required this.harvestingGuide,
-        required this.hasFlowers,
-        required this.hasSeeds,
-        required this.images,
-        required this.containerFriendly,
-        required this.frostTolerant,
-        required this.heatTolerant,
-        required this.indoorFriendly,
-        required this.medicinal,
-        required this.poisonousToHumans,
-        required this.poisonousToPets,
-        required this.saltTolerant,
-        required this.speciesOrVariety,
-        required this.leavesAreEdible,
-        required this.maintenanceLevel,
-        required this.maturityTime,
-        required this.otherNames,
-        required this.plantSpacing,
-        required this.plantingMonths,
-        required this.plantingSeason,
-        required this.preferredSoil,
-        required this.preferredSunlight,
-        required this.pruningGuide,
-        required this.scientificName,
-        required this.seedGerminationTime,
-        required this.seedsAreEdible,
-        required this.soilPh,
-        required this.sowingGuide,
-        required this.wateringGuide,
-    });
+  Data({
+    required this.apiId,
+    required this.averageHeight,
+    required this.averageSpread,
+    required this.name,
+    required this.description,
+    required this.floweringMonths,
+    required this.floweringSeason,
+    required this.fruitIsEdible,
+    required this.growingCycle,
+    required this.growthRate,
+    required this.hardinessZones,
+    required this.harvestMonths,
+    required this.harvestSeason,
+    required this.harvestingGuide,
+    required this.hasFlowers,
+    required this.hasSeeds,
+    required this.hasCorms,
+    required this.images,
+    required this.containerFriendly,
+    required this.frostTolerant,
+    required this.heatTolerant,
+    required this.indoorFriendly,
+    required this.medicinal,
+    required this.poisonousToHumans,
+    required this.poisonousToPets,
+    required this.saltTolerant,
+    required this.speciesOrVariety,
+    required this.leavesAreEdible,
+    required this.maintenanceLevel,
+    required this.maturityTime,
+    required this.otherNames,
+    required this.plantSpacing,
+    required this.plantingMonths,
+    required this.plantingSeason,
+    required this.preferredSoil,
+    required this.preferredSunlight,
+    required this.pruningGuide,
+    required this.scientificName,
+    required this.seedGerminationTime,
+    required this.seedsAreEdible,
+    required this.soilPh,
+    required this.sowingGuide,
+    required this.wateringGuide,
+  });
 
-    factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         apiId: json["apiId"],
         averageHeight: AverageHeight.fromJson(json["averageHeight"]),
         averageSpread: AverageHeight.fromJson(json["averageSpread"]),
         name: json["name"],
         description: json["description"],
-        floweringMonths: List<String>.from(json["floweringMonths"].map((x) => x)),
+        floweringMonths:
+            List<String>.from(json["floweringMonths"].map((x) => x)),
         floweringSeason: json["floweringSeason"],
         fruitIsEdible: json["fruitIsEdible"],
         growingCycle: json["growingCycle"],
@@ -140,6 +146,7 @@ class Data{
         harvestingGuide: json["harvestingGuide"],
         hasFlowers: json["hasFlowers"],
         hasSeeds: json["hasSeeds"],
+        hasCorms: json["hasCorms"],
         images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
         containerFriendly: json["containerFriendly"],
         frostTolerant: json["frostTolerant"],
@@ -158,7 +165,8 @@ class Data{
         plantingMonths: List<String>.from(json["plantingMonths"].map((x) => x)),
         plantingSeason: json["plantingSeason"],
         preferredSoil: List<String>.from(json["preferredSoil"].map((x) => x)),
-        preferredSunlight: List<String>.from(json["preferredSunlight"].map((x) => x)),
+        preferredSunlight:
+            List<String>.from(json["preferredSunlight"].map((x) => x)),
         pruningGuide: json["pruningGuide"],
         scientificName: json["scientificName"],
         seedGerminationTime: Time.fromJson(json["seedGerminationTime"]),
@@ -166,9 +174,9 @@ class Data{
         soilPh: json["soilPh"],
         sowingGuide: json["sowingGuide"],
         wateringGuide: json["wateringGuide"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "apiId": apiId,
         "averageHeight": averageHeight.toJson(),
         "averageSpread": averageSpread.toJson(),
@@ -185,6 +193,7 @@ class Data{
         "harvestingGuide": harvestingGuide,
         "hasFlowers": hasFlowers,
         "hasSeeds": hasSeeds,
+        "hasCorms": hasCorms,
         "images": List<dynamic>.from(images.map((x) => x.toJson())),
         "containerFriendly": containerFriendly,
         "frostTolerant": frostTolerant,
@@ -203,7 +212,8 @@ class Data{
         "plantingMonths": List<dynamic>.from(plantingMonths.map((x) => x)),
         "plantingSeason": plantingSeason,
         "preferredSoil": List<dynamic>.from(preferredSoil.map((x) => x)),
-        "preferredSunlight": List<dynamic>.from(preferredSunlight.map((x) => x)),
+        "preferredSunlight":
+            List<dynamic>.from(preferredSunlight.map((x) => x)),
         "pruningGuide": pruningGuide,
         "scientificName": scientificName,
         "seedGerminationTime": seedGerminationTime.toJson(),
@@ -211,109 +221,111 @@ class Data{
         "soilPh": soilPh,
         "sowingGuide": sowingGuide,
         "wateringGuide": wateringGuide,
-    };
+      };
 }
 
 class AverageHeight {
-    String unit;
-    String value;
+  String unit;
+  String value;
 
-    AverageHeight({
-        required this.unit,
-        required this.value,
-    });
+  AverageHeight({
+    required this.unit,
+    required this.value,
+  });
 
-    factory AverageHeight.fromRawJson(String str) => AverageHeight.fromJson(json.decode(str));
+  factory AverageHeight.fromRawJson(String str) =>
+      AverageHeight.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory AverageHeight.fromJson(Map<String, dynamic> json) => AverageHeight(
+  factory AverageHeight.fromJson(Map<String, dynamic> json) => AverageHeight(
         unit: json["unit"],
         value: json["value"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "unit": unit,
         "value": value,
-    };
+      };
 }
 
 class HardinessZones {
-    int maxHardiness;
-    int minHardiness;
+  int maxHardiness;
+  int minHardiness;
 
-    HardinessZones({
-        required this.maxHardiness,
-        required this.minHardiness,
-    });
+  HardinessZones({
+    required this.maxHardiness,
+    required this.minHardiness,
+  });
 
-    factory HardinessZones.fromRawJson(String str) => HardinessZones.fromJson(json.decode(str));
+  factory HardinessZones.fromRawJson(String str) =>
+      HardinessZones.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory HardinessZones.fromJson(Map<String, dynamic> json) => HardinessZones(
+  factory HardinessZones.fromJson(Map<String, dynamic> json) => HardinessZones(
         maxHardiness: json["maxHardiness"],
         minHardiness: json["minHardiness"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "maxHardiness": maxHardiness,
         "minHardiness": minHardiness,
-    };
+      };
 }
 
 class Image {
-    String credit;
-    String imageLicense;
-    String originalUrl;
-    String url;
+  String credit;
+  String imageLicense;
+  String originalUrl;
+  String url;
 
-    Image({
-        required this.credit,
-        required this.imageLicense,
-        required this.originalUrl,
-        required this.url,
-    });
+  Image({
+    required this.credit,
+    required this.imageLicense,
+    required this.originalUrl,
+    required this.url,
+  });
 
-    factory Image.fromRawJson(String str) => Image.fromJson(json.decode(str));
+  factory Image.fromRawJson(String str) => Image.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory Image.fromJson(Map<String, dynamic> json) => Image(
         credit: json["credit"],
         imageLicense: json["imageLicense"],
         originalUrl: json["originalUrl"],
         url: json["url"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "credit": credit,
         "imageLicense": imageLicense,
         "originalUrl": originalUrl,
         "url": url,
-    };
+      };
 }
 
 class Time {
-    String time;
-    String unit;
+  String time;
+  String unit;
 
-    Time({
-        required this.time,
-        required this.unit,
-    });
+  Time({
+    required this.time,
+    required this.unit,
+  });
 
-    factory Time.fromRawJson(String str) => Time.fromJson(json.decode(str));
+  factory Time.fromRawJson(String str) => Time.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory Time.fromJson(Map<String, dynamic> json) => Time(
+  factory Time.fromJson(Map<String, dynamic> json) => Time(
         time: json["time"],
         unit: json["unit"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "time": time,
         "unit": unit,
-    };
+      };
 }

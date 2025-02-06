@@ -33,7 +33,7 @@ class DbService {
   // Creates and retrieves the database
   Future<Database> getDatabase() async {
     final databaseDirPath = await getDatabasesPath();
-    final databasePath = join(databaseDirPath, "gb_master.db");
+    final databasePath = join(databaseDirPath, "gb_master_db.db");
     final database = await openDatabase(
       databasePath,
       version: 1,
