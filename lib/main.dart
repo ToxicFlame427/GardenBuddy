@@ -1,3 +1,4 @@
+// Woke up in the morning traveling straight into the sun!
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
