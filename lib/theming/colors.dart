@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Time for pretty colors!
 class ThemeColors {
   // Custom colors used in themes
   // Green from dark to light

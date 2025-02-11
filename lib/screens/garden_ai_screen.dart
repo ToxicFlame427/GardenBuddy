@@ -57,7 +57,6 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
     try {
       // HOLY BALLS! This is some confusing code
       // Yadda yadda, it makes messages work between user and model
-      //String message = chatMessage.text;
       List<Uint8List>? images;
       if (chatMessage.medias?.isNotEmpty ?? false) {
         images = [File(chatMessage.medias!.first.url).readAsBytesSync()];
@@ -131,6 +130,16 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
 
   // Show dialog about subscribing for more credits
   void _showSubDialog() {
+    /*
+      "Whats wrong?"
+      You've been asking, but I don't have an answer.
+      ...
+      'Cause we can stay at home and watch the sunset.
+      But I can't help from asking, "Are you bored yet?"
+      And if you're feelin' lonely, you should tell me.
+      Before this ends up as another memory.
+    */
+
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -162,7 +171,10 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
         appBar: AppBar(
           title: const Text(
             "Garden AI",
-            style: TextStyle(color: Colors.white, fontFamily: "Khand", fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Khand",
+                fontWeight: FontWeight.bold),
           ),
           backgroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: false,
@@ -227,7 +239,8 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                             currentUser: currentUser,
                             onSend: (message) {
                               // If the person is subscribed, or the AI count is higher than 0, then the message can be sent...
-                              if (PurchasesApi.subStatus || AiConstants.aiCount > 0) {
+                              if (PurchasesApi.subStatus ||
+                                  AiConstants.aiCount > 0) {
                                 if (message.medias == null && file == null) {
                                   _sendMessage(message);
                                 } else {
@@ -245,7 +258,11 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                               }
                             },
                             messages: AiConstants.messages),
-                      )
+                      ),
+                      // SHow the text that the AI is thinking
+                      if(AiConstants.messages.isNotEmpty)
+                        if (AiConstants.messages.first.user == currentUser)
+                          Text("Garden AI is thinking...")
                     ])
                   : Stack(children: [
                       NoConnectionWidget(),

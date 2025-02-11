@@ -78,6 +78,12 @@ class Data {
   String sowingGuide;
   String wateringGuide;
 
+  /*
+    Nothing kills you faster than your own mind.
+    Be calm.
+    Don't stress over things that are out of your control.
+  */
+
   Data({
     required this.apiId,
     required this.averageHeight,

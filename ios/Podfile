@@ -37,6 +37,10 @@ target 'Runner' do
   end
 end
 
+# Dude, she's just not into youuuuuuuuooooooouu
+# Gotta move ooooooon, gotta move oooooooon
+# ^x2
+
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)

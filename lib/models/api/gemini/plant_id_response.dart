@@ -23,13 +23,13 @@ class PlantIdResponse {
 class IdItem {
     String? commonName;
     String? scientificName;
-    int idProbabliltyPercentage;
+    int? idProbabliltyPercentage;
     String? description;
 
     IdItem({
         this.commonName,
         this.scientificName,
-        required this.idProbabliltyPercentage,
+        this.idProbabliltyPercentage,
         this.description,
     });
 

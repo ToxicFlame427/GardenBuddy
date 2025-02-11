@@ -45,8 +45,9 @@ class _PlantIdCardState extends State<PlantIdCard> {
                         scale: 1.2,
                         child: CircularProgressIndicator(
                           value:
-                              widget.data.idProbabliltyPercentage.toDouble() /
-                                  100,
+                              widget.data.idProbabliltyPercentage != null ?
+                              widget.data.idProbabliltyPercentage!.toDouble() / 100
+                              : 0,
                           color: ThemeColors.teal1,
                           backgroundColor: Theme.of(context).hintColor,
                           semanticsValue:
