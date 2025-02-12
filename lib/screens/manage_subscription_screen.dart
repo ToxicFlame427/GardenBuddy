@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
-import 'package:garden_buddy/widgets/subscription_perks_chart.dart';
+import 'package:garden_buddy/widgets/objects/subscription_perks_chart.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 

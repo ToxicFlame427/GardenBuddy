@@ -1,0 +1,368 @@
+Plants to add to the API
+________________________________________________
+// = Already added - USE GEMINI ADVANCED FOR GENERAL INFORMATION
+
+Acorn Squash
+American Chestnut
+Apple
+Apple Mint
+Apricot
+Artichoke
+Arugula
+Asparagus
+Babys Breath
+Banana
+Banana Pepper
+Basil
+Bean
+Beet
+Bell Pepper
+Bird of paradise
+Black Cherry
+Black Cumin
+Black Currant
+Black-eyed susans
+Blackberry
+Blueberry
+Bok choy
+Broccoli
+Butternut Squash
+Cabbage
+California Buttercup
+
+Garden Carrot
+Carrot 'Scarlet Nantes'
+Carrot 'Bolero'
+Carrot 'Nelson'
+Carrot 'Yaya'
+Carrot 'Napa'
+Carrot 'Touchon'
+Carrot 'Parano'
+Carrot 'Kaleidoscope'
+Carrot 'White Satin'
+Carrot 'Merida'
+Carrot 'Purple Dragon'
+Carrot 'Cosmic Purple'
+Carrot 'Autumn King'
+Carrot 'Atomic Red'
+Carrot 'Red-Cored Chantenay'
+Carrot 'Babette'
+Carrot 'Romeo'
+Carrot 'Hercules'
+Carrot 'Tendersweet'
+Carrot 'Danvers 126'
+Carrot 'Little Finger'
+Carrot 'Shin Kuroda'
+Carrot 'Solar Yellow'
+Carrot 'Lunar White'
+Carrot 'Baltimore'
+Carrot 'Yellowstone'
+Carrot 'Bengala'
+Carrot 'Caracas'
+Carrot 'Purple Haze'
+Carrot 'Paris Market'
+Carrot 'Purple Elite'
+Carrot 'Parisian'
+Carrot 'Sugarsnax'
+Carrot 'Black Nebula'
+Carrot 'St. Valery'
+
+Catnip
+Cauliflower
+Cayenne Pepper
+Chamomile
+Chives
+
+Garden Cilantro
+Cilantro 'Leisure'
+Cilantro 'Indian'
+Cilantro 'Calypso'
+Cilantro 'Lemon'
+Cilantro 'Caribe'
+Cilantro 'Marino'
+Cilantro 'Santo'
+Cilantro 'Jantar'
+Cilantro 'Delfino'
+Cilantro 'Moroccan'
+Cilantro 'Vietnamese'
+Cilantro 'Confetti'
+Cilantro 'Macho'
+
+Coconut
+Collard Greens
+Common Fig
+Common Grape
+Cone Pepper
+Coneflower
+Corn
+Crisanthemum
+
+Garden Cucumber
+Cucumber 'Straight Eight'
+Cucumber 'Slicing'
+Cucumber 'Persian'
+Cucumber 'Boston Pickling'
+Cucumber 'Pickling'
+Cucumber 'Armenian'
+Cucumber 'Marketmore'
+Cucumber 'Crystal Apple'
+Cucumber 'Burpless'
+Cucumber 'Kirby'
+Cucumber 'Ashley'
+Cucumber 'White'
+
+Dandelion
+
+//Garden Dill
+//Dill 'Bouquet'
+//Dill 'Compatto'
+//Dill 'Delikat'
+//Dill 'Dukat'
+//Dill 'Elephant'
+//Dill 'Fernleaf'
+//Dill 'Greensleeves'
+//Dill 'Hera'
+//Dill 'Hercules'
+//Dill 'Mammoth Long Island'
+//Dill 'Teddy'
+//Dill 'Vierling'
+//Dill 'Superdukat'
+
+Dog Rose
+European Plum
+Fennel
+Field Mustard
+Garlic
+Ghost Pepper
+Ginger
+Gooseberry
+Green Bean
+Habanero
+Honeyberry
+Honeysuckle
+Hosta
+Huckleberry
+Jalapeno
+Jujube
+Kiwi
+Kohlrabi
+Lavender
+Lemon Balm
+Lettuce
+Lilac
+Mango
+Marigold
+Mountain Mint
+Mulberry
+Musk Strawberry
+Mustard Greens
+Olive
+Onion
+Orange
+Oregano
+Pak Choi
+Parsley
+Passionfruit
+Pawpaw
+Pea
+Peach
+Pear
+Pepper
+//Peppermint
+Pineapple
+Pomegranate
+Poppy
+Potato
+
+Pumpkin / Winter squash
+Pumpkin 'Atlantic Giant'
+Pumpkin 'Appalachian'
+Pumpkin 'Autumn Gold'
+Pumpkin 'Baby Bear'
+Pumpkin 'Baby Boo'
+Pumpkin 'Baby Pam'
+Pumpkin 'Batwing'
+Pumpkin 'Big Max'
+Pumpkin 'Blaze'
+Pumpkin 'Blue Doll'
+Pumpkin 'Blue Hubbard'
+Pumpkin 'Jarrahdale'
+Pumpkin 'Buckskin'
+Pumpkin 'Calabaza'
+Pumpkin 'Carnival'
+Pumpkin 'Casper'
+Pumpkin 'Casperita'
+Pumpkin 'Cinderella'
+Pumpkin 'Connecticut Field'
+Pumpkin 'Crown Prince'
+Pumpkin 'Crystal Star'
+Pumpkin 'Cushaw'
+Pumpkin 'Dickinson'
+Pumpkin 'Dwarf Tiger'
+Pumpkin 'Fairytale'
+Pumpkin 'Fall White Boer Ford'
+Pumpkin 'Futsu Black'
+Pumpkin 'Gold Fever'
+Pumpkin 'Gold Rush'
+Pumpkin 'Gold Standard'
+Pumpkin 'Goosebumps'
+Pumpkin 'Harvest Moon'
+Pumpkin 'Howden'
+Pumpkin 'Howden Biggie'
+Pumpkin 'Jack Be Little'
+Pumpkin 'Jack Be Quik'
+Pumpkin 'Jack O' Lantern'
+Pumpkin 'Kakai'
+Pumpkin 'Kabocha'
+Pumpkin 'Kentucky Field'
+Pumpkin 'Knucklehead'
+Pumpkin 'Long Island Cheese'
+Pumpkin 'Lumina White'
+Pumpkin 'Magic Lantern'
+Pumpkin 'Moonshine'
+Pumpkin 'Munchkin'
+Pumpkin 'Mystic'
+Pumpkin 'New England Pie'
+Pumpkin 'One Too Many'
+Pumpkin 'Peanut'
+Pumpkin 'Polar Bear'
+Pumpkin 'Prizewinner'
+Pumpkin 'Small Sugar'
+Pumpkin 'Snack Jack'
+Pumpkin 'Spirit'
+Pumpkin 'Sweet Lightning'
+Pumpkin 'Sweet Sugar Pie'
+Pumpkin 'Turk's Turban'
+Pumpkin 'Valenciano'
+Pumpkin 'Warty Goblin'
+Pumpkin 'White Pie'
+
+Radish
+Raspberry
+Red Cabbage
+Red Currant
+Red Elderberry
+Romaine Lettuce
+Rosemary
+Sage
+Salmonberry
+Scallion / Green Onion / Welsh Onion
+Sour Cherry
+Soybean
+Spearmint
+Spinach
+Stevia
+Strawberry
+
+//Common Sunflower
+//American Giant Sunflower
+Sunflower 'Sunny Smile'
+Sunflower 'Teddy Bear'
+Sunflower 'Firecracker'
+Sunflower 'Ring of Fire'
+Sunflower 'Floristan'
+Sunflower 'Sunrich Gold'
+Sunflower 'Sunrich Summer Provence'
+Sunflower 'Valentine'
+Sunflower 'Gypsy Charmer'
+Sunflower 'Autumn Beauty'
+Sunflower 'Claret'
+Sunflower 'Giant Sungold'
+Sunflower 'Goldy'
+Sunflower 'Soraya'
+Sunflower 'Strawberry Blonde'
+Sunflower 'Taiyo'
+Sunflower 'Velvet Queen'
+Sunflower 'Vincent's Choice'
+Sunflower 'Evening Sun'
+Sunflower 'Arikara'
+Sunflower 'Mammoth Grey Stripe'
+Sunflower 'Russian Mammoth'
+Jerusalem Artichoke Sunflower
+Ten-Petaled Sunflower
+Stiff Sunflower
+Nuttall's Sunflower
+Swamp Sunflower
+Beach Sunflower
+Woodland Sunflower
+Willow-Leaved Sunflower
+Ashy Sunflower
+Sawtooth Sunflower
+Western Sunflower
+Silverleaf Sunflower
+Perennial Sunflower 'Happy Days'
+Willow-Leaved Sunflower 'Low Down'
+Sunray Dwarf Sunflower
+
+Sweet Cherry
+Sweet Corn
+Sweet Iris
+
+Squash 'Neck'
+Squash 'Lakota'
+
+Tarragon
+Tea
+Thyme
+Tomato
+Trunip
+Wasabi
+Watercress
+
+Watermelon
+Watermelon 'Black Diamond'
+Watermelon 'Little Baby Flower'
+Watermelon 'Yellow Baby Doll'
+Watermelon 'Yellow Doll'
+Watermelon 'Crimson Sweet'
+Watermelon 'Extazy'
+Watermelon 'Golden Midget'
+Watermelon 'Jubilee'
+Watermelon 'Mickylee'
+Watermelon 'Moon And Stars'
+Watermelon 'Pixie'
+Watermelon 'Cream of Saskatchewan'
+Watermelon 'Sangria'
+Watermelon 'Startbrite'
+Watermelon 'Starlight'
+Watermelon 'Stars n' Stripes'
+Watermelon 'Sugar Baby'
+Watermelon 'Summer Flavor'
+Watermelon 'Sweet Favorite'
+Watermelon 'Yellow Baby'
+Watermelon 'Allsweet'
+Watermelon 'Belmont'
+Watermelon 'Bush Sugar Baby'
+Watermelon 'Carolina Cross'
+Watermelon 'Charleston Grey'
+Watermelon 'Congo'
+Watermelon 'Dixie Queen'
+Watermelon 'New Queen'
+Watermelon 'Orangeglo'
+Watermelon 'Secretariat'
+Watermelon 'Sweet Siberian'
+Watermelon 'Tiger Doll'
+Watermelon 'Top Gun'
+Watermelon 'Yellow Petite'
+Watermelon 'Blacktail Mountain'
+Watermelon 'Chris Cross'
+Watermelon 'Oh So Sweet'
+Watermelon 'Small Shining Light'
+Watermelon 'Red Ruby Hybrid'
+Watermelon 'Piccolo Hybrid'
+Watermelon 'Bug Tasty Hybrid'
+Watermelon 'Little Darling'
+Watermelon 'Cal Sweet Bush'
+Watermelon 'Sweet Beauty'
+Watermelon 'Mini Love'
+Watermelon 'Mountain Sweet Yellow'
+Watermelon 'Borries Yellow'
+Watermelon 'Gold In Gold Hybrid'
+Watermelon 'Tiger Baby'
+Watermelon 'Golden Midget'
+Watermelon 'Picnic'
+Watermelon 'Georgia Rattlesnake'
+Watermelon 'Citron Red Seeded'
+
+Wild Strawberry
+Zucchini

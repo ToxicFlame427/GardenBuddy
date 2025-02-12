@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garden_buddy/widgets/formatting/hyperlink.dart';
+import 'package:garden_buddy/widgets/objects/hyperlink.dart';
 
 class CreditTextObject extends StatelessWidget {
   const CreditTextObject({

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/models/tool.dart';
-import 'package:garden_buddy/widgets/banner_ad.dart';
+import 'package:garden_buddy/widgets/objects/banner_ad.dart';
 import 'package:garden_buddy/widgets/lists/tool_card.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 

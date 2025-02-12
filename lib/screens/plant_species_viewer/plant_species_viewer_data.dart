@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/widgets/image.dart' as NetworkImage;
-import 'package:garden_buddy/widgets/formatting/five_way_meter.dart';
+import 'package:garden_buddy/widgets/objects/five_way_meter.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
-import 'package:garden_buddy/widgets/formatting/lifecycle_object.dart';
-import 'package:garden_buddy/widgets/variation_card.dart';
+import 'package:garden_buddy/widgets/objects/lifecycle_object.dart';
+import 'package:garden_buddy/widgets/objects/variation_card.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PlantSpeciesViewerData extends StatelessWidget {

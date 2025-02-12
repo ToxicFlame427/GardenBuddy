@@ -1,9 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/screens/results_screen.dart';
-import 'package:garden_buddy/widgets/credit_circle.dart';
+import 'package:garden_buddy/widgets/objects/credit_circle.dart';
 import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
-import 'package:garden_buddy/widgets/picture_quality_card.dart';
+import 'package:garden_buddy/widgets/objects/picture_quality_card.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ScannerScreen extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
-import 'package:garden_buddy/widgets/credit_text_object.dart';
+import 'package:garden_buddy/widgets/objects/credit_text_object.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
-import 'package:garden_buddy/widgets/formatting/hyperlink.dart';
+import 'package:garden_buddy/widgets/objects/hyperlink.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
