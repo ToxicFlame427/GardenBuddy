@@ -117,11 +117,6 @@ class _SettingsFragmentState extends State<SettingsFragment> {
                   linkText: "Pixabay",
                   url: "https://pixabay.com"),
               const CreditTextObject(
-                  text: "Plant and disease\ndata provided by",
-                  imagePath: "assets/icons/perenual_icon.png",
-                  linkText: "Perenual",
-                  url: "https://perenual.com"),
-              const CreditTextObject(
                   text:
                       "Garden AI,\nPlant Identification,\nand Health Assessment\nAI powered by",
                   imagePath: "assets/icons/gemini_icon.png",
@@ -132,6 +127,11 @@ class _SettingsFragmentState extends State<SettingsFragment> {
                   imagePath: "assets/icons/hand_plant_icon.png",
                   linkText: "Hotpot AI",
                   url: "https://hotpot.ai/"),
+              const CreditTextObject(
+                  text: "In-app icons provided by",
+                  imagePath: "assets/icons/icons8_logo.png",
+                  linkText: "Icons8",
+                  url: "https://icons8.com/"),
               HorizontalRule(color: Colors.grey.shade500, height: 2),
               const Text("Developed by Koewen Hoffman (ToxicFlame427)"),
               Text("Version ${_packageInfo.version}"),
