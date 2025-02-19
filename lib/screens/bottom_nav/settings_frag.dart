@@ -124,7 +124,7 @@ class _SettingsFragmentState extends State<SettingsFragment> {
                   url: "https://deepmind.google/technologies/gemini/"),
               const CreditTextObject(
                   text: "Google Play feature\ngraphic created with",
-                  imagePath: "assets/icons/hand_plant_icon.png",
+                  imagePath: "assets/icons/hotpot_ai_icon.png",
                   linkText: "Hotpot AI",
                   url: "https://hotpot.ai/"),
               const CreditTextObject(
