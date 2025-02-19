@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/tool.dart';
-import 'package:garden_buddy/screens/garden_ai_screen.dart';
-import 'package:garden_buddy/screens/scanner_screen.dart';
 
 class ToolCard extends StatelessWidget {
-  const ToolCard({super.key, required this.toolObject});
+  const ToolCard({
+    super.key,
+    required this.toolObject,
+    required this.onClick});
 
   final Tool toolObject;
-
-  void _navigateToScreen(BuildContext context) {
-    switch(toolObject.title){
-      case "Garden AI":
-        Navigator.push(context, MaterialPageRoute(builder: (ctx) => const GardenAIScreen()));
-        break;
-      case "Plant Identification":
-        Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ScannerScreen(scannerType: "Plant Identification")));
-        break;
-      case "Health Assessment":
-        Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ScannerScreen(scannerType: "Health Assessment")));
-        break;
-    }
-  }
+  final Function onClick;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +19,7 @@ class ToolCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          _navigateToScreen(context);
+          onClick();
         },
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: Row(

@@ -4,6 +4,7 @@ Add page buttons to the plant search to see the other pages from search results.
 Add the loading animations to the plant viewer and the scanner response screens.
 Fix Dark theme styling on the Garden AI chat screens (Send button and image button are not visible)
 Keep working on the general plant viewer, adding more data
+Handle GeminiAI exceptions when the server is under load (Common problem with Gemini API, try-catch)
 
 Don't worry about code organiziation, that can be done after inital release when everything works
 (Probably a bad idea ^^^ )

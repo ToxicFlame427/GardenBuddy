@@ -77,6 +77,7 @@ class Data {
   String soilPh;
   String sowingGuide;
   String wateringGuide;
+  String patentStatus;
 
   /*
     Nothing kills you faster than your own mind.
@@ -128,6 +129,7 @@ class Data {
     required this.soilPh,
     required this.sowingGuide,
     required this.wateringGuide,
+    required this.patentStatus
   });
 
   factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
@@ -180,6 +182,7 @@ class Data {
         soilPh: json["soilPh"],
         sowingGuide: json["sowingGuide"],
         wateringGuide: json["wateringGuide"],
+        patentStatus: json["patentStatus"]
       );
 
   Map<String, dynamic> toJson() => {
@@ -227,6 +230,7 @@ class Data {
         "soilPh": soilPh,
         "sowingGuide": sowingGuide,
         "wateringGuide": wateringGuide,
+        "patentStatus": patentStatus
       };
 }
 

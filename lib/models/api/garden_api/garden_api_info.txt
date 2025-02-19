@@ -1,5 +1,12 @@
 Endpoints:
 URL: http://gardenplantsapi.online
+
+UNIVERSAL PARAMS:
+key (String) = An SDK key is required for any requests to be accepted
+    - Two types of keys exist: user and admin
+        - admin - Can be used for every API action, including adding and removing plants along with data retrieval
+        - user - Limited to data retrieval only, no data modification is allowed
+
 Species list: /plant-species-list
     - Params
         - fq (String) = (Filter Query) "species" "variety" or "both": Default = "both"
