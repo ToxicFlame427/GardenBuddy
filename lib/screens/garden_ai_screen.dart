@@ -206,36 +206,63 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                       ),
                       Flexible(
                         child: DashChat(
+                            scrollToBottomOptions: ScrollToBottomOptions(
+                              scrollToBottomBuilder: (scrollController) {
+                                return DefaultScrollToBottom(
+                                  scrollController: scrollController,
+                                  textColor: Theme.of(context).colorScheme.primary,
+                                  backgroundColor: Theme.of(context).cardColor,
+                                );
+                              },
+                            ),
                             messageOptions: MessageOptions(
                                 currentUserContainerColor:
                                     Theme.of(context).colorScheme.primary,
                                 textColor: Theme.of(context).colorScheme.scrim,
                                 currentUserTextColor:
-                                    Theme.of(context).colorScheme.scrim,
+                                  Colors.white,
                                 containerColor: Theme.of(context).cardColor),
-                            inputOptions: InputOptions(trailing: [
-                              Column(children: [
-                                if (file != null)
-                                  GestureDetector(
-                                    onTap: () => {
-                                      setState(() {
-                                        file = null;
-                                      })
-                                    },
-                                    child: Image.memory(
-                                      File(file!.path).readAsBytesSync(),
-                                      height: 30,
-                                      width: 40,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                IconButton(
-                                  onPressed: _pickImage,
-                                  icon: const Icon(Icons.image),
-                                  color: Theme.of(context).colorScheme.primary,
-                                )
-                              ])
-                            ]),
+                            inputOptions: InputOptions(
+                                inputDecoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Theme.of(context).cardColor,
+                                  hintText: "Message Garden AI...",
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                ),
+                                inputTextStyle: TextStyle(
+                                    color: Theme.of(context).colorScheme.scrim),
+                                sendButtonBuilder: (send) {
+                                  return IconButton(
+                                    onPressed: send,
+                                    icon: const Icon(Icons.send),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  );
+                                },
+                                trailing: [
+                                  Column(children: [
+                                    if (file != null)
+                                      GestureDetector(
+                                        onTap: () => {
+                                          setState(() {
+                                            file = null;
+                                          })
+                                        },
+                                        child: Image.memory(
+                                          File(file!.path).readAsBytesSync(),
+                                          height: 30,
+                                          width: 40,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    IconButton(
+                                      onPressed: _pickImage,
+                                      icon: const Icon(Icons.image),
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    )
+                                  ])
+                                ]),
                             currentUser: currentUser,
                             onSend: (message) {
                               // If the person is subscribed, or the AI count is higher than 0, then the message can be sent...
@@ -260,7 +287,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                             messages: AiConstants.messages),
                       ),
                       // SHow the text that the AI is thinking
-                      if(AiConstants.messages.isNotEmpty)
+                      if (AiConstants.messages.isNotEmpty)
                         if (AiConstants.messages.first.user == currentUser)
                           Text("Garden AI is thinking...")
                     ])

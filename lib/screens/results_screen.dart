@@ -2,11 +2,13 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
 import 'package:garden_buddy/theming/colors.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
+import 'package:garden_buddy/widgets/lists/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_id_card.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
@@ -238,74 +240,101 @@ class _HealthAssessResultsWidget extends StatelessWidget {
       assessmentColor = Theme.of(context).colorScheme.scrim;
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Health Assessment Generated (Gemini)",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-            HorizontalRule(color: Theme.of(context).cardColor, height: 2),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Column(children: [
-                Text("This plant appears to be..."),
-                Text(
-                  data.name.isNotEmpty ? data.name : "Unknown",
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                Text(
-                  data.scientificName.isNotEmpty
-                      ? data.scientificName
-                      : "Scientific name unknown",
-                  style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-                ),
-              ]),
-              Column(children: [
-                Text(
-                  "Health\nPercentage",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      height: 0.8, fontSize: 12, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(height: 10),
-                Stack(alignment: AlignmentDirectional.center, children: [
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Health Assessment Generated (Gemini)",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              HorizontalRule(color: Theme.of(context).cardColor, height: 2),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Column(children: [
+                  Text("This plant appears to be..."),
                   Text(
-                    "${data.healthScorePercentage}%",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    data.name.isNotEmpty ? data.name : "Unknown",
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
-                  Transform.scale(
-                    scale: 1.2,
-                    child: CircularProgressIndicator(
-                      value: data.healthScorePercentage.toDouble() / 100,
-                      color: ThemeColors.teal1,
-                      backgroundColor: Theme.of(context).hintColor,
-                      semanticsValue: "${data.healthScorePercentage}%",
-                      semanticsLabel: "Health Percentage",
-                    ),
-                  )
+                  Text(
+                    data.scientificName.isNotEmpty
+                        ? data.scientificName
+                        : "Scientific name unknown",
+                    style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                  ),
                 ]),
-                SizedBox(height: 10),
-                Text(
-                  assessmentText,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      height: 0.8,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w900,
-                      color: assessmentColor),
-                )
-              ])
-            ]),
-            Text(""),
-            Text(data.issueDescription),
-            Text(data.solution),
-            Text(data.prevention)
-          ],
+                Column(children: [
+                  Text(
+                    "Health\nPercentage",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        height: 0.8, fontSize: 12, fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 10),
+                  Stack(alignment: AlignmentDirectional.center, children: [
+                    Text(
+                      "${data.healthScorePercentage}%",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Transform.scale(
+                      scale: 1.2,
+                      child: CircularProgressIndicator(
+                        value: data.healthScorePercentage.toDouble() / 100,
+                        color: ThemeColors.teal1,
+                        backgroundColor: Theme.of(context).hintColor,
+                        semanticsValue: "${data.healthScorePercentage}%",
+                        semanticsLabel: "Health Percentage",
+                      ),
+                    )
+                  ]),
+                  SizedBox(height: 10),
+                  Text(
+                    assessmentText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        height: 0.8,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w900,
+                        color: assessmentColor),
+                  )
+                ])
+              ]),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "General Description",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Text(data.issueDescription.isEmpty
+                  ? "No issues! Looks great!"
+                  : data.issueDescription),
+              SizedBox(
+                height: 12,
+              ),
+              Text(
+                "Solution",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Text(data.solution.isEmpty ? "No solutions" : data.solution),
+              SizedBox(
+                height: 12,
+              ),
+              Text(
+                "Prevention",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Text(data.prevention.isEmpty
+                  ? "No prevention methods"
+                  : data.solution)
+            ],
+          ),
         ),
       ),
     );
@@ -315,6 +344,13 @@ class _HealthAssessResultsWidget extends StatelessWidget {
 class _ResultLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text("Loading");
+    return Expanded(
+      child: ListView.builder(
+        itemCount: 7,
+        itemBuilder: (context, index) {
+          return ListCardLoading();
+        }
+      )
+    );
   }
 }

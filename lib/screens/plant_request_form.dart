@@ -37,17 +37,12 @@ class _PlantRequestFormState extends State<PlantRequestForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "If there is a plant you want to see guides for here on Garden Buddy, please fill out the form below!",
+                "If there is a plant you want to see guides for here on Garden Buddy, please fill out the form below! If there are multiple, seperate them with a comma (,).",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
                   color: Theme.of(context).colorScheme.scrim,
                 ),
-              ),
-              GbTextfield(
-                hint: "Plant name",
-                controller: plantNameController,
-                multiline: false,
               ),
               SizedBox(
                 height: 16,
@@ -55,11 +50,29 @@ class _PlantRequestFormState extends State<PlantRequestForm> {
               SizedBox(
                 height: 150,
                 child: GbTextfield(
-                  hint: "Description",
+                  hint: "Plants",
                   controller: descriptionController,
                   multiline: true,
                 ),
-              )
+              ),
+              ElevatedButton(onPressed: () {
+                // TODO: Send the request somewhere!
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+              ),
+              child: Text(
+                "Submit",
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              ),),
+              Spacer(),
+              Text(
+                "These submissions are anonymous, as no contact details need to be provided.",
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 20,)
             ],
           ),
         ));
