@@ -4,7 +4,7 @@ import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_data.dart';
-import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_loading.dart';
+import 'package:garden_buddy/widgets/loading/plant_viewer_loading.dart';
 
 class PlantSpeciesViewer extends StatefulWidget {
   const PlantSpeciesViewer(
@@ -119,27 +119,29 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
               fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              if (plantIsFavorite) {
-                removeFavoritePlant();
-              } else {
-                addFavoritePlant();
-              }
-            },
-            icon:
-                Icon(plantIsFavorite ? Icons.favorite : Icons.favorite_border),
-            color: plantIsFavorite ? Colors.red : Colors.white,
-          )
+          // Only show the favorite button if the plant data is loaded
+          if(plantDataIsLoaded)
+            IconButton(
+              onPressed: () {
+                if (plantIsFavorite) {
+                  removeFavoritePlant();
+                } else {
+                  addFavoritePlant();
+                }
+              },
+              icon:Icon(plantIsFavorite ? Icons.favorite : Icons.favorite_border),
+              color: plantIsFavorite ? Colors.red : Colors.white,
+            )
         ],
         backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: false,
         iconTheme: const IconThemeData().copyWith(color: Colors.white),
       ),
       body: Visibility(
-          visible: plantDataIsLoaded,
-          replacement: PlantSpeciesViewerLoading(),
-          child: PlantSpeciesViewerData(plantData: plantDetails)),
+        visible: plantDataIsLoaded,
+        replacement: PlantViewerLoading(),
+        child: PlantSpeciesViewerData(plantData: plantDetails)
+      ),
     );
   }
 }

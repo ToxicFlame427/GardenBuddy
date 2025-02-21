@@ -12,8 +12,8 @@ class ListCardLoading extends StatelessWidget {
       child: Padding(
           padding: const EdgeInsets.all(10),
           child: Shimmer.fromColors(
-            baseColor: Colors.grey.shade300,
-            highlightColor: Colors.grey.shade100,
+            baseColor: Color.fromARGB(255, 150, 150, 150),
+            highlightColor: Theme.of(context).cardColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
@@ -57,7 +57,8 @@ class ListCardLoading extends StatelessWidget {
                 )
               ],
             ),
-          )),
+          )
+        ),
     );
   }
 }

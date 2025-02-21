@@ -5,7 +5,7 @@ import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer.dart';
 import 'package:garden_buddy/widgets/objects/gb_icon_text_field.dart';
-import 'package:garden_buddy/widgets/lists/list_card_loading.dart';
+import 'package:garden_buddy/widgets/loading/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_list_card.dart';
 import 'package:garden_buddy/widgets/objects/no_connection_widget.dart';
 import 'package:garden_buddy/widgets/objects/server_unreachable.dart';

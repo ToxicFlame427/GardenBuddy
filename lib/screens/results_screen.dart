@@ -8,8 +8,10 @@ import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
 import 'package:garden_buddy/theming/colors.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
-import 'package:garden_buddy/widgets/lists/list_card_loading.dart';
+import 'package:garden_buddy/widgets/loading/health_assess_loading.dart';
+import 'package:garden_buddy/widgets/loading/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_id_card.dart';
+import 'package:garden_buddy/widgets/loading/plant_id_loading.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -134,7 +136,11 @@ class _ScannerResultState extends State<ScannerResultScreen> {
             else
               _NoDataWidget()
           else
-            _ResultLoading()
+            // When loading, display the corresponding loading screen 
+            if (widget.scannerType == "Plant Identification")
+              PlantIdLoading()
+            else
+              HealthAssessLoading()
         ],
       ),
     );
@@ -337,20 +343,6 @@ class _HealthAssessResultsWidget extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _ResultLoading extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: 7,
-        itemBuilder: (context, index) {
-          return ListCardLoading();
-        }
-      )
     );
   }
 }

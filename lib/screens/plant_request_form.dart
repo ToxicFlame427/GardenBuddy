@@ -12,7 +12,6 @@ class PlantRequestForm extends StatefulWidget {
 
 class _PlantRequestFormState extends State<PlantRequestForm> {
   TextEditingController plantNameController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _PlantRequestFormState extends State<PlantRequestForm> {
                 height: 150,
                 child: GbTextfield(
                   hint: "Plants",
-                  controller: descriptionController,
+                  controller: plantNameController,
                   multiline: true,
                 ),
               ),
