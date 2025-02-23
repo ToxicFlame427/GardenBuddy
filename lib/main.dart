@@ -4,7 +4,6 @@ import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/screens/home_screen.dart';
-import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer.dart';
 import 'package:garden_buddy/theming/colors.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -52,7 +51,13 @@ Future main() async {
               color: ThemeColors.green2,
               fontSize: 22,
               fontFamily: "Khand",
+              fontWeight: FontWeight.bold),
+          headlineSmall: TextStyle(
+              color: ThemeColors.teal1,
+              fontSize: 18,
+              fontFamily: "Khand",
               fontWeight: FontWeight.bold)),
+          
       cardColor: ThemeColors.accentGray,
     ),
 
@@ -66,16 +71,22 @@ Future main() async {
           primaryContainer: ThemeColors.accentGrayDark,
           scrim: Colors.white),
       textTheme: TextTheme(
-          headlineLarge: TextStyle(
-              color: ThemeColors.green2,
-              fontSize: 30,
-              fontFamily: "Khand",
-              fontWeight: FontWeight.bold),
-          headlineMedium: TextStyle(
-              color: ThemeColors.green2,
-              fontSize: 22,
-              fontFamily: "Khand",
-              fontWeight: FontWeight.bold)),
+        headlineLarge: TextStyle(
+            color: ThemeColors.green2,
+            fontSize: 30,
+            fontFamily: "Khand",
+            fontWeight: FontWeight.bold),
+        headlineMedium: TextStyle(
+            color: ThemeColors.green2,
+            fontSize: 22,
+            fontFamily: "Khand",
+            fontWeight: FontWeight.bold),
+        headlineSmall: TextStyle(
+            color: ThemeColors.teal1,
+            fontSize: 18,
+            fontFamily: "Khand",
+            fontWeight: FontWeight.bold),
+      ),
       cardColor: ThemeColors.accentGrayDark,
     ),
   ));

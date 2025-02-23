@@ -119,10 +119,48 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 LifeCycleObject(
-                    label: "Seed",
-                    valueUnit: plantData!.data.seedGerminationTime.unit,
-                    valueRange: plantData!.data.seedGerminationTime.time,
-                    imageAsset: "assets/icons/icon.jpg")
+                    label: "Seeds",
+                    imageAsset: "assets/icons/seeds.png",
+                    content: [
+                      Text(
+                        "This plant is grown from",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // DIsplay the correct information here
+                      if(plantData!.data.hasCorms)
+                        Text("Corms / Bulbs"),
+                      if(plantData!.data.hasSeeds)
+                        Text("Seeds"),
+                      SizedBox(height: 15,),
+
+                      Text(
+                        "Germination time",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Text("${plantData!.data.seedGerminationTime.time} ${plantData!.data.seedGerminationTime.unit}"),
+
+                      SizedBox(height: 15,),
+                      Text(
+                        "Sowing Guide",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.91
+                        ),
+                        child: Text(
+                          plantData!.data.sowingGuide,
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                    ],
+                  )
               ],
             ),
           )

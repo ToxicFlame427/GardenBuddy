@@ -120,7 +120,7 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
         ),
         actions: [
           // Only show the favorite button if the plant data is loaded
-          if(plantDataIsLoaded)
+          if (plantDataIsLoaded)
             IconButton(
               onPressed: () {
                 if (plantIsFavorite) {
@@ -129,7 +129,8 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
                   addFavoritePlant();
                 }
               },
-              icon:Icon(plantIsFavorite ? Icons.favorite : Icons.favorite_border),
+              icon: Icon(
+                  plantIsFavorite ? Icons.favorite : Icons.favorite_border),
               color: plantIsFavorite ? Colors.red : Colors.white,
             )
         ],
@@ -138,10 +139,9 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
         iconTheme: const IconThemeData().copyWith(color: Colors.white),
       ),
       body: Visibility(
-        visible: plantDataIsLoaded,
-        replacement: PlantViewerLoading(),
-        child: PlantSpeciesViewerData(plantData: plantDetails)
-      ),
+          visible: plantDataIsLoaded,
+          replacement: PlantViewerLoading(),
+          child: PlantSpeciesViewerData(plantData: plantDetails)),
     );
   }
 }

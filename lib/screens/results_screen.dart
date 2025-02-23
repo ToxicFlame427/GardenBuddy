@@ -2,14 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
 import 'package:garden_buddy/theming/colors.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/loading/health_assess_loading.dart';
-import 'package:garden_buddy/widgets/loading/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_id_card.dart';
 import 'package:garden_buddy/widgets/loading/plant_id_loading.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -44,10 +42,10 @@ class _ScannerResultState extends State<ScannerResultScreen> {
     // Determine the correct prompt to send based on what scanner is being used
     if (widget.scannerType == "Plant Identification") {
       prompt = TextPart(
-          """What plant is this? List possible plants, more than one if possible. If unknown or there aren't any plants, leave array empty. Please guess the exact plant to the best of your ability and if possble, include "Name 'Variety'" name.""");
+          """What plant is this? List possible plants, more than one if possible. If unknown or there aren't any plants, leave array empty. Please guess the exact plant to the best of your ability and if possble, include "Name 'Variety'" name. Please make sure that everything has a value other than null""");
     } else {
       prompt = TextPart(
-          """How healthy is this plant? What is wrong with it? If it looks very healthy, put "None" in issue_description and leave solution and prevention blank. If unknown, please put "Unknown" in the issue_description and if the image doesnt have a plant, put "No Plant". Please be very descriptive just based off the image. If the plant cant be identified, leave name and scientific_name empty""");
+          """How healthy is this plant? What is wrong with it? If it looks very healthy, put "None" in issue_description, solution and prevention. If unknown, please put "Unknown" in the issue_description and if the image doesnt have a plant, put "No Plant". Please be very descriptive just based off the image. If the plant cant be identified, leave name and scientific_name empty""");
     }
 
     if (widget.scannerType == "Plant Identification") {
