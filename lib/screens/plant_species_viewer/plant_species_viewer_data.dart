@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/widgets/image.dart' as NetworkImage;
+import 'package:garden_buddy/widgets/objects/extra_info_row.dart';
 import 'package:garden_buddy/widgets/objects/five_way_meter.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/objects/lifecycle_object.dart';
@@ -114,53 +115,167 @@ class PlantSpeciesViewerData extends StatelessWidget {
                     value: plantData!.data.growthRate,
                     label: "Growth rate"),
                 HorizontalRule(color: Theme.of(context).cardColor, height: 5),
+                // MARK: Lifecycle
                 Text(
                   "Lifecycle",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 LifeCycleObject(
-                    label: "Seeds",
-                    imageAsset: "assets/icons/seeds.png",
-                    content: [
-                      Text(
-                        "This plant is grown from",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      // DIsplay the correct information here
-                      if(plantData!.data.hasCorms)
-                        Text("Corms / Bulbs"),
-                      if(plantData!.data.hasSeeds)
-                        Text("Seeds"),
-                      SizedBox(height: 15,),
+                  label: "Seeds",
+                  imageAsset: "assets/icons/seeds.png",
+                  content: [
+                    Text(
+                      "This plant is grown from",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    // DIsplay the correct information here
+                    if (plantData!.data.hasCorms) Text("Corms / Bulbs"),
+                    if (plantData!.data.hasSeeds) Text("Seeds"),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    ExtraInfoRow(
+                        label: "Plant spacing",
+                        data:
+                            "${plantData!.data.plantSpacing.value} ${plantData!.data.plantSpacing.unit}"),
+                    ExtraInfoRow(
+                        label: "Germination time",
+                        data:
+                            "${plantData!.data.seedGerminationTime.time} ${plantData!.data.seedGerminationTime.unit}"),
+                  ],
+                ),
+                // MARK: Maturing
+                SizedBox(
+                  height: 20,
+                ),
+                LifeCycleObject(
+                  label: "Maturing",
+                  imageAsset: "assets/icons/plant.png",
+                  content: [
+                    ExtraInfoRow(
+                        label: "Maturity time",
+                        data:
+                            "${plantData!.data.maturityTime.time} ${plantData!.data.maturityTime.unit}"),
+                    ExtraInfoRow(
+                        label: "Average mature spread",
+                        data:
+                            "${plantData!.data.averageSpread.value} ${plantData!.data.averageSpread.unit}"),
+                    ExtraInfoRow(
+                        label: "Average mature height",
+                        data:
+                            "${plantData!.data.averageHeight.value} ${plantData!.data.averageHeight.unit}"),
+                  ],
+                ),
 
-                      Text(
-                        "Germination time",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      Text("${plantData!.data.seedGerminationTime.time} ${plantData!.data.seedGerminationTime.unit}"),
+                // MARK: PLANT GUIDES
+                HorizontalRule(color: Theme.of(context).cardColor, height: 5),
+                Text(
+                  "Plant Guides",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                Text(
+                  "Sowing",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
 
-                      SizedBox(height: 15,),
-                      Text(
-                        "Sowing Guide",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      Container(
-                        constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width * 0.91
-                        ),
-                        child: Text(
-                          plantData!.data.sowingGuide,
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                    ],
-                  )
+                Text(
+                  "Plants should be spaced ${plantData!.data.plantSpacing.value} ${plantData!.data.plantSpacing.unit} apart.",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                ExtraInfoRow(label: "Soil pH", data: plantData!.data.soilPh),
+                // TODO: Prefered soil
+                // Prefered sunlight
+                SizedBox(
+                  height: 10,
+                ),
+                Text(plantData!.data.sowingGuide),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Pruning",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                Text(plantData!.data.pruningGuide),
+                SizedBox(
+                  height: 15,
+                ),
+
+                Text(
+                  "Watering",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                Text(plantData!.data.wateringGuide),
+
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Harvesting",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                // TODO: Add harvest seasons and months as lists
+                Text(plantData!.data.harvestingGuide),
+
+                // MARK: Extra Information
+                HorizontalRule(color: Theme.of(context).cardColor, height: 5),
+                Text(
+                  "Extra Info",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                ExtraInfoRow(
+                    label: "Container friendly",
+                    data: plantData!.data.containerFriendly ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Indoor friendly",
+                    data: plantData!.data.containerFriendly ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Frost tolerant",
+                    data: plantData!.data.frostTolerant ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Heat tolerant",
+                    data: plantData!.data.heatTolerant ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Salt tolerant",
+                    data: plantData!.data.saltTolerant ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Produces seeds",
+                    data: plantData!.data.hasSeeds ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Produces flowers",
+                    data: plantData!.data.hasFlowers ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Produces corms / bulbs",
+                    data: plantData!.data.hasCorms ? "Yes" : "No"),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "IMPORTANT: Do not taste nature without professional confirmation!",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                      height: 0.85),
+                ),
+                ExtraInfoRow(
+                    label: "Poisonous to humans",
+                    data: plantData!.data.poisonousToHumans ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Poisonous to pets",
+                    data: plantData!.data.poisonousToPets ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Leaves are edible",
+                    data: plantData!.data.leavesAreEdible ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Seeds are edible",
+                    data: plantData!.data.seedsAreEdible ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Fruits are edible",
+                    data: plantData!.data.fruitIsEdible ? "Yes" : "No"),
+                ExtraInfoRow(
+                    label: "Used in medicine",
+                    data: plantData!.data.medicinal ? "Yes" : "No"),
               ],
             ),
           )
