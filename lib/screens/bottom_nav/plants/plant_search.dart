@@ -94,6 +94,8 @@ class _PlantSearchState extends State<PlantSearch> {
                 onPressed: () async {
                   // Before doing anything, reset the list to being null
                   setState(() {
+                    // Every search must be set to a page value of 1
+                    currentPage = 1;
                     plantListIsLoaded = false;
                     GardenAPIServices.plantList = null;
                   });
@@ -182,8 +184,12 @@ class _PlantSearchState extends State<PlantSearch> {
                                 },
                                 child: Text("< Back"))
                             : SizedBox(),
-                        Text(
-                            "Page $currentPage of ${GardenAPIServices.plantList!.pages}"),
+                        Padding(
+                          padding: EdgeInsets.all(
+                              GardenAPIServices.plantList!.pages == 1 ? 15 : 0),
+                          child: Text(
+                              "Page $currentPage of ${GardenAPIServices.plantList!.pages}"),
+                        ),
                         pageIsValid(1)
                             ? ElevatedButton(
                                 onPressed: () {
