@@ -157,40 +157,53 @@ class _PlantSearchState extends State<PlantSearch> {
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       )))),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(onPressed: () {
-                  // Set the state to change the current page
-                  currentPage -= 1;
-                  // Get the plant list with the new page number
-                  if(pageIsValid(0)){
-                    // Get the plant list with the new page number
-                    getPlantList();
-                  } else {
-                    print("Page cannot move further backward");
-                  }
-                },
-                  child: Text(
-                    "< Back"
-                  )
-                ),
-                ElevatedButton(onPressed: () {
-                  // Set the state to change the current page
-                  currentPage += 1;
-                  if(pageIsValid(1)){
-                    // Get the plant list with the new page number
-                    getPlantList();
-                  } else {
-                    print("Page cannot move further forward");
-                  }
-                },
-                  child: Text(
-                    "Forward >"
-                  )
-                ),
-              ]
-            )
+            plantListIsLoaded!
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                        // Show each button based on if the button can be oressed to show the next page
+                        pageIsValid(0)
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  // Set the state to change the current page
+                                  // Get the plant list with the new page number
+                                  if (pageIsValid(0)) {
+                                    // Get the plant list with the new page number
+                                    setState(() {
+                                      currentPage -= 1;
+                                      plantListIsLoaded = false;
+                                      GardenAPIServices.plantList = null;
+                                    });
+
+                                    getPlantList();
+                                  } else {
+                                    print("Page cannot move further backward");
+                                  }
+                                },
+                                child: Text("< Back"))
+                            : SizedBox(),
+                        Text(
+                            "Page $currentPage of ${GardenAPIServices.plantList!.pages}"),
+                        pageIsValid(1)
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  // Set the state to change the current page
+                                  if (pageIsValid(1)) {
+                                    setState(() {
+                                      currentPage += 1;
+                                      plantListIsLoaded = false;
+                                      GardenAPIServices.plantList = null;
+                                    });
+                                    // Get the plant list with the new page number
+                                    getPlantList();
+                                  } else {
+                                    print("Page cannot move further forward");
+                                  }
+                                },
+                                child: Text("Forward >"))
+                            : SizedBox(),
+                      ])
+                : SizedBox()
           ],
         ),
       );
@@ -216,13 +229,13 @@ class _PlantSearchState extends State<PlantSearch> {
 
   /* This function is used to determine whether the page can go
   backwards or forwards based on the response it was given by the server*/
-  bool pageIsValid(int direction){
+  bool pageIsValid(int direction) {
     // 0 = backwards/subtracting 1
     // 1 = forward/adding 1
-    
-    if(direction == 1){
+
+    if (direction == 1) {
       // Check for forward movement
-      if(currentPage < GardenAPIServices.plantList!.pages){
+      if (currentPage < GardenAPIServices.plantList!.pages) {
         // As long as the current page count is smaller than the total pages, allow forward movement
         return true;
       } else {
@@ -230,7 +243,7 @@ class _PlantSearchState extends State<PlantSearch> {
       }
     } else {
       // Check for backward movement
-      if(currentPage >= 1){
+      if (currentPage > 1) {
         // As long as the page count is larger than 1, the allow backwards movement
         return true;
       } else {
