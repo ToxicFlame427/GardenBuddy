@@ -15,7 +15,7 @@ Future<void> initializeStuff() async {
   await PurchasesApi.init();
 
   // Check the current sub status, as internet connection is needed to use basically any part of the application
-  //UNCOMMENT BEFORE RELEASE TODO: PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
+  // UNCOMMENT BEFORE RELEASE TODO: PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
   PurchasesApi.subStatus = true;
 
   // Initially fetch the favorite plants

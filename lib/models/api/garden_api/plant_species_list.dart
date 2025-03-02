@@ -8,6 +8,7 @@ class PlantSpeciesList {
     List<Datum> data;
     int itemCount;
     int page;
+    int pages;
     String status;
     String message;
 
@@ -15,6 +16,7 @@ class PlantSpeciesList {
         required this.data,
         required this.itemCount,
         required this.page,
+        required this.pages,
         required this.status,
         required this.message,
     });
@@ -23,6 +25,7 @@ class PlantSpeciesList {
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         itemCount: json["itemCount"],
         page: json["page"],
+        pages: json["pages"],
         status: json["status"],
         message: json["message"],
     );
@@ -31,6 +34,7 @@ class PlantSpeciesList {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
         "itemCount": itemCount,
         "page": page,
+        "pages": pages,
         "status": status,
         "message": message,
     };

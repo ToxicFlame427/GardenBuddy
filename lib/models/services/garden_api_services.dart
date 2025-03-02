@@ -16,8 +16,16 @@ class GardenAPIServices {
 
   // Fetch the plant species list
   static Future<PlantSpeciesList?> getPlantSpeciesList(
-      String? filterQuery, String? searchQuery) async {
+    String? filterQuery, String? searchQuery, int? page) async {
     var client = http.Client();
+
+    // If a page is provided set the page to the given page
+    if(page != null){
+      plantsListPage = page;
+    } else {
+      // If not, set it the default of 1 to 1
+      plantsListPage = 1;
+    }
 
     print("Searching for $searchQuery");
 
