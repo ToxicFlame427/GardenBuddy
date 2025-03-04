@@ -73,9 +73,9 @@ class AiConstants {
   static List<ChatMessage> messages = [];
 
   // Used to store the current amount unsubscribed users can use for ID and Identifications
-  static int idCount = 3;
-  static int healthCount = 3;
-  static int aiCount = 3;
+  static int idCount = 0;
+  static int healthCount = 0;
+  static int aiCount = 0;
 
   /*
     I'm out on the block again, so hopped up that you can't pretend.

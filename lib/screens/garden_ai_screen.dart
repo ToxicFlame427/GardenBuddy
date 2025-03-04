@@ -83,9 +83,10 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
           setState(() {
             AiConstants.messages = [mMessage, ...AiConstants.messages];
             AiConstants.chatHistory.add(Content.text(response));
-            // When a response is generated, subtract form the Ai credits count, for usubscribed users
+            // When a response is generated, subtract form the Ai credits count, for unsubscribed users and save the result
             if (!PurchasesApi.subStatus) {
               AiConstants.aiCount--;
+              saveCountValues();
             }
           });
         }

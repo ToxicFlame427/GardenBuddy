@@ -1,0 +1,2 @@
+/Users/toxicflame/Desktop/garden_buddy/android/app/.cxx/RelWithDebInfo/1z6m6qn4/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/toxicflame/Desktop/garden_buddy/android/app/.cxx/RelWithDebInfo/1z6m6qn4/arm64-v8a/CMakeFiles/rebuild_cache.dir

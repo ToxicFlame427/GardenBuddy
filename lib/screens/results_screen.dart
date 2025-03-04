@@ -2,9 +2,11 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
+import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/theming/colors.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/loading/health_assess_loading.dart';
@@ -71,9 +73,20 @@ class _ScannerResultState extends State<ScannerResultScreen> {
       // Set the respective scanner to the correcponding object recieved
       if (widget.scannerType == "Plant Identification") {
         idResponse = PlantIdResponse.fromRawJson(response!);
+        // If the user is subscribed, then subtract from the daily limit
+        if(PurchasesApi.subStatus) {
+          AiConstants.idCount--;
+        }
       } else {
         healthResponse = HealthAssessmentResponse.fromRawJson(response!);
+        // Same check here, for health assessment
+        if(PurchasesApi.subStatus) {
+          AiConstants.healthCount--;
+        }
       }
+
+      // After the credit change, save the new count
+      saveCountValues();
 
       recievedResult = true;
     });
@@ -117,7 +130,7 @@ class _ScannerResultState extends State<ScannerResultScreen> {
               fit: BoxFit.cover,
             ),
           ),
-          // MARK: This hierarchy of conditionals is weird
+          // MARK: This hierarchy of conditionals is weird, it feels wrong for Flutter...
           // Display the data based on if the result was recieved or not
           if (recievedResult)
             // Depending on the scanner type, show data

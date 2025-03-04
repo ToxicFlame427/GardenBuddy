@@ -42,31 +42,6 @@ class _SettingsFragmentState extends State<SettingsFragment> {
     super.initState();
   }
 
-  // Show dialog about garden AI
-  void _showBugReportDialog(BuildContext context) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return ConfirmationDialog(
-            title: "Report a Bug?",
-            description:
-                "If you have spotted a bug, please let us know so we can fix this issue as soon as possible!",
-            imageAsset: "assets/icons/icon.jpg",
-            negativeButtonText: "No thanks!",
-            positiveButtonText: "Report bug",
-            onNegative: () {
-              Navigator.pop(context);
-            },
-            onPositive: () {
-              launchUrl(Uri.parse(
-                  "https://www.toxicflame427.xyz/pages/bug_report.html"));
-              Navigator.pop(context);
-            },
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -93,17 +68,6 @@ class _SettingsFragmentState extends State<SettingsFragment> {
                   },
                   child: const Text(
                     "Manage Subscription",
-                    style: TextStyle(color: Colors.white),
-                  )),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () {
-                    _showBugReportDialog(context);
-                  },
-                  child: const Text(
-                    "Report a bug",
                     style: TextStyle(color: Colors.white),
                   )),
               Padding(

@@ -1,12 +1,13 @@
 To-do
 
-Add page buttons to the plant search to see the other pages from search results.
-Add the loading animations to the plant viewer and the scanner response screens.
+HIGH PRIORITY
 Add an endpoint to accept plant suggestions
+Implement the day check for daily credits
 Add and endpoint to accept change requests (Along with a screen for that on the plant viewer activity, probably add a button to that next to the favorite button)
 Keep working on the general plant viewer, adding more data
-Handle GeminiAI exceptions when the server is under load (Common problem with Gemini API, try-catch)
-Take screenshots to upload to website page for GB
+
+LOW PRIORITY
+(THIS NEEDS TO WAIT UNTIL REAL EXCEPTIONS OCCUR) Handle GeminiAI exceptions when the server is under load (Common problem with Gemini API, try-catch)
 (Maybe move report a bug to the tools page?)
 
 Don't worry about code organiziation, that can be done after inital release when everything works
