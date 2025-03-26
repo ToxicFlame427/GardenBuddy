@@ -39,6 +39,9 @@ migrate_working_dir/
 garden_buddy_keystore.jks
 /android/key.properties
 
+# Debug symbols that nobody needs to know about, cuz it's boring
+/android/app/.cxx/*
+
 # Symbolication related
 app.*.symbols
 
