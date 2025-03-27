@@ -2,10 +2,12 @@
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
+import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Used universally for ad testing
-bool adTesting = true;
+bool adTesting = false;
+bool developerModeEnabled = false;
 
 // Used for connectivity queries, such as detecting a slow network connection
 List<ConnectivityResult> _activeConnections = [];
@@ -22,6 +24,14 @@ bool checkConnectionIntegrity() {
   } else {
     return false;
   }
+}
+
+// This is used for development mode
+void enableDeveloperMode() {
+  developerModeEnabled = true;
+  PurchasesApi.subStatus = true;
+  adTesting = true;
+  
 }
 
 void saveCurrentDay(DateTime currentDate) async {
@@ -45,9 +55,9 @@ Future<bool> isNewDay() async {
   // Save the current date for comparison
   int currentDay = DateTime.now().day;
 
-  if(savedDay != null){
+  if (savedDay != null) {
     // If the date changed, then return true
-    if(savedDay > currentDay || savedDay < currentDay){
+    if (savedDay > currentDay || savedDay < currentDay) {
       return true;
     } else {
       return false;
@@ -61,7 +71,7 @@ Future<bool> isNewDay() async {
 }
 
 // Saving the count values will occur after every successful result from the API
-void saveCountValues() async{
+void saveCountValues() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setInt("idCount", AiConstants.idCount);
   await prefs.setInt("aiCount", AiConstants.aiCount);

@@ -19,7 +19,10 @@ class _FavoritePlantsState extends State<FavoritePlants> {
   List<PlantSpeciesDetails> convertedList = [];
 
   void asyncGetFavs() async {
-    DbService.favoritePlantsList = await DbService.instance.getFavoritePlants();
+    if (DbService.favoritePlantsList.isEmpty) {
+      DbService.favoritePlantsList =
+          await DbService.instance.getFavoritePlants();
+    }
 
     setState(() {
       favoritesUpdated = true;
@@ -52,14 +55,10 @@ class _FavoritePlantsState extends State<FavoritePlants> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          if(DbService.favoritePlantsList.isNotEmpty)
+          if (DbService.favoritePlantsList.isNotEmpty)
             Text(
               "Your favorited plants will show up here and can be accessed without an internet connection.",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-                height: 0.90
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.grey, height: 0.90),
               textAlign: TextAlign.center,
             ),
           Expanded(

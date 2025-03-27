@@ -33,10 +33,10 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-/lib/keys.dart
 
 # Oh yeah... gonna need to ignore these ones!
-# These ones reveal some pretty goot secret keys
+# These ones reveal some pretty good secret keys
+/lib/keys.dart
 garden_buddy_keystore.jks
 /android/key.properties
 /ios/StoreKitConfig.storekit

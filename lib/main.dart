@@ -14,15 +14,20 @@ Future<void> initializeStuff() async {
   MobileAds.instance.initialize();
   await PurchasesApi.init();
 
-  // Check the current sub status, as internet connection is needed to use basically any part of the application
-  //PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
-  PurchasesApi.subStatus = false;
+  // Add and remove this for testing and production purposes
+  enableDeveloperMode();
 
-  // Basically the mastermind of all of these day change operations
-  setCountValues();
+  if (!developerModeEnabled) {
+    // Check the current sub status, as internet connection is needed to use basically any part of the application
+    PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
+    PurchasesApi.subStatus = false;
+  }
 
   // Initially fetch the favorite plants
   DbService.favoritePlantsList = await DbService.instance.getFavoritePlants();
+
+  // Basically the mastermind of all of these day change operations
+  setCountValues();
 
   // Fetch the connection types to ensure internet connection
   await getConnectionTypes();
@@ -60,7 +65,6 @@ Future main() async {
               fontSize: 18,
               fontFamily: "Khand",
               fontWeight: FontWeight.bold)),
-          
       cardColor: ThemeColors.accentGray,
     ),
 

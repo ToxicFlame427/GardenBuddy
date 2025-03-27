@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer.dart';
-import 'package:garden_buddy/widgets/objects/gb_icon_text_field.dart';
 import 'package:garden_buddy/widgets/loading/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_list_card.dart';
+import 'package:garden_buddy/widgets/objects/gb_search_field.dart';
 import 'package:garden_buddy/widgets/objects/no_connection_widget.dart';
 import 'package:garden_buddy/widgets/objects/server_unreachable.dart';
 import 'package:swipe_refresh/swipe_refresh.dart';
@@ -25,9 +25,13 @@ class _PlantSearchState extends State<PlantSearch> {
   bool? plantListIsLoaded = false;
   int currentPage = 1;
 
+  String searchFilterQuery = "both";
+
   getPlantList() async {
+    print(searchFilterQuery);
+
     GardenAPIServices.plantList = await GardenAPIServices.getPlantSpeciesList(
-        "both", _searchBarController.text, currentPage);
+        searchFilterQuery, _searchBarController.text, currentPage);
 
     // Check and change according to the plant list
     // If an error occured during, retrieval then the value is null
@@ -87,11 +91,13 @@ class _PlantSearchState extends State<PlantSearch> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            GbIconTextfield(
+            GbSearchField(
                 hint: "Search plants",
                 controller: _searchBarController,
-                icon: Icons.search,
-                onPressed: () async {
+                onFilter: () {
+                  showFilterSheet();
+                },
+                onSearch: () async {
                   // Before doing anything, reset the list to being null
                   setState(() {
                     // Every search must be set to a page value of 1
@@ -256,5 +262,71 @@ class _PlantSearchState extends State<PlantSearch> {
         return false;
       }
     }
+  }
+
+  // Used to show filter options
+  void showFilterSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) => SizedBox(
+            height: 250,
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        style: Theme.of(context).textTheme.headlineMedium,
+                        "Search Filters"),
+                    Text("Plant Type"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Radio(
+                            value: "both",
+                            groupValue: searchFilterQuery,
+                            onChanged: (value) => setState(() {
+                                  searchFilterQuery = value.toString();
+                                })),
+                        Text("Both"),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Radio(
+                            value: "species",
+                            groupValue: searchFilterQuery,
+                            onChanged: (value) => setState(() {
+                                  searchFilterQuery = value.toString();
+                                })),
+                        Text("Species"),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Radio(
+                            value: "variety",
+                            groupValue: searchFilterQuery,
+                            onChanged: (value) => setState(() {
+                                  searchFilterQuery = value.toString();
+                                })),
+                        Text("Variety"),
+                        SizedBox(
+                          width: 12,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
