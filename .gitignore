@@ -36,8 +36,14 @@ migrate_working_dir/
 /lib/keys.dart
 
 # Oh yeah... gonna need to ignore these ones!
+# These ones reveal some pretty goot secret keys
 garden_buddy_keystore.jks
 /android/key.properties
+/ios/StoreKitConfig.storekit
+/ios/StoreKitTestCertificate.cer
+/ios/SubscriptionKey_2C4077D5.p8
+/ios/Runner/Info.plist
+/android/app/src/main/AndroidManifest.xml
 
 # Debug symbols that nobody needs to know about, cuz it's boring
 /android/app/.cxx/*
