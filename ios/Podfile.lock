@@ -10,7 +10,7 @@ PODS:
     - Flutter
     - Google-Mobile-Ads-SDK (~> 11.13.0)
     - webview_flutter_wkwebview
-  - GoogleUserMessagingPlatform (2.7.0)
+  - GoogleUserMessagingPlatform (3.0.0)
   - image_picker_ios (0.0.1):
     - Flutter
   - package_info_plus (0.4.5):
@@ -18,12 +18,12 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - purchases_flutter (8.5.1):
+  - purchases_flutter (8.7.0):
     - Flutter
-    - PurchasesHybridCommon (= 13.18.1)
-  - PurchasesHybridCommon (13.18.1):
-    - RevenueCat (= 5.16.1)
-  - RevenueCat (5.16.1)
+    - PurchasesHybridCommon (= 13.26.0)
+  - PurchasesHybridCommon (13.26.0):
+    - RevenueCat (= 5.20.0)
+  - RevenueCat (5.20.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -95,13 +95,13 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
   google_mobile_ads: 16ad301354fa6a7ea55770c6254bd4339bf8558b
-  GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
+  GoogleUserMessagingPlatform: f8d0cdad3ca835406755d0a69aa634f00e76d576
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
-  purchases_flutter: 1f3c8a832f847e99d2a648384d539b458c7bc04f
-  PurchasesHybridCommon: bcc204d982166d7fcece10eb98e2ee7c0b0ea668
-  RevenueCat: d38c56d5e1058f955ee7fce4ea7b18d126235e64
+  purchases_flutter: c9fb5ac9bb67f96a33eec1d714c31f28a4770f85
+  PurchasesHybridCommon: fa166fc8b385cf80f581f923c91d8ccffe5dd7f8
+  RevenueCat: e47ff90dfd271fde155a4befe48e8fc02e8281e4
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d

@@ -55,11 +55,11 @@ class ToolsFragment extends StatelessWidget {
         title: "Health Assessment",
         description: "Assess your plant's health by image"),
       Tool(
-        image: "assets/icons/server_icon.png",
+        image: "assets/icons/plant_addon.jpg",
         title: "Request a Plant Addition",
         description: "Send us a request of a plant you want to see guides for!"),
       Tool(
-        image: "assets/icons/server_icon.png",
+        image: "assets/icons/caterpillar.jpg",
         title: "Report a Bug",
         description: "Found an app-breaking issue? Let us know!")
     ];

@@ -11,20 +11,14 @@ class VariationCard extends StatelessWidget {
     Color cardColor = Theme.of(context).colorScheme.primary;
 
     // "Species" and "Variety" will both be the default green color
-    switch(label)
-    {
-      case "Perennial":
-        cardColor = Colors.blue;
-        break;
-      case "Annual":
-        cardColor = Colors.purple;
-        break;
-      case "Biennial":
-        // TODO: Setup color
-        break;
-      default:
-        cardColor = Theme.of(context).colorScheme.primary;
-        break;
+    if(label.contains("Perennial")){
+      cardColor = Colors.blue;
+    } else if (label.contains("Annual")){
+      cardColor = Colors.purple;
+    } else if (label.contains("Biennial")){
+      cardColor = Colors.amber;
+    } else {
+      cardColor = Theme.of(context).colorScheme.primary;
     }
 
     return Card(

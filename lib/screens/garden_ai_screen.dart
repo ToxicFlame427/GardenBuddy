@@ -8,6 +8,7 @@ import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
+import 'package:garden_buddy/widgets/objects/ai_message_format.dart';
 import 'package:garden_buddy/widgets/objects/banner_ad.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/objects/credit_circle.dart';
@@ -217,11 +218,15 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                               },
                             ),
                             messageOptions: MessageOptions(
-                                currentUserContainerColor:
-                                    Theme.of(context).colorScheme.primary,
+                                currentUserContainerColor:Theme.of(context).colorScheme.primary,
                                 textColor: Theme.of(context).colorScheme.scrim,
-                                currentUserTextColor:
-                                  Colors.white,
+                                currentUserTextColor:Colors.white,
+                                messageTextBuilder: (message, previousMessage, nextMessage) =>
+                                  // Format the AI response into a nicer format
+                                  message.user == modelUser ?
+                                    AIMessageFormat(message: message.text) :
+                                    Text(message.text),
+
                                 containerColor: Theme.of(context).cardColor),
                             inputOptions: InputOptions(
                                 inputDecoration: InputDecoration(

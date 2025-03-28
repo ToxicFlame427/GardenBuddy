@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
+import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
+    as PlantDetailsClass;
 // ignore: implementation_imports
 import 'package:flutter/src/widgets/image.dart' as NetworkImage;
+import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
+import 'package:garden_buddy/widgets/dialogs/image_info_dialog.dart';
 import 'package:garden_buddy/widgets/objects/extra_info_row.dart';
 import 'package:garden_buddy/widgets/objects/five_way_meter.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
@@ -12,10 +15,33 @@ import 'package:shimmer/shimmer.dart';
 class PlantSpeciesViewerData extends StatelessWidget {
   const PlantSpeciesViewerData({super.key, required this.plantData});
 
-  final PlantSpeciesDetails? plantData;
+  final PlantDetailsClass.PlantSpeciesDetails? plantData;
 
   @override
   Widget build(BuildContext context) {
+    void _showInfoDialog(String title, String message) {
+      showDialog(
+          context: context,
+          builder: (ctx) {
+            return CustomInfoDialog(
+                title: title,
+                description: message,
+                imageAsset: "assets/icons/icon.jpg",
+                buttonText: "Ok",
+                onClose: () {
+                  Navigator.pop(context);
+                });
+          });
+    }
+
+    void _showImageDialog(PlantDetailsClass.Image imageData) {
+      showDialog(
+          context: context,
+          builder: (ctx) {
+            return ImageInfoDialog(imageData: imageData);
+          });
+    }
+
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -67,7 +93,8 @@ class PlantSpeciesViewerData extends StatelessWidget {
                         padding: const EdgeInsets.all(2),
                         child: IconButton(
                             onPressed: () {
-                              // Press to zoom
+                              // MARK: Show the image info dialog
+                              _showImageDialog(plantData!.data.images.first);
                             },
                             icon: Icon(Icons.zoom_in),
                             style: IconButton.styleFrom(
@@ -107,11 +134,17 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 FiveWayMeter(
-                    onInfoTap: () {},
+                    onInfoTap: () {
+                      _showInfoDialog("Maintenance Level",
+                          "What does this mean?\n\nThis is for indicating how much time needs to be devoted to making this plant its healthiest. A low level means it can take care of itself with little assistance, but high levels mean it requires more human assistance to be healthy.");
+                    },
                     value: plantData!.data.maintenanceLevel,
                     label: "Maintenance level"),
                 FiveWayMeter(
-                    onInfoTap: () {},
+                    onInfoTap: () {
+                      _showInfoDialog("Growth Rate",
+                          "What does this mean?\n\nThis meter is for displaying how fast this plant grows. The lower the meter score, the slower this plant tends to grow. The higher the meter score, the faster the plant grows. This is generalized data relative to all plants as some plants tend to grow slower/faster than others.");
+                    },
                     value: plantData!.data.growthRate,
                     label: "Growth rate"),
                 HorizontalRule(color: Theme.of(context).cardColor, height: 5),

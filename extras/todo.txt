@@ -2,7 +2,6 @@ To-do
 
 HIGH PRIORITY
 Add an endpoint to accept plant suggestions
-Implement the day check for daily credits
 Add and endpoint to accept change requests (Along with a screen for that on the plant viewer activity, probably add a button to that next to the favorite button)
 Keep working on the general plant viewer, adding more data
 
