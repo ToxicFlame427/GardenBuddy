@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/models/api/garden_api/add_plant_request_model.dart';
+import 'package:garden_buddy/models/services/garden_api_services.dart';
+import 'package:garden_buddy/widgets/dialogs/loading_dialog.dart';
 import 'package:garden_buddy/widgets/objects/gb_text_field.dart';
 
 class PlantRequestForm extends StatefulWidget {
@@ -12,6 +17,7 @@ class PlantRequestForm extends StatefulWidget {
 
 class _PlantRequestFormState extends State<PlantRequestForm> {
   TextEditingController plantNameController = TextEditingController();
+  bool? formSentSuccessful = null;
 
   @override
   Widget build(BuildContext context) {
@@ -54,26 +60,71 @@ class _PlantRequestFormState extends State<PlantRequestForm> {
                   multiline: true,
                 ),
               ),
-              ElevatedButton(onPressed: () {
-                // TODO: Send the request somewhere!
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-              ),
-              child: Text(
-                "Submit",
-                style: TextStyle(
-                  color: Colors.white
+              ElevatedButton(
+                onPressed: () {
+                  // TODO: Show the user that the upload is pending and when it is complete
+                  sendForm();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
-              ),),
+                child: Text(
+                  "Submit",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              // Only show this text after a request is sent
+              if (formSentSuccessful != null)
+                SizedBox(
+                  height: 10,
+                ),
+              if (formSentSuccessful != null)
+                Text(
+                  formSentSuccessful!
+                      ? "Request was successfully sent. We appreciate your requests and will review it soon!"
+                      : "Request failed to send. Please try again.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: formSentSuccessful! ? Colors.green : Colors.red),
+                ),
               Spacer(),
               Text(
                 "These submissions are anonymous, as no contact details need to be provided.",
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20,)
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ));
+  }
+
+  void sendForm() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return LoadingDialog(loadingText: "Sending form\nplease wait...");
+        });
+
+    formSentSuccessful = await GardenAPIServices.sendPlantRequestForm(
+        AddPlantRequestModel(
+            id: Random(DateTime.now().millisecond)
+                .nextInt(4294967296)
+                .toString(),
+            dateSubmitted: DateTime.now().toIso8601String(),
+            requestedPlants: plantNameController.text));
+
+    if (!context.mounted) return;
+
+    // So like, this sucks
+    Navigator.of(context).pop();
+
+    setState(() {
+      plantNameController.text = "";
+    });
   }
 }
