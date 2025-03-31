@@ -28,9 +28,8 @@ Bok choy
 Broccoli
 Butternut Squash
 Cabbage
-California Buttercup
 
-Garden Carrot
+//Garden Carrot
 Carrot 'Scarlet Nantes'
 Carrot 'Bolero'
 Carrot 'Nelson'
@@ -111,8 +110,6 @@ Cucumber 'Kirby'
 Cucumber 'Ashley'
 Cucumber 'White'
 
-Dandelion
-
 //Garden Dill
 //Dill 'Bouquet'
 //Dill 'Compatto'
@@ -139,19 +136,14 @@ Gooseberry
 Green Bean
 Habanero
 Honeyberry
-Honeysuckle
-Hosta
 Huckleberry
 Jalapeno
 Jujube
 Kiwi
 Kohlrabi
-Lavender
 Lemon Balm
 Lettuce
-Lilac
 Mango
-Marigold
 Mountain Mint
 Mulberry
 Musk Strawberry
@@ -254,49 +246,8 @@ Spinach
 Stevia
 Strawberry
 
-//Common Sunflower
-//American Giant Sunflower
-Sunflower 'Sunny Smile'
-Sunflower 'Teddy Bear'
-Sunflower 'Firecracker'
-Sunflower 'Ring of Fire'
-Sunflower 'Floristan'
-Sunflower 'Sunrich Gold'
-Sunflower 'Sunrich Summer Provence'
-Sunflower 'Valentine'
-Sunflower 'Gypsy Charmer'
-Sunflower 'Autumn Beauty'
-Sunflower 'Claret'
-Sunflower 'Giant Sungold'
-Sunflower 'Goldy'
-Sunflower 'Soraya'
-Sunflower 'Strawberry Blonde'
-Sunflower 'Taiyo'
-Sunflower 'Velvet Queen'
-Sunflower 'Vincent's Choice'
-Sunflower 'Evening Sun'
-Sunflower 'Arikara'
-Sunflower 'Mammoth Grey Stripe'
-Sunflower 'Russian Mammoth'
-Jerusalem Artichoke Sunflower
-Ten-Petaled Sunflower
-Stiff Sunflower
-Nuttall's Sunflower
-Swamp Sunflower
-Beach Sunflower
-Woodland Sunflower
-Willow-Leaved Sunflower
-Ashy Sunflower
-Sawtooth Sunflower
-Western Sunflower
-Silverleaf Sunflower
-Perennial Sunflower 'Happy Days'
-Willow-Leaved Sunflower 'Low Down'
-Sunray Dwarf Sunflower
-
 Sweet Cherry
 Sweet Corn
-Sweet Iris
 
 Squash 'Neck'
 Squash 'Lakota'
@@ -305,7 +256,7 @@ Tarragon
 Tea
 Thyme
 Tomato
-Trunip
+Turnip
 Wasabi
 Watercress
 
@@ -366,3 +317,81 @@ Watermelon 'Citron Red Seeded'
 
 Wild Strawberry
 Zucchini
+
+FLOWERS
+_____________________________________
+Peace Lily
+Sweet Iris
+Honeysuckle
+Hosta
+Lavender
+Marigold
+Lilac
+California Buttercup
+Tulip
+Baby's Breath
+Morning Glory
+Dandelion
+//Common Sunflower
+//American Giant Sunflower
+Sunflower 'Sunny Smile'
+Sunflower 'Teddy Bear'
+Sunflower 'Firecracker'
+Sunflower 'Ring of Fire'
+Sunflower 'Floristan'
+Sunflower 'Sunrich Gold'
+Sunflower 'Sunrich Summer Provence'
+Sunflower 'Valentine'
+Sunflower 'Gypsy Charmer'
+Sunflower 'Autumn Beauty'
+Sunflower 'Claret'
+Sunflower 'Giant Sungold'
+Sunflower 'Goldy'
+Sunflower 'Soraya'
+Sunflower 'Strawberry Blonde'
+Sunflower 'Taiyo'
+Sunflower 'Velvet Queen'
+Sunflower 'Vincent's Choice'
+Sunflower 'Evening Sun'
+Sunflower 'Arikara'
+Sunflower 'Mammoth Grey Stripe'
+Sunflower 'Russian Mammoth'
+Jerusalem Artichoke Sunflower
+Ten-Petaled Sunflower
+Stiff Sunflower
+Nuttall's Sunflower
+Swamp Sunflower
+Beach Sunflower
+Woodland Sunflower
+Willow-Leaved Sunflower
+Ashy Sunflower
+Sawtooth Sunflower
+Western Sunflower
+Silverleaf Sunflower
+Perennial Sunflower 'Happy Days'
+Willow-Leaved Sunflower 'Low Down'
+Sunray Dwarf Sunflower
+Chrysanthemum
+Rose
+Begonia
+Dahlia
+Azalea
+Cosmos
+Touch-me-not
+Lily
+Tiger Lily
+Snapdragon
+Lupine
+Allium
+Zinnia
+Aster
+Baloon Flower
+Carnation
+Daffodil
+Orchid
+Hydrangea
+Peony
+Daisy
+Periwinkle
+Calla Lily
+Viol
