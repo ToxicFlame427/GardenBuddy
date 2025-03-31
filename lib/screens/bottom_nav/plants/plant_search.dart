@@ -165,7 +165,7 @@ class _PlantSearchState extends State<PlantSearch> {
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       )))),
-            plantListIsLoaded!
+            plantListIsLoaded != null && GardenAPIServices.plantList != null
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
