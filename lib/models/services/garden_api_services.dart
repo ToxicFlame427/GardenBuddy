@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/api/garden_api/add_plant_request_model.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';

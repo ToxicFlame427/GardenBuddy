@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
-import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/screens/bottom_nav/plants/plant_favorites.dart';
 import 'package:garden_buddy/screens/bottom_nav/plants/plant_search.dart';
 import 'package:garden_buddy/widgets/objects/banner_ad.dart';
