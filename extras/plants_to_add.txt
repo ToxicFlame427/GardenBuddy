@@ -394,4 +394,35 @@ Peony
 Daisy
 Periwinkle
 Calla Lily
-Viol
+Violet
+Gardenia
+Hyacinth
+Amaranthus
+Geranium
+Gladiolus
+Petunia
+Ranunculus
+Anemone
+Aster
+Black-eyed Susan
+Buttercup
+Larkspur
+Pansy
+Delphinium
+Gerbera daisy
+Yarrow
+Astilbe
+Cornflower
+Crocus
+Dianthus
+Phlox
+Alstroemeria
+California poppy
+Celosia
+Agapanthus
+Lisianthus
+Freesia
+Campanula
+Dusty Miller
+Liatris
+Gypsophila
