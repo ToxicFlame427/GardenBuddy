@@ -1,4 +1,5 @@
 // Used to communicate wiht the local database
+import 'package:flutter/foundation.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 import 'package:garden_buddy/models/db_plant_row.dart';
 import 'package:path/path.dart';
@@ -55,7 +56,7 @@ class DbService {
   // This function will be responsible for compiling all the data into the database
   void addFavPlant(PlantSpeciesDetails plantDetails) async {
     String content = plantSpeciesDetailsToJson(plantDetails);
-    print(content);
+    debugPrint(content);
 
     // TODO: Download the image to the system, then get its path and save it to the DB
     String imageDir = "";
@@ -78,7 +79,7 @@ class DbService {
     final data = await db.query(_favoritePlantsTable);
     List<PlantSpeciesDetails> convertedList = [];
 
-    print(data);
+    debugPrint("$data");
     List<DBPlantRow> plants = data
         .map((e) => DBPlantRow(
             id: e[_favPlantPropId] as int,

@@ -13,7 +13,7 @@ dependencies:
 
   cupertino_icons: ^1.0.6
   shimmer: ^3.0.0
-  google_mobile_ads: ^5.1.0
+  google_mobile_ads: ^6.0.0
   image_picker: ^1.1.2
   dash_chat_2: ^0.0.21
   google_generative_ai: ^0.4.6

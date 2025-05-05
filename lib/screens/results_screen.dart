@@ -68,7 +68,7 @@ class _ScannerResultState extends State<ScannerResultScreen> {
     setState(() {
       response = getter.text;
 
-      print(response);
+      debugPrint(response);
 
       // Set the respective scanner to the correcponding object recieved
       if (widget.scannerType == "Plant Identification") {

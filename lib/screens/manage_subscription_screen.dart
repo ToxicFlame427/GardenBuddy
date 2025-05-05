@@ -22,10 +22,10 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
     final offerings = await PurchasesApi.fetchOffers();
 
     if (offerings.isEmpty) {
-      print("No subscriptions found");
+      debugPrint("No subscriptions found");
     } else {
       final offer = offerings.first;
-      print("Offer: $offer");
+      debugPrint("Offer: $offer");
 
       final packages = offerings
           .map((offer) => offer.availablePackages)

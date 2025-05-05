@@ -93,7 +93,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
         }
       });
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
 
     // Reset the file to nothing and update the state

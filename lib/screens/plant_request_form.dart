@@ -17,7 +17,7 @@ class PlantRequestForm extends StatefulWidget {
 
 class _PlantRequestFormState extends State<PlantRequestForm> {
   TextEditingController plantNameController = TextEditingController();
-  bool? formSentSuccessful = null;
+  bool? formSentSuccessful;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,6 @@ class _PlantRequestFormState extends State<PlantRequestForm> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // TODO: Show the user that the upload is pending and when it is complete
                   sendForm();
                 },
                 style: ElevatedButton.styleFrom(

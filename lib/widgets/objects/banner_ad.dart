@@ -75,7 +75,7 @@ class _BannerAdViewState extends State<BannerAdView> {
     }
 
     if (_bannerAd != null && _isLoaded && widget.isShown) {
-      print("Ad loaded with id $adUnitId and testing is ${widget.isTest}");
+      debugPrint("Ad loaded with id $adUnitId and testing is ${widget.isTest}");
 
       return Align(
         alignment: Alignment.bottomCenter,

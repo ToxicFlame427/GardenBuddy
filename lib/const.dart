@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,10 +40,10 @@ void saveCurrentDay(DateTime currentDate) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setInt("currentDate", currentDate.day);
 
-  print("The current day was set!");
+  debugPrint("The current day was set!");
 }
 
-/* TODO: 
+/* MARK:
   I want a way to tell the user that they have been trying to change the clock
   This can be done by comparing the hours and day simultaneously to make sure that the hour changed as well
 */
@@ -63,7 +64,7 @@ Future<bool> isNewDay() async {
       return false;
     }
   } else {
-    print("There is no date variable!");
+    debugPrint("There is no date variable!");
     // If there is no date, save it bro!
     saveCurrentDay(DateTime.now());
     return false;
@@ -77,7 +78,7 @@ void saveCountValues() async {
   await prefs.setInt("aiCount", AiConstants.aiCount);
   await prefs.setInt("healthCount", AiConstants.healthCount);
 
-  print("Count values were saved");
+  debugPrint("Count values were saved");
 }
 
 // Checks if the day is new, if so, reset the counts
@@ -94,7 +95,7 @@ void setCountValues() async {
 
     // Save the values after being reset
     saveCountValues();
-    print("Count values were reset");
+    debugPrint("Count values were reset");
   } else {
     // If a new day has not begun, use previous values stored locally
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -103,6 +104,6 @@ void setCountValues() async {
     AiConstants.aiCount = prefs.getInt("aiCount") ?? 3;
     AiConstants.healthCount = prefs.getInt("healthCount") ?? 1;
 
-    print("Previous count values were loaded");
+    debugPrint("Previous count values were loaded");
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+// ignore: library_prefixes
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart' as PlantSpeciesClass;
 import 'package:garden_buddy/widgets/objects/hyperlink.dart';
 import 'package:shimmer/shimmer.dart';

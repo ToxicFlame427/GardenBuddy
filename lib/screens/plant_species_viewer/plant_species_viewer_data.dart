@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
+    // ignore: library_prefixes
     as PlantDetailsClass;
-// ignore: implementation_imports
+// ignore: implementation_imports, library_prefixes
 import 'package:flutter/src/widgets/image.dart' as NetworkImage;
 import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
 import 'package:garden_buddy/widgets/dialogs/image_info_dialog.dart';
@@ -19,7 +20,7 @@ class PlantSpeciesViewerData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showInfoDialog(String title, String message) {
+    void showInfoDialog(String title, String message) {
       showDialog(
           context: context,
           builder: (ctx) {
@@ -34,7 +35,7 @@ class PlantSpeciesViewerData extends StatelessWidget {
           });
     }
 
-    void _showImageDialog(PlantDetailsClass.Image imageData) {
+    void showImageDialog(PlantDetailsClass.Image imageData) {
       showDialog(
           context: context,
           builder: (ctx) {
@@ -94,7 +95,7 @@ class PlantSpeciesViewerData extends StatelessWidget {
                         child: IconButton(
                             onPressed: () {
                               // MARK: Show the image info dialog
-                              _showImageDialog(plantData!.data.images.first);
+                              showImageDialog(plantData!.data.images.first);
                             },
                             icon: Icon(Icons.zoom_in),
                             style: IconButton.styleFrom(
@@ -135,14 +136,14 @@ class PlantSpeciesViewerData extends StatelessWidget {
                 ),
                 FiveWayMeter(
                     onInfoTap: () {
-                      _showInfoDialog("Maintenance Level",
+                      showInfoDialog("Maintenance Level",
                           "What does this mean?\n\nThis is for indicating how much time needs to be devoted to making this plant its healthiest. A low level means it can take care of itself with little assistance, but high levels mean it requires more human assistance to be healthy.");
                     },
                     value: plantData!.data.maintenanceLevel,
                     label: "Maintenance level"),
                 FiveWayMeter(
                     onInfoTap: () {
-                      _showInfoDialog("Growth Rate",
+                      showInfoDialog("Growth Rate",
                           "What does this mean?\n\nThis meter is for displaying how fast this plant grows. The lower the meter score, the slower this plant tends to grow. The higher the meter score, the faster the plant grows. This is generalized data relative to all plants as some plants tend to grow slower/faster than others.");
                     },
                     value: plantData!.data.growthRate,

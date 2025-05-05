@@ -28,7 +28,7 @@ class _PlantSearchState extends State<PlantSearch> {
   String searchFilterQuery = "both";
 
   getPlantList() async {
-    print(searchFilterQuery);
+    debugPrint(searchFilterQuery);
 
     GardenAPIServices.plantList = await GardenAPIServices.getPlantSpeciesList(
         searchFilterQuery, _searchBarController.text, currentPage);
@@ -185,7 +185,7 @@ class _PlantSearchState extends State<PlantSearch> {
 
                                     getPlantList();
                                   } else {
-                                    print("Page cannot move further backward");
+                                    debugPrint("Page cannot move further backward");
                                   }
                                 },
                                 child: Text("< Back"))
@@ -209,7 +209,7 @@ class _PlantSearchState extends State<PlantSearch> {
                                     // Get the plant list with the new page number
                                     getPlantList();
                                   } else {
-                                    print("Page cannot move further forward");
+                                    debugPrint("Page cannot move further forward");
                                   }
                                 },
                                 child: Text("Forward >"))

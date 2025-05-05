@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/api/garden_api/add_plant_request_model.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
@@ -29,7 +30,7 @@ class GardenAPIServices {
       plantsListPage = 1;
     }
 
-    print("Searching for $searchQuery");
+    debugPrint("Searching for $searchQuery");
 
     // Craft the correct URL for the API request
     var url = Uri.parse(
@@ -39,10 +40,10 @@ class GardenAPIServices {
     // Check the status code based on the response code given
     if (response.statusCode == 200) {
       var json = response.body;
-      print("Data retrieved successfully ${json}");
+      debugPrint("Data retrieved successfully $json");
       return plantSpeciesListFromJson(json);
     } else {
-      print(
+      debugPrint(
           "There was a issue retrieving the data, response code ${response.statusCode}");
       return null;
     }
@@ -60,11 +61,10 @@ class GardenAPIServices {
     // Check the status code based on the response code given
     if (response.statusCode == 200) {
       var json = response.body;
-      print("Data retrieved successfully ${json}");
+      debugPrint("Data retrieved successfully $json");
       return PlantSpeciesDetails.fromRawJson(json);
     } else {
-      print(
-          "There was a issue retrieving the data, response code ${response.statusCode}");
+      debugPrint("There was a issue retrieving the data, response code ${response.statusCode}");
       return null;
     }
   }
@@ -84,15 +84,15 @@ class GardenAPIServices {
         },
         body: requestData.toRawJson());
 
-    print("Attempting to send JSON: ${requestData.toRawJson().trim()}");
+    debugPrint("Attempting to send JSON: ${requestData.toRawJson().trim()}");
 
     // Check the status code based on the response code given
     if (response.statusCode == 200) {
       var responseText = response.body;
-      print("Data sent and responded successfully -> $responseText");
+      debugPrint("Data sent and responded successfully -> $responseText");
       return true;
     } else {
-      print(
+      debugPrint(
           "There was a issue sending the data, response code ${response.statusCode}");
       return false;
     }

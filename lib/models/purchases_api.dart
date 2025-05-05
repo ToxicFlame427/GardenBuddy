@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:garden_buddy/keys.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -23,7 +24,7 @@ class PurchasesApi {
 
       return current == null ? [] : [current];
     } on PlatformException catch (e) {
-      print(e.message);
+      debugPrint(e.message);
       return [];
     }
   }
@@ -57,7 +58,7 @@ class PurchasesApi {
       subActive = false;
     }
 
-    print("Is sub active $subActive");
+    debugPrint("Is sub active $subActive");
     return subActive;
   }
 }
