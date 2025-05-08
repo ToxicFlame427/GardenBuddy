@@ -106,9 +106,6 @@ class DbService {
     final db = await database;
     // Send those fuckers into the stratosphere!
     await deleteDatabase(db.path);
-
-    // Reset values so no issues arise from the ashes!
-    resetValues();
   }
 
   void deleteFavPlant(String plantName) async {

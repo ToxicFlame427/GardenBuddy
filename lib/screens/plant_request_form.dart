@@ -119,9 +119,8 @@ class _PlantRequestFormState extends State<PlantRequestForm> {
             requestedPlants: plantNameController.text));
 
     // So like, this sucks
-    // SO this is pretty cool: to use context over async gaps, just simply make a mounted check
+    // So this is pretty cool: to use context over async gaps, just simply make a mounted check
     if (mounted) {
-      // Did the mount, bust still getting the warning?
       Navigator.of(context).pop();
 
       setState(() {

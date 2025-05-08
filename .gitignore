@@ -19,34 +19,30 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
+.vscode/
 .flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
+build/
 
 # Oh yeah... gonna need to ignore these ones!
 # These ones reveal some pretty good secret keys
-/lib/keys.dart
+lib/keys.dart
 garden_buddy_keystore.jks
-/android/key.properties
-/ios/StoreKitConfig.storekit
-/ios/StoreKitTestCertificate.cer
-/ios/SubscriptionKey_2C4077D5.p8
-/ios/Runner/Info.plist
-/android/app/src/main/AndroidManifest.xml
+android/key.properties
+ios/StoreKitConfig.storekit
+ios/StoreKitTestCertificate.cer
+ios/SubscriptionKey_2C4077D5.p8
+ios/Runner/Info.plist
+android/app/src/main/AndroidManifest.xml
 
 # Nobody needs to see debug logs :)
-/logs/*
+logs/*
 
 # Debug symbols that nobody needs to know about, cuz it's boring
 /android/app/.cxx/*
@@ -58,6 +54,6 @@ app.*.symbols
 app.*.map.json
 
 # Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+android/app/debug
+android/app/profile
+android/app/release

@@ -1,9 +1,8 @@
 To-do
 
 HIGH PRIORITY
-Wehn the server is off, on light theme, the error message does not appear. Just a blank screen, fix this asap
 Add and endpoint to accept change requests (Along with a screen for that on the plant viewer activity, probably add a button to that next to the favorite button)
-Keep working on the general plant viewer, adding more data
+Keep working on the general plant viewer, adding more data. Maybe even redesign the page, too many words drives users away.
 
 LOW PRIORITY
 (THIS NEEDS TO WAIT UNTIL REAL EXCEPTIONS OCCUR) Handle GeminiAI exceptions when the server is under load (Common problem with Gemini API, try-catch)

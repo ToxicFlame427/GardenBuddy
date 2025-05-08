@@ -34,7 +34,7 @@ class _PlantSearchState extends State<PlantSearch> {
         searchFilterQuery, _searchBarController.text, currentPage);
 
     // Check and change according to the plant list
-    // If an error occured during, retrieval then the value is null
+    // If an error occured during retrieval, then the value is null
     setState(() {
       if (GardenAPIServices.plantList != null) {
         if (GardenAPIServices.plantList!.status
@@ -45,7 +45,8 @@ class _PlantSearchState extends State<PlantSearch> {
           plantListIsLoaded = true;
         }
       } else {
-        // This means there was an issue with the response, or the server could not be reached
+        // This means there was an issue with the response, or the server could not be reached.
+        // Handles cases where the server cannot be reached.
         plantListIsLoaded = null;
       }
     });
@@ -185,7 +186,8 @@ class _PlantSearchState extends State<PlantSearch> {
 
                                     getPlantList();
                                   } else {
-                                    debugPrint("Page cannot move further backward");
+                                    debugPrint(
+                                        "Page cannot move further backward");
                                   }
                                 },
                                 child: Text("< Back"))
@@ -209,7 +211,8 @@ class _PlantSearchState extends State<PlantSearch> {
                                     // Get the plant list with the new page number
                                     getPlantList();
                                   } else {
-                                    debugPrint("Page cannot move further forward");
+                                    debugPrint(
+                                        "Page cannot move further forward");
                                   }
                                 },
                                 child: Text("Forward >"))
