@@ -43,9 +43,11 @@ class _BannerAdViewState extends State<BannerAdView> {
         // Called when an ad is successfully received.
         onAdLoaded: (ad) {
           debugPrint('$ad loaded.');
-          setState(() {
-            _isLoaded = true;
-          });
+          if (mounted) {
+            setState(() {
+              _isLoaded = true;
+            });
+          }
         },
         // Called when an ad request failed.
         onAdFailedToLoad: (ad, err) {

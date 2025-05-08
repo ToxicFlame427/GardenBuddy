@@ -79,6 +79,7 @@ class _PlantRequestFormState extends State<PlantRequestForm> {
                 ),
               if (formSentSuccessful != null)
                 Text(
+                  // Goofy ahh statement, but hey it works
                   formSentSuccessful!
                       ? "Request was successfully sent. We appreciate your requests and will review it soon!"
                       : "Request failed to send. Please try again.",
