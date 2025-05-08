@@ -101,8 +101,14 @@ class DbService {
   }
 
   // MARK: Danger zone!!
-  void nukeDatabase() {
-    // Send those fuckers to the aether!
+  // TODO: Gemini gave me this code, so test it, I did not test it yet, boooooom
+  void nukeDatabase() async {
+    final db = await database;
+    // Send those fuckers into the stratosphere!
+    await deleteDatabase(db.path);
+
+    // Reset values so no issues arise from the ashes!
+    resetValues();
   }
 
   void deleteFavPlant(String plantName) async {
@@ -113,5 +119,10 @@ class DbService {
 
     // After deletion, update the favorites array
     favoritePlantsList = await getFavoritePlants();
+  }
+
+  void resetValues() {
+    _db = null;
+    favoritePlantsList = [];
   }
 }

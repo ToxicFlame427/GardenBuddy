@@ -45,6 +45,9 @@ garden_buddy_keystore.jks
 /ios/Runner/Info.plist
 /android/app/src/main/AndroidManifest.xml
 
+# Nobody needs to see debug logs :)
+/logs/*
+
 # Debug symbols that nobody needs to know about, cuz it's boring
 /android/app/.cxx/*
 
