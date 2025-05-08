@@ -117,13 +117,17 @@ class _PlantRequestFormState extends State<PlantRequestForm> {
             dateSubmitted: DateTime.now().toIso8601String(),
             requestedPlants: plantNameController.text));
 
-    if (!context.mounted) return;
-
     // So like, this sucks
-    Navigator.of(context).pop();
+    // SO this is pretty cool: to use context over async gaps, just simply make a mounted check
+    if (mounted) {
+      // Did the mount, bust still getting the warning?
+      Navigator.of(context).pop();
 
-    setState(() {
-      plantNameController.text = "";
-    });
+      setState(() {
+        plantNameController.text = "";
+      });
+    } else {
+      return;
+    }
   }
 }

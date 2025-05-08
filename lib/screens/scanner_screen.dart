@@ -172,12 +172,16 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           XFile? file = await picker.pickImage(
                               source: ImageSource.gallery);
                           if (file != null) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ScannerResultScreen(
-                                        picture: file,
-                                        scannerType: widget.scannerType)));
+                            await Future.delayed(const Duration(seconds: 1));
+
+                            if (context.mounted) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ScannerResultScreen(
+                                          picture: file,
+                                          scannerType: widget.scannerType)));
+                            }
                           }
                           // Else, do nothing
                         },
@@ -193,13 +197,16 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           // Image is captured
                           // Open the results screen shortly after and pass the captured image to it
                           XFile picture = await cameraController!.takePicture();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ScannerResultScreen(
-                                        picture: picture,
-                                        scannerType: widget.scannerType,
-                                      )));
+
+                          if (context.mounted) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ScannerResultScreen(
+                                          picture: picture,
+                                          scannerType: widget.scannerType,
+                                        )));
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
