@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
     // ignore: library_prefixes
@@ -53,30 +55,45 @@ class PlantSpeciesViewerData extends StatelessWidget {
             // Check if the image can be loaded. If not, show alt text
             if (plantData!.data.images.isNotEmpty)
               // MARK: Network image for API provided image
-              NetworkImage.Image.network(
-                plantData!.data.images[0].url,
-                height: 170,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
+              if (plantData!.data.images[0].url.contains("http://") ||
+                  plantData!.data.images[0].url.contains("https://"))
+                NetworkImage.Image.network(
+                  plantData!.data.images[0].url,
+                  height: 170,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
 
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade100,
-                    child: Container(
-                      height: 170,
-                      width: double.infinity,
-                      color: Colors.grey,
-                    ),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return Text("Error retreiving image");
-                },
-              )
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                      child: Container(
+                        height: 170,
+                        width: double.infinity,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Text("Error retreiving image");
+                  },
+                )
+              else if (!plantData!.data.images[0].url.contains("http://") &&
+                  !plantData!.data.images[0].url.contains("https://"))
+                NetworkImage.Image.file(
+                  File(plantData!.data.images[0].url),
+                  height: 170,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Text("Error retreiving image");
+                  },
+                )
+              else
+                SizedBox(height: 50, child: Text("No Image available"))
             else
               SizedBox(height: 50, child: Text("No Image available")),
 

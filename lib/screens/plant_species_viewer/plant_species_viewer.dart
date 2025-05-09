@@ -29,6 +29,7 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
   bool plantDataIsLoaded = false;
   bool plantIsFavorite = false;
   PlantSpeciesDetails? plantDetails;
+  bool _favoritesChanged = false;
 
   // Immediately request the data from the API based on the API ID of the passed plant
   getPlantDetails() async {
@@ -38,6 +39,7 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
     if (plantDetails != null) {
       setState(() {
         plantDataIsLoaded = true;
+        _favoritesChanged = true;
       });
 
       checkFavorite();
@@ -72,6 +74,7 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
 
     setState(() {
       plantIsFavorite = !plantIsFavorite;
+      _favoritesChanged = true;
     });
   }
 
@@ -80,6 +83,7 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
 
     setState(() {
       plantIsFavorite = !plantIsFavorite;
+      _favoritesChanged = true;
     });
   }
 
@@ -109,49 +113,65 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.plantName,
-          style: TextStyle(
-              color: Colors.white,
-              fontFamily: "Khand",
-              fontWeight: FontWeight.bold),
+    // Pop scope is used to detect changes to the favorites list in the previous page
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) => {
+        if (!didPop)
+          {
+            if (mounted) {Navigator.pop(context, _favoritesChanged)}
+          }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(
+            onPressed: () {
+              if (mounted) {
+                Navigator.pop(context, _favoritesChanged);
+              }
+            },
+          ),
+          title: Text(
+            widget.plantName,
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Khand",
+                fontWeight: FontWeight.bold),
+          ),
+          actions: [
+            // if (plantDataIsLoaded && widget.offlineDetails == null)
+            //   IconButton(
+            //     onPressed: () {
+            //       Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+            //         return PlantEditRequestScreen(plantDetails: plantDetails!);
+            //       }));
+            //     },
+            //     icon: Icon(Icons.edit_document),
+            //     color: Colors.white,
+            //   ),
+            // Only show the favorite button if the plant data is loaded
+            if (plantDataIsLoaded)
+              IconButton(
+                onPressed: () {
+                  if (plantIsFavorite) {
+                    removeFavoritePlant();
+                  } else {
+                    addFavoritePlant();
+                  }
+                },
+                icon: Icon(
+                    plantIsFavorite ? Icons.favorite : Icons.favorite_border),
+                color: plantIsFavorite ? Colors.red : Colors.white,
+              )
+          ],
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          centerTitle: false,
+          iconTheme: const IconThemeData().copyWith(color: Colors.white),
         ),
-        actions: [
-          // if (plantDataIsLoaded && widget.offlineDetails == null)
-          //   IconButton(
-          //     onPressed: () {
-          //       Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-          //         return PlantEditRequestScreen(plantDetails: plantDetails!);
-          //       }));
-          //     },
-          //     icon: Icon(Icons.edit_document),
-          //     color: Colors.white,
-          //   ),
-          // Only show the favorite button if the plant data is loaded
-          if (plantDataIsLoaded)
-            IconButton(
-              onPressed: () {
-                if (plantIsFavorite) {
-                  removeFavoritePlant();
-                } else {
-                  addFavoritePlant();
-                }
-              },
-              icon: Icon(
-                  plantIsFavorite ? Icons.favorite : Icons.favorite_border),
-              color: plantIsFavorite ? Colors.red : Colors.white,
-            )
-        ],
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        centerTitle: false,
-        iconTheme: const IconThemeData().copyWith(color: Colors.white),
+        body: Visibility(
+            visible: plantDataIsLoaded,
+            replacement: PlantViewerLoading(),
+            child: PlantSpeciesViewerData(plantData: plantDetails)),
       ),
-      body: Visibility(
-          visible: plantDataIsLoaded,
-          replacement: PlantViewerLoading(),
-          child: PlantSpeciesViewerData(plantData: plantDetails)),
     );
   }
 }

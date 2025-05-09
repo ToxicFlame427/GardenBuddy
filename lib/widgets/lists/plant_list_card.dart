@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -31,38 +33,63 @@ class PlantListCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      imageAddress != null
-                          ? imageAddress!
-                          : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=",
-                      height: 90,
-                      width: 90,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-
-                        return Shimmer.fromColors(
-                          baseColor: Colors.grey.shade300,
-                          highlightColor: Colors.grey.shade100,
-                          child: Container(
-                            height: 90,
-                            width: 90,
-                            color: Colors.grey,
-                          ),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          "assets/icons/hand_plant_icon.png",
+                if (imageAddress != null)
+                  if (imageAddress!.contains("http://") || imageAddress!.contains("https://"))
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          imageAddress!,
                           height: 90,
                           width: 90,
-                        );
-                      },
-                    )),
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Container(
+                                height: 90,
+                                width: 90,
+                                color: Colors.grey,
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              "assets/icons/hand_plant_icon.png",
+                              height: 90,
+                              width: 90,
+                            );
+                          },
+                        ))
+                  else
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.file(
+                          File(imageAddress!),
+                          height: 90,
+                          width: 90,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              "assets/icons/hand_plant_icon.png",
+                              height: 90,
+                              width: 90,
+                            );
+                          },
+                        ))
+                else
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        "assets/icons/hand_plant_icon.png",
+                        height: 90,
+                        width: 90,
+                        fit: BoxFit.cover,
+                      )),
                 SizedBox(width: 10),
                 Flexible(
                   child: Column(

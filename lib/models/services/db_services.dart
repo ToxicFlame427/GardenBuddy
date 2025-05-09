@@ -1,6 +1,5 @@
-// Used to communicate wiht the local database
-import 'dart:ffi';
 import 'dart:math';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -10,8 +9,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
-import 'dart:io';
 
+// Used to communicate with the local database
 class DbService {
   static Database? _db;
 
@@ -65,13 +64,16 @@ class DbService {
     String content = plantSpeciesDetailsToJson(plantDetails);
     debugPrint(content);
 
-    // Download the image to the system, then get its path and save it to the DB
-    String? imageDir = await saveImageWithPath(
-        plantDetails.data.images[0].url, plantDetails.data.name);
+    String? imageDir = "empty";
 
-    // Save the image to the system, this is for local reference
-    // If the image does not download correctly, then just add the image URL to the local data
-    imageDir ??= plantDetails.data.images[0].url;
+    // Download the image to the system, then get its path and save it to the DB
+    if (plantDetails.data.images.isNotEmpty) {
+      imageDir = await saveImageWithPath(plantDetails.data.images[0].url);
+
+      // Save the image to the system, this is for local reference
+      // If the image does not download correctly, then just add the image URL to the local data
+      imageDir ??= plantDetails.data.images[0].url;
+    }
 
     // Get the database instance and insert the parsed data
     final db = await database;
@@ -87,7 +89,7 @@ class DbService {
   }
 
   // This function saves an image from url and returns the local filepath and the image ID
-  Future<String?> saveImageWithPath(String url, String fileName) async {
+  Future<String?> saveImageWithPath(String url) async {
     String? path;
 
     debugPrint("Attempting to save image...");
@@ -114,13 +116,6 @@ class DbService {
 
     // Return path
     return path;
-  }
-
-  // This function is sued to delete any local favorite plant images that may be on the system
-  // Dammit! Dont use the users' storage so much you fool!
-  void deleteLocalImage(String path) async {
-    // Well that was easy
-    File(path).deleteSync(recursive: true);
   }
 
   Future<List<DBPlantRow>> getFavoritePlants() async {
@@ -152,26 +147,91 @@ class DbService {
   }
 
   // MARK: Danger zone!!
-  // TODO: Gemini gave me this code, so test it, I did not test it yet, boooooom
-  void nukeDatabase() async {
+  Future<void> nukeDatabase() async {
     final db = await database;
-    // Send those fuckers into the stratosphere!
-    await deleteDatabase(db.path);
+
+    // Map used to find all local image being saved, they cant hide from this algorithm!
+    debugPrint("Fetching all image paths before nuking database...");
+    List<Map<String, dynamic>> allImageEntries = await db.query(
+      _favoritePlantsTable,
+      columns: [_favPlantPropLocalImageDir],
+    );
+
+    // Delete each of the local images
+    if (allImageEntries.isNotEmpty) {
+      for (var entry in allImageEntries) {
+        String? imagePath = entry[_favPlantPropLocalImageDir] as String?;
+        if (imagePath != null && imagePath.isNotEmpty && imagePath != "empty") {
+          // Bye bye :)
+          deleteLocalImage(imagePath);
+          debugPrint("Attempted deletion of cached image: $imagePath");
+        }
+      }
+      debugPrint("Finished attempting to delete all cached images.");
+    } else {
+      debugPrint("No image paths found in the database to delete.");
+    }
+
+    String path = db.path;
+
+    await db.close();
+
+    // "Send those fuckers into the stratosphere!"
+    debugPrint("Nuking database file at: $path");
+    await deleteDatabase(path);
+
+    resetValues();
+
+    debugPrint("Database nuked and local images cleared.");
   }
 
   void deleteFavPlant(String plantName) async {
     final db = await database;
 
-    // TODO: Delete the image with the path here!!!!!!
-    // First, elete the file at the path
-    //deleteLocalImage();
+    // This map is used to fin the specific plant to delete
+    List<Map<String, dynamic>> plants = await db.query(
+      _favoritePlantsTable,
+      columns: [_favPlantPropLocalImageDir],
+      where: "$_favPlantPropName = ?",
+      whereArgs: [plantName],
+      limit: 1, // Only one plant is needed
+    );
 
-    // "I want this twink obliterated" - Nutter Butter
+    if (plants.isNotEmpty) {
+      String? imagePath = plants.first[_favPlantPropLocalImageDir] as String?;
+
+      if (imagePath != null && imagePath.isNotEmpty && imagePath != "empty") {
+        deleteLocalImage(imagePath);
+        debugPrint("Deleted local image at: $imagePath");
+      } else {
+        debugPrint(
+            "No valid local image path found for $plantName or path was 'empty'.");
+      }
+    } else {
+      debugPrint("Plant with name $plantName not found for image deletion.");
+    }
+
     await db.delete(_favoritePlantsTable,
         where: "$_favPlantPropName = ?", whereArgs: [plantName]);
 
-    // After deletion, update the favorites array
     favoritePlantsList = await getFavoritePlants();
+  }
+
+  // Dammit! Dont use the users' storage so much you fool!
+  void deleteLocalImage(String path) async {
+    try {
+      final file = File(path);
+      if (await file.exists()) {
+        // Check if the file exists
+        // If so, delete the file
+        file.deleteSync(recursive: true);
+        debugPrint("Successfully deleted file: $path");
+      } else {
+        debugPrint("File not found, could not delete: $path");
+      }
+    } catch (e) {
+      debugPrint("Error deleting file at $path: $e");
+    }
   }
 
   void resetValues() {
