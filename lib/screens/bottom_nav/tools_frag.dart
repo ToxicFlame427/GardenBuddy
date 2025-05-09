@@ -112,7 +112,7 @@ class ToolsFragment extends StatelessWidget {
                 "ca-app-pub-6754306508338066/1392308067",
               isTest: adTesting,
               isShown: !PurchasesApi.subStatus,
-              bannerSize: AdSize.mediumRectangle,
+              bannerSize: AdSize.banner,
             ),
           ]
         ),

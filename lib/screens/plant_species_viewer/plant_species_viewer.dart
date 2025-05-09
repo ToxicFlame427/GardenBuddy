@@ -119,6 +119,16 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
               fontWeight: FontWeight.bold),
         ),
         actions: [
+          // if (plantDataIsLoaded && widget.offlineDetails == null)
+          //   IconButton(
+          //     onPressed: () {
+          //       Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+          //         return PlantEditRequestScreen(plantDetails: plantDetails!);
+          //       }));
+          //     },
+          //     icon: Icon(Icons.edit_document),
+          //     color: Colors.white,
+          //   ),
           // Only show the favorite button if the plant data is loaded
           if (plantDataIsLoaded)
             IconButton(

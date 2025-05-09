@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ExtraInfoRow extends StatelessWidget {
-  const ExtraInfoRow({super.key, required this.label, required this.data});
+class BoldLabelRow extends StatelessWidget {
+  const BoldLabelRow({super.key, required this.label, required this.data});
 
   final String label;
   final String data;
@@ -15,7 +15,9 @@ class ExtraInfoRow extends StatelessWidget {
           label,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        SizedBox(width: 10,),
+        SizedBox(
+          width: 10,
+        ),
         Text(data),
       ],
     );

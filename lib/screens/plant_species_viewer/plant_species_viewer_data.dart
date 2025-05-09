@@ -6,7 +6,7 @@ import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
 import 'package:flutter/src/widgets/image.dart' as NetworkImage;
 import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
 import 'package:garden_buddy/widgets/dialogs/image_info_dialog.dart';
-import 'package:garden_buddy/widgets/objects/extra_info_row.dart';
+import 'package:garden_buddy/widgets/objects/bold_label_row.dart';
 import 'package:garden_buddy/widgets/objects/five_way_meter.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/objects/lifecycle_object.dart';
@@ -168,11 +168,11 @@ class PlantSpeciesViewerData extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
-                    ExtraInfoRow(
+                    BoldLabelRow(
                         label: "Plant spacing",
                         data:
                             "${plantData!.data.plantSpacing.value} ${plantData!.data.plantSpacing.unit}"),
-                    ExtraInfoRow(
+                    BoldLabelRow(
                         label: "Germination time",
                         data:
                             "${plantData!.data.seedGerminationTime.time} ${plantData!.data.seedGerminationTime.unit}"),
@@ -186,15 +186,15 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   label: "Maturing",
                   imageAsset: "assets/icons/plant.png",
                   content: [
-                    ExtraInfoRow(
+                    BoldLabelRow(
                         label: "Maturity time",
                         data:
                             "${plantData!.data.maturityTime.time} ${plantData!.data.maturityTime.unit}"),
-                    ExtraInfoRow(
+                    BoldLabelRow(
                         label: "Average mature spread",
                         data:
                             "${plantData!.data.averageSpread.value} ${plantData!.data.averageSpread.unit}"),
-                    ExtraInfoRow(
+                    BoldLabelRow(
                         label: "Average mature height",
                         data:
                             "${plantData!.data.averageHeight.value} ${plantData!.data.averageHeight.unit}"),
@@ -216,7 +216,7 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   "Plants should be spaced ${plantData!.data.plantSpacing.value} ${plantData!.data.plantSpacing.unit} apart.",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                ExtraInfoRow(label: "Soil pH", data: plantData!.data.soilPh),
+                BoldLabelRow(label: "Soil pH", data: plantData!.data.soilPh),
                 // TODO: Prefered soil
                 // Prefered sunlight
                 SizedBox(
@@ -257,28 +257,28 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   "Extra Info",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Container friendly",
                     data: plantData!.data.containerFriendly ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Indoor friendly",
                     data: plantData!.data.containerFriendly ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Frost tolerant",
                     data: plantData!.data.frostTolerant ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Heat tolerant",
                     data: plantData!.data.heatTolerant ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Salt tolerant",
                     data: plantData!.data.saltTolerant ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Produces seeds",
                     data: plantData!.data.hasSeeds ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Produces flowers",
                     data: plantData!.data.hasFlowers ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Produces corms / bulbs",
                     data: plantData!.data.hasCorms ? "Yes" : "No"),
                 SizedBox(
@@ -292,22 +292,22 @@ class PlantSpeciesViewerData extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       height: 0.85),
                 ),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Poisonous to humans",
                     data: plantData!.data.poisonousToHumans ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Poisonous to pets",
                     data: plantData!.data.poisonousToPets ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Leaves are edible",
                     data: plantData!.data.leavesAreEdible ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Seeds are edible",
                     data: plantData!.data.seedsAreEdible ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Fruits are edible",
                     data: plantData!.data.fruitIsEdible ? "Yes" : "No"),
-                ExtraInfoRow(
+                BoldLabelRow(
                     label: "Used in medicine",
                     data: plantData!.data.medicinal ? "Yes" : "No"),
               ],
