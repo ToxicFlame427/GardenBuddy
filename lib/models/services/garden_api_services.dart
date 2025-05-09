@@ -43,8 +43,7 @@ class GardenAPIServices {
       debugPrint("Data retrieved successfully $json");
       return plantSpeciesListFromJson(json);
     } else {
-      debugPrint(
-          "There was a issue retrieving the data, response code ${response.statusCode}");
+      debugPrint("There was a issue retrieving the data, response code ${response.statusCode}");
       return null;
     }
   }
@@ -64,8 +63,7 @@ class GardenAPIServices {
       debugPrint("Data retrieved successfully $json");
       return PlantSpeciesDetails.fromRawJson(json);
     } else {
-      debugPrint(
-          "There was a issue retrieving the data, response code ${response.statusCode}");
+      debugPrint("There was a issue retrieving the data, response code ${response.statusCode}");
       return null;
     }
   }

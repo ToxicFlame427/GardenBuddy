@@ -125,6 +125,17 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   height: 16,
                 ),
                 Text(
+                  "Other Names",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: plantData!.data.otherNames.length,
+                    itemBuilder: (ctx, i) {
+                      return Text(plantData!.data.otherNames[i]);
+                    }),
+                Text(
                   plantData!.data.description,
                   style: TextStyle(fontSize: 13),
                 ),
@@ -162,7 +173,7 @@ class PlantSpeciesViewerData extends StatelessWidget {
                       "This plant is grown from",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    // DIsplay the correct information here
+                    // Display the correct information here
                     if (plantData!.data.hasCorms) Text("Corms / Bulbs"),
                     if (plantData!.data.hasSeeds) Text("Seeds"),
                     SizedBox(
@@ -198,8 +209,31 @@ class PlantSpeciesViewerData extends StatelessWidget {
                         label: "Average mature height",
                         data:
                             "${plantData!.data.averageHeight.value} ${plantData!.data.averageHeight.unit}"),
+                    BoldLabelRow(
+                      label: "Grows flowers",
+                      data: plantData!.data.hasFlowers ? "Yes" : "No",
+                    ),
+                    if (plantData!.data.hasFlowers)
+                      BoldLabelRow(
+                        label: "Flowering Seasons",
+                        data: plantData!.data.floweringSeason,
+                      ),
                   ],
                 ),
+
+                if (plantData!.data.hasFlowers)
+                  Text(
+                    "Flowering Months",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                if (plantData!.data.hasFlowers)
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: plantData!.data.floweringMonths.length,
+                      itemBuilder: (ctx, i) {
+                        return Text(plantData!.data.floweringMonths[i]);
+                      }),
 
                 // MARK: PLANT GUIDES
                 HorizontalRule(color: Theme.of(context).cardColor, height: 5),
@@ -207,16 +241,43 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   "Plant Guides",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                Text(
-                  "Sowing",
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
+                Row(children: [
+                  Image.asset(
+                    "assets/icons/sowing.png",
+                    height: 35,
+                    width: 35,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Sowing",
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ]),
 
+                Text(
+                  "Planting Months",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: plantData!.data.plantingMonths.length,
+                    itemBuilder: (ctx, i) {
+                      return Text(plantData!.data.plantingMonths[i]);
+                    }),
+                BoldLabelRow(
+                    label: "Planting seasons",
+                    data: plantData!.data.plantingSeason),
+                BoldLabelRow(label: "Soil pH", data: plantData!.data.soilPh),
+                BoldLabelRow(
+                    label: "Preferred sunlight",
+                    data: plantData!.data.preferredSunlight.first),
                 Text(
                   "Plants should be spaced ${plantData!.data.plantSpacing.value} ${plantData!.data.plantSpacing.unit} apart.",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                BoldLabelRow(label: "Soil pH", data: plantData!.data.soilPh),
                 // TODO: Prefered soil
                 // Prefered sunlight
                 SizedBox(
@@ -226,29 +287,78 @@ class PlantSpeciesViewerData extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                  "Pruning",
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
+                Row(children: [
+                  Image.asset(
+                    "assets/icons/pruning.png",
+                    height: 35,
+                    width: 35,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Pruning",
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ]),
                 Text(plantData!.data.pruningGuide),
                 SizedBox(
                   height: 15,
                 ),
 
-                Text(
-                  "Watering",
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
+                Row(children: [
+                  Image.asset(
+                    "assets/icons/watering.png",
+                    height: 35,
+                    width: 35,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Watering",
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ]),
                 Text(plantData!.data.wateringGuide),
 
                 SizedBox(
                   height: 15,
                 ),
+                Row(children: [
+                  Image.asset(
+                    "assets/icons/harvest.png",
+                    height: 35,
+                    width: 35,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Harvesting",
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ]),
+
                 Text(
-                  "Harvesting",
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  "Harvest Months",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                // TODO: Add harvest seasons and months as lists
+
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: plantData!.data.harvestMonths.length,
+                    itemBuilder: (ctx, i) {
+                      return Text(plantData!.data.harvestMonths[i]);
+                    }),
+
+                BoldLabelRow(
+                    label: "Harvest Seasons",
+                    data: plantData!.data.harvestSeason),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(plantData!.data.harvestingGuide),
 
                 // MARK: Extra Information

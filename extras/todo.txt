@@ -1,11 +1,11 @@
 To-do
 
 HIGH PRIORITY
-Add and endpoint to accept change requests (Along with a screen for that on the plant viewer activity, probably add a button to that next to the favorite button)
-Keep working on the general plant viewer, adding more data. Maybe even redesign the page, too many words drives users away.
+WORKING ON IT (Probably worry about it after release): Add and endpoint to accept change requests (Along with a screen for that on the plant viewer activity, probably add a button to that next to the favorite button)
 
 LOW PRIORITY
 (THIS NEEDS TO WAIT UNTIL REAL EXCEPTIONS OCCUR) Handle GeminiAI exceptions when the server is under load (Common problem with Gemini API, try-catch)
+Keep working on the general plant viewer, adding more data. Maybe even redesign the page, too many words drives users away.
 
 Don't worry about code organiziation, that can be done after inital release when everything works
 (Probably a bad idea ^^^ )
