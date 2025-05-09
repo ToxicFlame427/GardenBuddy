@@ -5,6 +5,7 @@ import 'package:garden_buddy/widgets/objects/credit_circle.dart';
 import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
 import 'package:garden_buddy/widgets/objects/picture_quality_card.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ScannerScreen extends StatefulWidget {
   const ScannerScreen({super.key, required this.scannerType});
@@ -20,12 +21,19 @@ class ScannerScreen extends StatefulWidget {
 class _ScannerScreenState extends State<ScannerScreen> {
   List<CameraDescription> cameras = [];
   CameraController? cameraController;
+  bool cameraGranted = false;
+  bool isLoading = false;
 
   @override
   void initState() {
     // Initialize the camer upon loading
-    _setupCameraController();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        // Ensure widget is still mounted when callback executes
+        _setupCameraController();
+      }
+    });
   }
 
   @override
@@ -37,33 +45,124 @@ class _ScannerScreenState extends State<ScannerScreen> {
     super.dispose();
   }
 
-  Future<void> _setupCameraController() async {
-    List<CameraDescription> cameras = await availableCameras();
-    if (cameras.isNotEmpty) {
-      // Set the flash to be turned off if the camera controller is not null
-      setState(() {
-        cameras = cameras;
-        // _cameras.first = Front camera, _camera.last = Back camera
-        if (cameras.first.lensDirection == CameraLensDirection.back) {
-          cameraController =
-              CameraController(cameras.first, ResolutionPreset.high, enableAudio: false);
-        } else if (cameras.last.lensDirection == CameraLensDirection.back) {
-          cameraController =
-              CameraController(cameras.last, ResolutionPreset.high, enableAudio: false);
-        } else {
-          cameraController =
-              CameraController(cameras.first, ResolutionPreset.high, enableAudio: false);
-        }
-      });
+  // Ensure you have these imports:
+// import 'package:camera/camera.dart';
+// import 'package:permission_handler/permission_handler.dart';
+// import 'package:flutter/material.dart';
 
-      cameraController?.initialize().then((_) {
-        setState(() {
-          if (cameraController != null) {
-            cameraController!.setFlashMode(FlashMode.off);
-          }
-        });
+  Future<void> _setupCameraController() async {
+    // Initial isLoading set should be conditional on mounted to avoid errors if called late
+    if (mounted && !isLoading) {
+      setState(() {
+        isLoading = true;
       });
     }
+
+    // Check initial status (optional but good for debugging)
+    // PermissionStatus initialStatus = await Permission.camera.status;
+    // debugPrint("iOS Camera Permission Status BEFORE request: $initialStatus");
+
+    // Request camera permission
+    PermissionStatus cameraPermissionStatus = await Permission.camera.request();
+    debugPrint(
+        "iOS Camera Permission Status AFTER request: $cameraPermissionStatus");
+
+    // If you also strictly need microphone for the camera preview to work (usually not if enableAudio: false)
+    // PermissionStatus microphonePermissionStatus = await Permission.microphone.request();
+    // debugPrint("iOS Microphone Permission Status: $microphonePermissionStatus");
+
+    // Determine if all necessary permissions are granted
+    // For now, let's assume only camera is critical for the preview logic you have.
+    // If enableAudio: true, you'd add: && microphonePermissionStatus.isGranted
+    bool permissionsGranted = cameraPermissionStatus.isGranted;
+
+    List<CameraDescription> localCameras = [];
+    if (permissionsGranted) {
+      // Only try to get cameras if permission is granted
+      localCameras = await availableCameras();
+    }
+
+    // Now, update the state based on permissions and camera availability
+    if (mounted) {
+      setState(() {
+        cameraGranted = permissionsGranted; // Update cameraGranted state
+        cameras = localCameras; // Update cameras list state
+
+        if (cameraGranted && localCameras.isNotEmpty) {
+          CameraDescription selectedCamera = localCameras.firstWhere(
+            (cam) => cam.lensDirection == CameraLensDirection.back,
+            orElse: () => localCameras
+                .first, // Fallback to the first camera if no back camera
+          );
+
+          cameraController = CameraController(
+            selectedCamera,
+            ResolutionPreset.high,
+            enableAudio:
+                false, // Explicitly false, so microphone isn't strictly needed by controller
+          );
+
+          // Initialize the controller and update loading state
+          cameraController!.initialize().then((_) {
+            if (mounted) {
+              cameraController!.setFlashMode(FlashMode.off).catchError((e) {
+                debugPrint("Error setting flash mode: $e");
+                // Non-fatal, continue
+              });
+              setState(() {
+                isLoading = false; // Initialization successful
+              });
+            }
+          }).catchError((e) {
+            debugPrint("Error initializing camera controller: $e");
+            if (mounted) {
+              setState(() {
+                cameraController = null; // Failed to initialize
+                isLoading = false;
+              });
+            }
+          });
+        } else {
+          // This block handles:
+          // 1. Permissions not granted
+          // 2. Permissions granted, but no cameras available
+          if (!cameraGranted) {
+            debugPrint(
+                "Camera permission was NOT granted after request. Status: $cameraPermissionStatus");
+          }
+          if (localCameras.isEmpty && cameraGranted) {
+            debugPrint("Permissions granted, but no cameras were found.");
+          }
+          cameraController =
+              null; // Ensure controller is null if we can't proceed
+          isLoading = false; // We're done trying to load
+        }
+      });
+    }
+  }
+
+  void _showPermissionDeniedDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text("Camera Permission"),
+        content: const Text(
+            "Camera permission is required to use this feature. Please enable it in app settings."),
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Cancel"),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TextButton(
+            child: const Text("Open Settings"),
+            onPressed: () {
+              openAppSettings(); // From permission_handler
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   void _showScannerDialog() {
@@ -87,9 +186,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   Widget _conditionalCamera() {
-    // Return the camera view if the controller is initialized correctly
-    if (cameraController == null ||
-        cameraController?.value.isInitialized == false) {
+    debugPrint(
+        "State: cameraGranted: $cameraGranted, isLoading: $isLoading, controller: ${cameraController != null}, initialized: ${cameraController?.value.isInitialized}");
+
+    // Handle Loading State
+    if (isLoading) {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -101,7 +202,66 @@ class _ScannerScreenState extends State<ScannerScreen> {
               size: 50,
             ),
             Text(
-              "There is no camera available\nat this moment.",
+              "Camera Loading...",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Colors.grey.shade400,
+                  fontSize: 20),
+            )
+          ],
+        ),
+      );
+    }
+
+    // Handle Permission Denied State
+    if (!cameraGranted) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.camera_alt,
+              color: Colors.grey.shade400,
+              size: 50,
+            ),
+            Text(
+              "Camera permission was not granted.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Colors.grey.shade400,
+                  fontSize: 20),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  _showPermissionDeniedDialog();
+                },
+                child: const Text("Grant Access"))
+          ],
+        ),
+      );
+    }
+
+    // 3. Handle No Camera Controller or Not Initialized (after loading and permission checks)
+    // This also implicitly covers the case where no cameras were found.
+    if (cameraController == null || !cameraController!.value.isInitialized) {
+      // It's possible that `isLoading` became false, but the controller is still null
+      // (e.g., no cameras found, or permission was granted AFTER initial check but before re-init)
+      // or failed to initialize for some reason.
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.camera_alt,
+              color: Colors.grey.shade400,
+              size: 50,
+            ),
+            Text(
+              "No camera available or failed to initialize.",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.w800,
@@ -241,5 +401,19 @@ class _ScannerScreenState extends State<ScannerScreen> {
         ],
       ),
     );
+  }
+}
+
+class _MediaSizeClipper extends CustomClipper<Rect> {
+  final Size mediaSize;
+  const _MediaSizeClipper(this.mediaSize);
+  @override
+  Rect getClip(Size size) {
+    return Rect.fromLTWH(0, 0, mediaSize.width, mediaSize.height);
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Rect> oldClipper) {
+    return true;
   }
 }

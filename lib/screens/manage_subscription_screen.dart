@@ -105,7 +105,7 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
               padding: const EdgeInsets.all(10),
               child: Text(
                 offers == null
-                    ? "Please wait... fetching subscriptions"
+                    ? "Please wait... fetching subscriptions. Please make sure you are logged in on your mobile phones' app store."
                     : "By subscribing to Garden Buddy you will receive certain perks! A payment of ${offers![0].storeProduct.priceString} recurs every month and automatically gets charged until cancellation. You can cancel your subscription of your app stores dashboard by clicking the cancel button below. You can cancel at anytime and your subscription will still be in effect until the next billing cycle where your perks will be removed and you will no longer be charge for the subscription Subscriptions to our service are not required. Feel free to contact us about any issues!",
                 textAlign: TextAlign.center,
                 style:
