@@ -92,6 +92,14 @@ class _PlantSearchState extends State<PlantSearch> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            // Text(
+            //   "The plants API is still being worked, more plants will continuously be added.",
+            //   textAlign: TextAlign.center,
+            //   style: TextStyle(
+            //     color: Theme.of(context).colorScheme.scrim,
+            //     height: 0.95
+            //   )
+            // ),
             GbSearchField(
                 hint: "Search plants",
                 controller: _searchBarController,

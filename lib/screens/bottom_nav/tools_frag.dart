@@ -65,58 +65,58 @@ class ToolsFragment extends StatelessWidget {
     ];
 
     return SafeArea(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(
-              "Helpful Tools",
-              style: Theme.of(context).textTheme.headlineLarge
-            ),
-            ToolCard(
-              toolObject: toolArray[0],
-              onClick: (){
-                Navigator.push(context, MaterialPageRoute(builder: (ctx) => const GardenAIScreen()));
-              },
-            ),
-            ToolCard(
-              toolObject: toolArray[1],
-              onClick: (){
-                Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ScannerScreen(scannerType: "Plant Identification")));
-              }
-            ),
-            ToolCard(
-              toolObject: toolArray[2],
-              onClick: (){
-                Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ScannerScreen(scannerType: "Health Assessment")));
-              }
-            ),
-            ToolCard(
-              toolObject: toolArray[3],
-              onClick: (){
-                Navigator.push(context, MaterialPageRoute(builder: (ctx) => const PlantRequestForm()));
-              }
-            ),
-            ToolCard(
-              toolObject: toolArray[4],
-              onClick: (){
-                _showBugReportDialog(context);
-              }
-            ),
-            // MARK: THESE ARE REAL IDS, DONT TOUCH
-            BannerAdView(
-              androidBannerId:
-                "ca-app-pub-6754306508338066/2146896939",
-              iOSBannerId:
-                "ca-app-pub-6754306508338066/1392308067",
-              isTest: adTesting,
-              isShown: !PurchasesApi.subStatus,
-              bannerSize: AdSize.banner,
-            ),
-          ]
+      child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                "Helpful Tools",
+                style: Theme.of(context).textTheme.headlineLarge
+              ),
+              ToolCard(
+                toolObject: toolArray[0],
+                onClick: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => const GardenAIScreen()));
+                },
+              ),
+              ToolCard(
+                toolObject: toolArray[1],
+                onClick: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ScannerScreen(scannerType: "Plant Identification")));
+                }
+              ),
+              ToolCard(
+                toolObject: toolArray[2],
+                onClick: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => const ScannerScreen(scannerType: "Health Assessment")));
+                }
+              ),
+              ToolCard(
+                toolObject: toolArray[3],
+                onClick: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => const PlantRequestForm()));
+                }
+              ),
+              ToolCard(
+                toolObject: toolArray[4],
+                onClick: (){
+                  _showBugReportDialog(context);
+                }
+              ),
+              // MARK: THESE ARE REAL IDS, DONT TOUCH
+              BannerAdView(
+                androidBannerId:
+                  "ca-app-pub-6754306508338066/2146896939",
+                iOSBannerId:
+                  "ca-app-pub-6754306508338066/1392308067",
+                isTest: adTesting,
+                isShown: !PurchasesApi.subStatus,
+                bannerSize: AdSize.banner,
+              ),
+            ]
+          ),
         ),
-      ),
     );
   }
 }

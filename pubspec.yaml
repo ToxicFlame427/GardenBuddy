@@ -75,6 +75,9 @@ flutter:
 
     # Images
     - assets/images/background_garden.jpg
+    - assets/images/intro/database.png
+    - assets/images/intro/ai_ex.gif
+    - assets/images/intro/viewer.png
 
   # Fonts
   fonts:

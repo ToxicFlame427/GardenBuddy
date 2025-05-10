@@ -32,7 +32,6 @@ void enableDeveloperMode() {
   developerModeEnabled = true;
   PurchasesApi.subStatus = true;
   adTesting = true;
-  
 }
 
 void saveCurrentDay(DateTime currentDate) async {
@@ -106,4 +105,14 @@ void setCountValues() async {
 
     debugPrint("Previous count values were loaded");
   }
+}
+
+Future<bool> checkIntroComplete() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool("introComplete") ?? false;
+}
+
+void setIntroComplete() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool("introComplete", true);
 }

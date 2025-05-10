@@ -35,21 +35,19 @@ class _FavoritePlantsState extends State<FavoritePlants> {
     List<PlantSpeciesDetails> tempConvertedList = [];
     for (int i = 0; i < DbService.favoritePlantsList.length; i++) {
       // Ensure DbService.favoritePlantsList[i] and its jsonContent are valid
-      if (DbService.favoritePlantsList[i].jsonContent != null) {
-        try {
-          PlantSpeciesDetails detail = PlantSpeciesDetails.fromRawJson(
-              DbService.favoritePlantsList[i].jsonContent);
+      try {
+        PlantSpeciesDetails detail = PlantSpeciesDetails.fromRawJson(
+            DbService.favoritePlantsList[i].jsonContent);
 
-          // Replace URL with local image path if available
-          if (detail.data.images.isNotEmpty) {
-            detail.data.images[0].url =
-                DbService.favoritePlantsList[i].localImageDir;
-          }
-          tempConvertedList.add(detail);
-        } catch (e) {
-          debugPrint(
-              "Error converting plant data: ${DbService.favoritePlantsList[i].name} - $e");
+        // Replace URL with local image path if available
+        if (detail.data.images.isNotEmpty) {
+          detail.data.images[0].url =
+              DbService.favoritePlantsList[i].localImageDir;
         }
+        tempConvertedList.add(detail);
+      } catch (e) {
+        debugPrint(
+            "Error converting plant data: ${DbService.favoritePlantsList[i].name} - $e");
       }
     }
 

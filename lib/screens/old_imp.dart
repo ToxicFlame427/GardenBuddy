@@ -1,3 +1,5 @@
+// USING PERMISSION HANDLING - DOES NOT WORK FOR IOS DEVICES
+// AHHHHHhH THIS WOULD HAVE BEEN SO AWESOME!
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/screens/results_screen.dart';
@@ -401,19 +403,5 @@ class _ScannerScreenState extends State<ScannerScreen> {
         ],
       ),
     );
-  }
-}
-
-class _MediaSizeClipper extends CustomClipper<Rect> {
-  final Size mediaSize;
-  const _MediaSizeClipper(this.mediaSize);
-  @override
-  Rect getClip(Size size) {
-    return Rect.fromLTWH(0, 0, mediaSize.width, mediaSize.height);
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Rect> oldClipper) {
-    return true;
   }
 }

@@ -4,6 +4,7 @@ import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/screens/home_screen.dart';
+import 'package:garden_buddy/screens/introduction/introduction_root.dart';
 import 'package:garden_buddy/theming/colors.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -36,9 +37,10 @@ Future<void> initializeStuff() async {
 // Main app entry point
 Future main() async {
   await initializeStuff();
+  bool introComplete = await checkIntroComplete();
 
   runApp(MaterialApp(
-    home: HomeScreen(),
+    home: introComplete ? HomeScreen() : IntroductionRoot(),
     // Theme data for the entire app both light and dark
     // MARK: Light Theme
     theme: ThemeData(
