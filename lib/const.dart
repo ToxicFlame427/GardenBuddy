@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Used universally for ad testing
 bool adTesting = false;
 bool developerModeEnabled = false;
+bool apiNoticeComplete = false;
 
 // Used for connectivity queries, such as detecting a slow network connection
 List<ConnectivityResult> _activeConnections = [];
@@ -115,4 +116,14 @@ Future<bool> checkIntroComplete() async {
 void setIntroComplete() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setBool("introComplete", true);
+}
+
+Future<bool> checkApiNotice() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool("apiNoticeComplete") ?? false;
+}
+
+void setApiNotice() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool("apiNoticeComplete", true);
 }

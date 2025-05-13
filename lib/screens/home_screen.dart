@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/screens/bottom_nav/plants/plants_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/settings_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/tools_frag.dart';
 import 'package:garden_buddy/theming/colors.dart';
+import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,8 +31,31 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void showApiNotice() {
+    showDialog(
+        context: context,
+        builder: (ctx) => CustomInfoDialog(
+            title: "API Notice",
+            description:
+                "The API for the plants database is still in the works. Upon rlease, there are only about 20 plants in this database that can be seen by users. As the application grows, we will be adding more plant infromation to grow this database.",
+            imageAsset: "assets/icons/icon.jpg",
+            buttonText: "Dismiss",
+            onClose: () {
+              setApiNotice();
+              apiNoticeComplete = true;
+              Navigator.of(context).pop();
+            }));
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Show the notice dialog, then don't show it again
+    if (!apiNoticeComplete) {
+      Future.delayed(Duration.zero, () {
+        showApiNotice();
+      });
+    }
+
     return Scaffold(
       body: _fragmentList.elementAt(_bottomNavIndex),
       // Bottom navigation bar controls what the home screen sees

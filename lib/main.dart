@@ -20,7 +20,7 @@ Future<void> initializeStuff() async {
 
   if (!developerModeEnabled) {
     // Check the current sub status, as internet connection is needed to use basically any part of the application
-    PurchasesApi.subStatus = await PurchasesApi.checkSubStatus();
+    PurchasesApi.subStatus = await PurchasesApi.checkSubStatus(null, null);
     PurchasesApi.subStatus = false;
   }
 
@@ -38,8 +38,10 @@ Future<void> initializeStuff() async {
 Future main() async {
   await initializeStuff();
   bool introComplete = await checkIntroComplete();
+  apiNoticeComplete = await checkApiNotice();
 
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: introComplete ? HomeScreen() : IntroductionRoot(),
     // Theme data for the entire app both light and dark
     // MARK: Light Theme

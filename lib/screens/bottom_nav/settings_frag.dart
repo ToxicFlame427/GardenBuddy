@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
+import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/objects/credit_text_object.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/objects/hyperlink.dart';
@@ -34,6 +36,35 @@ class _SettingsFragmentState extends State<SettingsFragment> {
     });
   }
 
+  Future<void> _showRestorePurchasesDialog() async {
+    showDialog(
+        context: context,
+        builder: (ctx) => ConfirmationDialog(
+            title: "Restore Purchases?",
+            description:
+                "This feature can be used to restore any purchases you have made from us. If a subscription does not activate, this button can also be clicked to activate it if it did not occur automatically.",
+            imageAsset: "assets/icons/icon.jpg",
+            positiveButtonText: "Restore",
+            negativeButtonText: "No thanks",
+            onNegative: () {
+              Navigator.pop(context);
+            },
+            onPositive: () async {
+              await _restorePurchases();
+
+              if (mounted) {
+                Navigator.pop(context);
+              }
+            }));
+  }
+
+  Future<void> _restorePurchases() async {
+    await PurchasesApi.init();
+    if (mounted) {
+      await PurchasesApi.checkSubStatus(true, context);
+    }
+  }
+
   @override
   void initState() {
     _initPackageInfo();
@@ -66,6 +97,17 @@ class _SettingsFragmentState extends State<SettingsFragment> {
                   },
                   child: const Text(
                     "Manage Subscription",
+                    style: TextStyle(color: Colors.white),
+                  )),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: () {
+                    _showRestorePurchasesDialog();
+                  },
+                  child: const Text(
+                    "Restore Purchases",
                     style: TextStyle(color: Colors.white),
                   )),
               Padding(

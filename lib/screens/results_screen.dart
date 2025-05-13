@@ -12,7 +12,9 @@ import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/loading/health_assess_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_id_card.dart';
 import 'package:garden_buddy/widgets/loading/plant_id_loading.dart';
+import 'package:garden_buddy/widgets/objects/banner_ad.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ScannerResultScreen extends StatefulWidget {
@@ -74,13 +76,13 @@ class _ScannerResultState extends State<ScannerResultScreen> {
       if (widget.scannerType == "Plant Identification") {
         idResponse = PlantIdResponse.fromRawJson(response!);
         // If the user is subscribed, then subtract from the daily limit
-        if(PurchasesApi.subStatus) {
+        if (PurchasesApi.subStatus) {
           AiConstants.idCount--;
         }
       } else {
         healthResponse = HealthAssessmentResponse.fromRawJson(response!);
         // Same check here, for health assessment
-        if(PurchasesApi.subStatus) {
+        if (PurchasesApi.subStatus) {
           AiConstants.healthCount--;
         }
       }
@@ -130,6 +132,12 @@ class _ScannerResultState extends State<ScannerResultScreen> {
               fit: BoxFit.cover,
             ),
           ),
+          BannerAdView(
+              androidBannerId: "ca-app-pub-6754306508338066/1605956988",
+              iOSBannerId: "ca-app-pub-6754306508338066/7766144728",
+              isTest: adTesting,
+              isShown: !PurchasesApi.subStatus,
+              bannerSize: AdSize.banner),
           // MARK: This hierarchy of conditionals is weird, it feels wrong for Flutter...
           // Display the data based on if the result was recieved or not
           if (recievedResult)
@@ -147,11 +155,11 @@ class _ScannerResultState extends State<ScannerResultScreen> {
             else
               _NoDataWidget()
           else
-            // When loading, display the corresponding loading screen 
-            if (widget.scannerType == "Plant Identification")
-              PlantIdLoading()
-            else
-              HealthAssessLoading()
+          // When loading, display the corresponding loading screen
+          if (widget.scannerType == "Plant Identification")
+            PlantIdLoading()
+          else
+            HealthAssessLoading()
         ],
       ),
     );
@@ -203,7 +211,7 @@ class _PlantIdResultsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Identification AI Generated (Gemini)",
+            "Identification Generated",
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
           SingleChildScrollView(
@@ -268,7 +276,7 @@ class _HealthAssessResultsWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Health Assessment Generated (Gemini)",
+                "Health Assessment Generated",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               HorizontalRule(color: Theme.of(context).cardColor, height: 2),
