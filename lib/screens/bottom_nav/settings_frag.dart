@@ -146,8 +146,7 @@ class _SettingsFragmentState extends State<SettingsFragment> {
                   urlString: "https://toxicflame427.xyz"),
               const Hyperlink(
                   label: "Privacy Policy",
-                  urlString:
-                      "https://toxicflame427.xyz/privacy_policies/privacy_policy_website.html"),
+                  urlString: "http://toxicflame427.xyz/privacy_policy.html"),
               if (Platform.isIOS)
                 const Hyperlink(
                     label: "Subscription Terms of Use",
