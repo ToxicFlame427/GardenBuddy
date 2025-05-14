@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
@@ -145,7 +147,12 @@ class _SettingsFragmentState extends State<SettingsFragment> {
               const Hyperlink(
                   label: "Privacy Policy",
                   urlString:
-                      "https://toxicflame427.xyz/privacy_policies/privacy_policy_website.html")
+                      "https://toxicflame427.xyz/privacy_policies/privacy_policy_website.html"),
+              if (Platform.isIOS)
+                const Hyperlink(
+                    label: "Subscription Terms of Use",
+                    urlString:
+                        "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
             ]),
       ),
     );

@@ -16,7 +16,7 @@ class _IntroductionRootState extends State<IntroductionRoot> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _introWidgets = [
+    final List<Widget> introWidgets = [
       // First page
       Column(
           mainAxisSize: MainAxisSize.max,
@@ -165,7 +165,7 @@ class _IntroductionRootState extends State<IntroductionRoot> {
                   // Key can be anything (preferably an integer), but it needs to change to animate
                   child: Container(
                     key: ValueKey(_currentWidget),
-                    child: _introWidgets[_currentWidget],
+                    child: introWidgets[_currentWidget],
                   )),
             ),
             Row(
