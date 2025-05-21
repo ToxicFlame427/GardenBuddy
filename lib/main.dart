@@ -16,7 +16,7 @@ Future<void> initializeStuff() async {
   await PurchasesApi.init();
 
   // Add and remove this for testing and production purposes
-  //enableDeveloperMode();
+  enableDeveloperMode();
 
   if (!developerModeEnabled) {
     // Check the current sub status, as internet connection is needed to use basically any part of the application

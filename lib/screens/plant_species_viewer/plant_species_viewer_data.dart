@@ -103,8 +103,37 @@ class PlantSpeciesViewerData extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(children: [
-                    VariationCard(label: plantData!.data.speciesOrVariety),
-                    VariationCard(label: plantData!.data.growingCycle),
+                    VariationCard(
+                      label: plantData!.data.speciesOrVariety,
+                      onTap: () {},
+                    ),
+                    VariationCard(
+                      label: plantData!.data.growingCycle,
+                      onTap: () {},
+                    ),
+                    if (!(plantData!.data.patentStatus
+                            .toLowerCase()
+                            .contains("none")) &&
+                        !(plantData!.data.patentStatus
+                            .toLowerCase()
+                            .contains("unknown")))
+                      VariationCard(
+                        label: "Patent: ${plantData!.data.patentStatus}",
+                        isPatent: true,
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => CustomInfoDialog(
+                                  title: "Patented Plant",
+                                  description:
+                                      "Some varieties of plants are patented. Patents protect these plants as intellectual property and outline usage of the variety:\n\nPVP (Plant Variety Protection): The plant can be homegrown, however cannot be grown commercially, sold/traded as seed/crop, or bred into hybrids without patent owners' consent.",
+                                  imageAsset: "assets/icons/icon.jpg",
+                                  buttonText: "Okay",
+                                  onClose: () {
+                                    Navigator.of(context).pop();
+                                  }));
+                        },
+                      )
                   ]),
                   if (plantData!.data.images.isNotEmpty)
                     Padding(

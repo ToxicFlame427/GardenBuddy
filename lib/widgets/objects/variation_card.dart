@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class VariationCard extends StatelessWidget {
-  const VariationCard({super.key, required this.label});
+  const VariationCard({super.key, required this.label, required this.onTap, this.isPatent});
 
   final String label;
+  final Function onTap;
+  final bool? isPatent;
 
   @override
   Widget build(BuildContext context) {
@@ -11,29 +13,32 @@ class VariationCard extends StatelessWidget {
     Color cardColor = Theme.of(context).colorScheme.primary;
 
     // "Species" and "Variety" will both be the default green color
-    if(label.contains("Perennial")){
-      cardColor = Colors.blue;
-    } else if (label.contains("Annual")){
-      cardColor = Colors.purple;
-    } else if (label.contains("Biennial")){
-      cardColor = Colors.amber;
+    if (isPatent != null) {
+      // If isPatent is not null, then there is a patent, handle the label accordingly
+      cardColor = Colors.red;
     } else {
-      cardColor = Theme.of(context).colorScheme.primary;
+      if (label.contains("Perennial")) {
+        cardColor = Colors.blue;
+      } else if (label.contains("Annual")) {
+        cardColor = Colors.purple;
+      } else if (label.contains("Biennial")) {
+        cardColor = Colors.amber;
+      } else {
+        cardColor = Theme.of(context).colorScheme.primary;
+      }
     }
 
-    return Card(
-      color: cardColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20)
-      ),
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(16, 2, 16, 2),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 12
+    return TapRegion(
+      onTapInside: (event) => onTap(),
+      child: Card(
+        color: cardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 2, 16, 2),
+          child: Text(
+            label,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
           ),
         ),
       ),

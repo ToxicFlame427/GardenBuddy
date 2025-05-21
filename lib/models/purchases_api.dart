@@ -45,7 +45,8 @@ class PurchasesApi {
 
   // NOT SURE IF THIS WILL WORK, MORE TESTING IS NEEDED
   // JK, it works pretty well, but a connection to the app is always needed to get a response
-  static Future<bool> checkSubStatus(bool? fromRestore, BuildContext? context) async {
+  static Future<bool> checkSubStatus(
+      bool? fromRestore, BuildContext? context) async {
     bool subActive = false;
 
     try {
