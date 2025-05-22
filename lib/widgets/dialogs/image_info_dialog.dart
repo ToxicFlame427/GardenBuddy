@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 // ignore: library_prefixes
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
-    as PlantSpeciesClass;
+    as plant_species_class;
 import 'package:garden_buddy/widgets/objects/bold_label_row.dart';
 import 'package:garden_buddy/widgets/objects/hyperlink.dart';
 import 'package:shimmer/shimmer.dart';
@@ -12,7 +12,7 @@ import 'package:shimmer/shimmer.dart';
 class ImageInfoDialog extends StatelessWidget {
   const ImageInfoDialog({super.key, required this.imageData});
 
-  final PlantSpeciesClass.Image imageData;
+  final plant_species_class.Image imageData;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +99,8 @@ class ImageInfoDialog extends StatelessWidget {
             if (imageData.licenseCode != null)
               Padding(
                 padding: const EdgeInsets.all(6),
-                child: BoldLabelRow(label: "License code", data: imageData.licenseCode!),
+                child: BoldLabelRow(
+                    label: "License code", data: imageData.licenseCode!),
               ),
           ],
         ),

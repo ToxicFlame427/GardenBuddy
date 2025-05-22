@@ -1,8 +1,6 @@
 To-do
 
 Remove release jank on real devices, its not bad, but its very noticable
-Add the license codes to the image viewer, also fix the box fit to fit the entire image not cover
-Add an endpont to smaller images, loading times can be better and may help with jank
-Keep working on adding more plants and images to the API system, this is SUPER important
+Keep working on adding more plants and images to the API system, this is SUPER important.
 
 Always worth refactoring

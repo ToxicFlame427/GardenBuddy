@@ -5,7 +5,6 @@ ________________________________________________
 Acorn Squash
 American Chestnut
 Apple
-Apple Mint
 Apricot
 Artichoke
 Arugula
@@ -254,7 +253,6 @@ Salmonberry
 Scallion / Green Onion / Welsh Onion
 Sour Cherry
 Soybean
-Spearmint
 Spinach
 Stevia
 Strawberry
@@ -268,7 +266,11 @@ Squash 'Lakota'
 Tarragon
 Tea
 Thyme
+
+// Oh yeah, this list will be long AF
 Tomato
+Tomato ''
+
 Turnip
 Wasabi
 Watercress
@@ -345,6 +347,7 @@ Tulip
 Baby's Breath
 Morning Glory
 Dandelion
+
 //Common Sunflower
 //American Giant Sunflower
 Sunflower 'Sunny Smile'
@@ -369,6 +372,7 @@ Sunflower 'Evening Sun'
 Sunflower 'Arikara'
 Sunflower 'Mammoth Grey Stripe'
 Sunflower 'Russian Mammoth'
+
 Jerusalem Artichoke Sunflower
 Ten-Petaled Sunflower
 Stiff Sunflower
