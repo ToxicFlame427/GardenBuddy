@@ -136,8 +136,8 @@ class _PlantSearchState extends State<PlantSearch> {
                                 imageAddress: GardenAPIServices
                                         .plantList!.data[index].images.isEmpty
                                     ? null
-                                    : GardenAPIServices
-                                        .plantList?.data[index].images[0].url,
+                                    : GardenAPIServices.plantList?.data[index]
+                                        .images[0].smallUrl,
                                 plantId: GardenAPIServices
                                     .plantList!.data[index].apiId,
                                 onTapAction: () {

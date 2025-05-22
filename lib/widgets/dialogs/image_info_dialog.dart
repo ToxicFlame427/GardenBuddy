@@ -5,6 +5,7 @@ import 'package:flutter_html/flutter_html.dart';
 // ignore: library_prefixes
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
     as PlantSpeciesClass;
+import 'package:garden_buddy/widgets/objects/bold_label_row.dart';
 import 'package:garden_buddy/widgets/objects/hyperlink.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -47,9 +48,9 @@ class ImageInfoDialog extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
                   imageData.url,
-                  height: 170,
+                  height: 215,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) {
                       return child;
@@ -59,7 +60,7 @@ class ImageInfoDialog extends StatelessWidget {
                       baseColor: Colors.grey.shade300,
                       highlightColor: Colors.grey.shade100,
                       child: Container(
-                        height: 170,
+                        height: 215,
                         width: double.infinity,
                         color: Colors.grey,
                       ),
@@ -89,13 +90,17 @@ class ImageInfoDialog extends StatelessWidget {
             ),
             // MARK: This might need to change as not all credit will be in HTML, same goes for the image license as it may not always be a link
             Html(data: imageData.credit),
-            Text("License", style: TextStyle(fontWeight: FontWeight.bold)),
             Hyperlink(
               label: "Image License",
               urlString: imageData.imageLicense,
             ),
             Hyperlink(
-                label: "Original Image URL", urlString: imageData.originalUrl)
+                label: "Original Image URL", urlString: imageData.originalUrl),
+            if (imageData.licenseCode != null)
+              Padding(
+                padding: const EdgeInsets.all(6),
+                child: BoldLabelRow(label: "License code", data: imageData.licenseCode!),
+              ),
           ],
         ),
       ),

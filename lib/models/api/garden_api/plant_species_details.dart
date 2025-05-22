@@ -285,34 +285,36 @@ class Image {
   String credit;
   String imageLicense;
   String originalUrl;
+  String smallUrl;
   String url;
   String? licenseCode;
 
-  Image({
-    required this.credit,
-    required this.imageLicense,
-    required this.originalUrl,
-    required this.url,
-    this.licenseCode
-  });
+  Image(
+      {required this.credit,
+      required this.imageLicense,
+      required this.originalUrl,
+      required this.url,
+      required this.smallUrl,
+      this.licenseCode});
 
   factory Image.fromRawJson(String str) => Image.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
-        credit: json["credit"],
-        imageLicense: json["imageLicense"],
-        originalUrl: json["originalUrl"],
-        url: json["url"],
-        licenseCode: json["licenseCode"]
-      );
+      credit: json["credit"],
+      imageLicense: json["imageLicense"],
+      originalUrl: json["originalUrl"],
+      url: json["url"],
+      smallUrl: json["smallUrl"],
+      licenseCode: json["licenseCode"]);
 
   Map<String, dynamic> toJson() => {
         "credit": credit,
         "imageLicense": imageLicense,
         "originalUrl": originalUrl,
         "url": url,
+        "smallUrl": smallUrl,
         "licenseUrl": licenseCode
       };
 }

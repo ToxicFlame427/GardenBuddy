@@ -5,4 +5,4 @@ Add the license codes to the image viewer, also fix the box fit to fit the entir
 Add an endpont to smaller images, loading times can be better and may help with jank
 Keep working on adding more plants and images to the API system, this is SUPER important
 
-Always worht refactoring
+Always worth refactoring
