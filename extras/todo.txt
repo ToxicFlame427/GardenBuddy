@@ -1,11 +1,8 @@
 To-do
 
-HIGH PRIORITY
-WORKING ON IT (Probably worry about it after release): Add and endpoint to accept change requests (Along with a screen for that on the plant viewer activity, probably add a button to that next to the favorite button)
+Remove release jank on real devices, its not bad, but its very noticable
+Add the license codes to the image viewer, also fix the box fit to fit the entire image not cover
+Add an endpont to smaller images, loading times can be better and may help with jank
+Keep working on adding more plants and images to the API system, this is SUPER important
 
-LOW PRIORITY
-(THIS NEEDS TO WAIT UNTIL REAL EXCEPTIONS OCCUR) Handle GeminiAI exceptions when the server is under load (Common problem with Gemini API, try-catch)
-Keep working on the general plant viewer, adding more data. Maybe even redesign the page, too many words drives users away.
-
-Don't worry about code organiziation, that can be done after inital release when everything works
-(Probably a bad idea ^^^ )
+Always worht refactoring
