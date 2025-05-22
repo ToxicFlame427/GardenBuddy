@@ -1,0 +1,86 @@
+{
+  "apiId": 13,
+  "averageHeight": {
+    "unit": "inches",
+    "value": "24-36"
+  },
+  "averageSpread": {
+    "unit": "inches",
+    "value": "12-18"
+  },
+  "name": "Dill 'Vierling'",
+  "description": "Dill 'Vierling' (Anethum graveolens 'Vierling') is a popular, slow-bolting variety of dill that is prized for its long harvest period of flavorful leaves and its suitability for both fresh use and freezing. This cultivar is an excellent choice for gardeners who want a reliable dill plant that will provide a continuous supply of aromatic foliage throughout the growing season. 'Vierling' dill plants are characterized by their upright growth habit, finely divided, blue-green leaves, and resistance to premature flowering. They typically reach a height of 24-36 inches, making them a medium-sized dill variety. The leaves of 'Vierling' dill are known for their strong, slightly sweet flavor and can be used in a wide range of culinary applications, including salads, soups, sauces, fish dishes, and pickling. This variety is also a good choice for freezing, as it retains its flavor and color well when frozen.",
+  "floweringMonths": [
+    "June",
+    "July",
+    "August"
+  ],
+  "floweringSeason": "Summer",
+  "fruitIsEdible": false,
+  "growingCycle": "Annual",
+  "growthRate": 4,
+  "hardinessZones": {
+    "maxHardiness": 11,
+    "minHardiness": 2
+  },
+  "harvestMonths": [
+    "June",
+    "July",
+    "August",
+    "September",
+    "October"
+  ],
+  "harvestSeason": "Summer, Fall",
+  "harvestingGuide": "Dill 'Vierling' leaves can be harvested at any time after the plants have reached at least 6 inches tall. Snip off the leaves as needed, or cut the entire plant about 2-3 inches above the ground for a larger harvest. For the best flavor, harvest dill leaves in the morning after the dew has dried. To harvest dill seeds, wait until the flower heads turn brown and the seeds begin to dry. Cut the flower heads and place them in a paper bag. Hang the bag upside down in a cool, dry place for a few weeks. The seeds will fall out of the flower heads and collect in the bag.",
+  "hasFlowers": true,
+  "hasSeeds": true,
+  "images": [],
+  "containerFriendly": true,
+  "frostTolerant": false,
+  "heatTolerant": true,
+  "indoorFriendly": false,
+  "medicinal": true,
+  "poisonousToHumans": false,
+  "poisonousToPets": false,
+  "saltTolerant": false,
+  "speciesOrVariety": "Variety",
+  "leavesAreEdible": true,
+  "maintenanceLevel": 1,
+  "maturityTime": {
+    "time": "45-55",
+    "unit": "days"
+  },
+  "otherNames": [
+    "Vierling Dill"
+  ],
+  "plantSpacing": {
+    "unit": "inches",
+    "value": "9-12"
+  },
+  "plantingMonths": [
+    "April",
+    "May",
+    "June"
+  ],
+  "plantingSeason": "Spring",
+  "preferredSoil": [
+    "Well-drained",
+    "Loamy",
+    "Sandy"
+  ],
+  "preferredSunlight": [
+    "Full Sun"
+  ],
+  "pruningGuide": "Dill 'Vierling' does not require extensive pruning, but pinching off the growing tips can encourage bushier growth and further delay flowering. If you want to harvest dill leaves, you can regularly snip them off as needed. To harvest dill seeds, allow the flowers to fully mature and turn brown. Cut the flower heads and place them in a paper bag to dry. Once dry, the seeds will easily fall off the flower heads.",
+  "scientificName": "Anethum graveolens 'Vierling'",
+  "seedGerminationTime": {
+    "time": "7-14",
+    "unit": "days"
+  },
+  "seedsAreEdible": true,
+  "soilPh": "Slightly Acidic to Neutral (5.5 - 7.0)",
+  "sowingGuide": "Dill 'Vierling' is easily grown from seed and can be directly sown in the garden after the last frost. Choose a location with full sun and well-drained soil. Sow seeds 1/4 inch deep and 9-12 inches apart. Keep the soil consistently moist until germination, which typically occurs within 7-14 days. Thin seedlings to 9-12 inches apart when they are a few inches tall. For a continuous harvest, sow dill seeds every few weeks throughout the growing season. 'Vierling' dill can also be started indoors 4-6 weeks before the last frost and transplanted outdoors after the danger of frost has passed.",
+  "wateringGuide": "Dill 'Vierling' requires regular watering, especially during dry periods. Water deeply when the top inch of soil feels dry to the touch. Aim to keep the soil consistently moist but not waterlogged. Overwatering can lead to root rot, while underwatering can cause the plants to bolt. Using mulch around the base of the plants can help retain soil moisture and suppress weeds. Container-grown plants may need more frequent watering than those grown in the ground.",
+  "hasCorms": false,
+  "patentStatus": "None"
+}

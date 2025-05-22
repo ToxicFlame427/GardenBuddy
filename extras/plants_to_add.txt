@@ -30,24 +30,23 @@ Butternut Squash
 Cabbage
 
 //Garden Carrot
-Carrot 'Scarlet Nantes'
-Carrot 'Bolero'
-Carrot 'Nelson'
-Carrot 'Yaya'
-Carrot 'Napa'
-Carrot 'Touchon'
-Carrot 'Parano'
-Carrot 'Kaleidoscope'
-Carrot 'White Satin'
-Carrot 'Merida'
-Carrot 'Purple Dragon'
-Carrot 'Cosmic Purple'
-Carrot 'Autumn King'
-Carrot 'Atomic Red'
-Carrot 'Red-Cored Chantenay'
-Carrot 'Babette'
-Carrot 'Romeo'
-Carrot 'Hercules'
+//Carrot 'Scarlet Nantes'
+//Carrot 'Bolero'
+//Carrot 'Nelson'
+//Carrot 'Yaya'
+//Carrot 'Napa'
+//Carrot 'Touchon'
+//Carrot 'Parano'
+//Carrot 'White Satin'
+//Carrot 'Merida'
+//Carrot 'Purple Dragon'
+//Carrot 'Cosmic Purple'
+//Carrot 'Autumn King'
+//Carrot 'Atomic Red'
+//Carrot 'Red-Cored Chantenay'
+//Carrot 'Babette'
+//Carrot 'Romeo'
+//Carrot 'Hercules'
 Carrot 'Tendersweet'
 Carrot 'Danvers 126'
 Carrot 'Little Finger'
@@ -66,7 +65,23 @@ Carrot 'Sugarsnax'
 Carrot 'Black Nebula'
 Carrot 'St. Valery'
 
-Catnip
+//Catnip
+//Lemon Balm
+//Lemon Mint
+//Spearmint
+//Pineapple Mint
+//Mountain Mint
+//Apple Mint
+//Water Mint
+//Ginger Mint
+//Orange Mint
+//Grapefruit Mint
+//Mojito Mint
+//Chocolate Mint
+//Strawberry Mint
+//Banana Mint
+//Basil Mint
+
 Cauliflower
 Cayenne Pepper
 Chamomile
@@ -96,7 +111,7 @@ Coneflower
 Corn
 Crisanthemum
 
-Garden Cucumber
+//Garden Cucumber
 Cucumber 'Straight Eight'
 Cucumber 'Slicing'
 Cucumber 'Persian'
@@ -141,10 +156,8 @@ Jalapeno
 Jujube
 Kiwi
 Kohlrabi
-Lemon Balm
 Lettuce
 Mango
-Mountain Mint
 Mulberry
 Musk Strawberry
 Mustard Greens
@@ -166,7 +179,7 @@ Pomegranate
 Poppy
 Potato
 
-Pumpkin / Winter squash
+//Pumpkin / Winter squash
 Pumpkin 'Atlantic Giant'
 Pumpkin 'Appalachian'
 Pumpkin 'Autumn Gold'
@@ -260,7 +273,7 @@ Turnip
 Wasabi
 Watercress
 
-Watermelon
+// Watermelon
 Watermelon 'Black Diamond'
 Watermelon 'Little Baby Flower'
 Watermelon 'Yellow Baby Doll'
