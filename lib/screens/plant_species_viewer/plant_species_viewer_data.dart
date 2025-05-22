@@ -109,7 +109,19 @@ class PlantSpeciesViewerData extends StatelessWidget {
                     ),
                     VariationCard(
                       label: plantData!.data.growingCycle,
-                      onTap: () {},
+                      onTap: () {
+                        showDialog(
+                              context: context,
+                              builder: (ctx) => CustomInfoDialog(
+                                  title: "Growing Cycle",
+                                  description:
+                                      "Growing cycles are an indicator of how long the entire lifecycle of a plant takes place, typically in one of these three categories:\n\nPerennial - Lives for more than two years. Flowers and seeds over multiple seasons.\n\nBiennial - Two growing cycles, typically 2 years\n\nAnnual - One growing cycle, typically 1 year",
+                                  imageAsset: "assets/icons/icon.jpg",
+                                  buttonText: "Okay",
+                                  onClose: () {
+                                    Navigator.of(context).pop();
+                                  }));
+                      },
                     ),
                     if (!(plantData!.data.patentStatus
                             .toLowerCase()
@@ -126,7 +138,7 @@ class PlantSpeciesViewerData extends StatelessWidget {
                               builder: (ctx) => CustomInfoDialog(
                                   title: "Patented Plant",
                                   description:
-                                      "Some varieties of plants are patented. Patents protect these plants as intellectual property and outline usage of the variety:\n\nPVP (Plant Variety Protection): The plant can be homegrown, however cannot be grown commercially, sold/traded as seed/crop, or bred into hybrids without patent owners' consent.",
+                                      "Some varieties of plants are patented. Patents protect these plants as intellectual property and outline usage of the variety:\n\nPVP (Plant Variety Protection): The plant can be homegrown, however cannot be grown commercially, sold/traded as seed/crop, or bred into hybrids without patent owners' consent.\n\nOther patents tend to follow these same rules, particularly getting permission to do anything with the plant from the patent owner.",
                                   imageAsset: "assets/icons/icon.jpg",
                                   buttonText: "Okay",
                                   onClose: () {

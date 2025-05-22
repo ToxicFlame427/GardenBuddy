@@ -22,7 +22,7 @@ class VariationCard extends StatelessWidget {
       } else if (label.contains("Annual")) {
         cardColor = Colors.purple;
       } else if (label.contains("Biennial")) {
-        cardColor = Colors.amber;
+        cardColor = Colors.orange;
       } else {
         cardColor = Theme.of(context).colorScheme.primary;
       }
