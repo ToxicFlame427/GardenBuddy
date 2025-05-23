@@ -168,7 +168,7 @@ class _PlantSearchState extends State<PlantSearch> {
                       )))),
             plantListIsLoaded != null && GardenAPIServices.plantList != null
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                         // Show each button based on if the button can be oressed to show the next page
                         pageIsValid(0)
@@ -186,15 +186,13 @@ class _PlantSearchState extends State<PlantSearch> {
 
                                     getPlantList();
                                   } else {
-                                    debugPrint(
-                                        "Page cannot move further backward");
+                                    debugPrint("Page cannot move further backward");
                                   }
                                 },
                                 child: Text("< Back"))
                             : SizedBox(),
                         Padding(
-                          padding: EdgeInsets.all(
-                              GardenAPIServices.plantList!.pages == 1 ? 15 : 0),
+                          padding: EdgeInsets.all(GardenAPIServices.plantList!.pages == 1 ? GardenAPIServices.plantsListLength.toDouble() : 0),
                           child: Text(
                               "Page $currentPage of ${GardenAPIServices.plantList!.pages}"),
                         ),

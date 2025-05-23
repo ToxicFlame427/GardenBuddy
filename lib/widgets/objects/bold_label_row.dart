@@ -18,7 +18,7 @@ class BoldLabelRow extends StatelessWidget {
         SizedBox(
           width: 10,
         ),
-        Text(data),
+        Text(data, softWrap: true),
       ],
     );
   }

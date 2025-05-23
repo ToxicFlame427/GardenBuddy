@@ -15,7 +15,7 @@ class GardenAPIServices {
   static PlantSpeciesList? plantList;
 
   static int plantsListPage = 1;
-  static int plantsListLength = 15;
+  static int plantsListLength = 10;
 
   // Fetch the plant species list
   static Future<PlantSpeciesList?> getPlantSpeciesList(

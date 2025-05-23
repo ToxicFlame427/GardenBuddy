@@ -8,6 +8,7 @@ import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
 import 'package:garden_buddy/widgets/objects/bold_label_row.dart';
 import 'package:garden_buddy/widgets/objects/hyperlink.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ImageInfoDialog extends StatelessWidget {
   const ImageInfoDialog({super.key, required this.imageData});
@@ -89,7 +90,12 @@ class ImageInfoDialog extends StatelessWidget {
               height: 12,
             ),
             // MARK: This might need to change as not all credit will be in HTML, same goes for the image license as it may not always be a link
-            Html(data: imageData.credit),
+            Html(
+              data: imageData.credit,
+              // Open the URL when tapped, that was easy
+              onLinkTap: (url, attributes, element) =>
+                  launchUrl(Uri.parse(url!)),
+            ),
             Hyperlink(
               label: "Image License",
               urlString: imageData.imageLicense,
