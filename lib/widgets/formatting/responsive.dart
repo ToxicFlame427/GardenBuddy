@@ -5,25 +5,32 @@ import 'package:garden_buddy/const.dart';
 // Mnay things can start the way they are, however some things like lists need to change
 class Responsive extends StatelessWidget {
   const Responsive(
-      {required this.smallPhone,
-      required this.phone,
-      required this.tablet,
-      super.key});
+      {this.smallPhone, required this.phone, this.tablet, super.key});
 
-  final Widget smallPhone;
+  final Widget? smallPhone;
   final Widget phone;
-  final Widget tablet;
+  final Widget? tablet;
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.sizeOf(context).width;
 
     if (screenWidth < smallPhoneWidthT) {
-      return smallPhone;
+      // If small phone widget does not exist, return regular
+      if (smallPhone != null) {
+        return smallPhone!;
+      } else {
+        return phone;
+      }
     } else if (screenWidth < phoneWidthT) {
       return phone;
     } else {
-      return tablet;
+      // If tablet widget does not exist, return regular
+      if (tablet != null) {
+        return tablet!;
+      } else {
+        return phone;
+      }
     }
   }
 }

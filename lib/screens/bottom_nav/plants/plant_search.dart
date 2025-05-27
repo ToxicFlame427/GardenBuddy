@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer.dart';
+import 'package:garden_buddy/widgets/formatting/responsive.dart';
 import 'package:garden_buddy/widgets/loading/list_card_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_list_card.dart';
 import 'package:garden_buddy/widgets/objects/gb_search_field.dart';
@@ -125,7 +126,10 @@ class _PlantSearchState extends State<PlantSearch> {
                 ),
                 child: GardenAPIServices.plantList?.data.isNotEmpty ?? true
                     ? Expanded(
-                        child: ListView.builder(
+                        // Responsive list
+                        child: Responsive(
+                        smallPhone: Text("Smol lol"),
+                        phone: ListView.builder(
                             itemCount: GardenAPIServices.plantList?.data.length,
                             itemBuilder: (context, index) {
                               return PlantListCard(
@@ -154,7 +158,43 @@ class _PlantSearchState extends State<PlantSearch> {
                                 },
                               );
                             }),
-                      )
+                        // TODO: This work great! But each tile is too big and stretches the card. Oops
+                        tablet: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                            ),
+                            itemCount: GardenAPIServices.plantList?.data.length,
+                            itemBuilder: (context, index) {
+                              return PlantListCard(
+                                  plantName: GardenAPIServices
+                                      .plantList!.data[index].name,
+                                  scientificName: GardenAPIServices
+                                      .plantList!.data[index].scientificName,
+                                  imageAddress: GardenAPIServices
+                                          .plantList!.data[index].images.isEmpty
+                                      ? null
+                                      : GardenAPIServices.plantList?.data[index]
+                                          .images[0].smallUrl,
+                                  plantId: GardenAPIServices
+                                      .plantList!.data[index].apiId,
+                                  onTapAction: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                PlantSpeciesViewer(
+                                                    plantName: GardenAPIServices
+                                                        .plantList!
+                                                        .data[index]
+                                                        .name,
+                                                    apiId: GardenAPIServices
+                                                        .plantList!
+                                                        .data[index]
+                                                        .apiId)));
+                                  });
+                            }),
+                      ))
                     // If the list is empty, show the user that there are no search/filter results
                     : Expanded(
                         child: Center(
@@ -186,13 +226,18 @@ class _PlantSearchState extends State<PlantSearch> {
 
                                     getPlantList();
                                   } else {
-                                    debugPrint("Page cannot move further backward");
+                                    debugPrint(
+                                        "Page cannot move further backward");
                                   }
                                 },
                                 child: Text("< Back"))
                             : SizedBox(),
                         Padding(
-                          padding: EdgeInsets.all(GardenAPIServices.plantList!.pages == 1 ? GardenAPIServices.plantsListLength.toDouble() : 0),
+                          padding: EdgeInsets.all(
+                              GardenAPIServices.plantList!.pages == 1
+                                  ? GardenAPIServices.plantsListLength
+                                      .toDouble()
+                                  : 0),
                           child: Text(
                               "Page $currentPage of ${GardenAPIServices.plantList!.pages}"),
                         ),
