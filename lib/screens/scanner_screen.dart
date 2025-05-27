@@ -45,14 +45,17 @@ class _ScannerScreenState extends State<ScannerScreen> {
         cameras = cameras;
         // _cameras.first = Front camera, _camera.last = Back camera
         if (cameras.first.lensDirection == CameraLensDirection.back) {
-          cameraController =
-              CameraController(cameras.first, ResolutionPreset.high, enableAudio: false);
+          cameraController = CameraController(
+              cameras.first, ResolutionPreset.high,
+              enableAudio: false);
         } else if (cameras.last.lensDirection == CameraLensDirection.back) {
-          cameraController =
-              CameraController(cameras.last, ResolutionPreset.high, enableAudio: false);
+          cameraController = CameraController(
+              cameras.last, ResolutionPreset.high,
+              enableAudio: false);
         } else {
-          cameraController =
-              CameraController(cameras.first, ResolutionPreset.high, enableAudio: false);
+          cameraController = CameraController(
+              cameras.first, ResolutionPreset.high,
+              enableAudio: false);
         }
       });
 

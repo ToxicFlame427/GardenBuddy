@@ -49,6 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    checkScreenType(context);
+
     // Show the notice dialog, then don't show it again
     if (!apiNoticeComplete) {
       Future.delayed(Duration.zero, () {
