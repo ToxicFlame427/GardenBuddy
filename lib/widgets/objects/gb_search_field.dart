@@ -37,9 +37,7 @@ class GbSearchField extends StatelessWidget {
               onPressed: onFilter,
               color: Theme.of(context).colorScheme.primary,
               icon: Icon(Icons.filter_list),
-              style: ButtonStyle(
-                
-              ),
+              style: ButtonStyle(),
             ),
             IconButton(
               onPressed: onSearch,

@@ -21,6 +21,19 @@ class PlantListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Default sizes
+    double imageSize = 90;
+    double textsize = 22;
+
+    // Conditional sizes
+    if (Responsive.isSmallPhone(context)) {
+      imageSize = 75;
+      textsize = 18;
+    } else if (Responsive.isLargeTablet(context)) {
+      imageSize = 110;
+      textsize = 26;
+    }
+
     return Card(
         color: Theme.of(context).cardColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -41,8 +54,8 @@ class PlantListCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
                           imageAddress!,
-                          height: Responsive.isSmallPhone(context) ? 75 : 90,
-                          width: Responsive.isSmallPhone(context) ? 75 : 90,
+                          height: imageSize,
+                          width: imageSize,
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) {
@@ -53,10 +66,8 @@ class PlantListCard extends StatelessWidget {
                               baseColor: Colors.grey.shade300,
                               highlightColor: Colors.grey.shade100,
                               child: Container(
-                                height:
-                                    Responsive.isSmallPhone(context) ? 75 : 90,
-                                width:
-                                    Responsive.isSmallPhone(context) ? 75 : 90,
+                                height: imageSize,
+                                width: imageSize,
                                 color: Colors.grey,
                               ),
                             );
@@ -64,9 +75,8 @@ class PlantListCard extends StatelessWidget {
                           errorBuilder: (context, error, stackTrace) {
                             return Image.asset(
                               "assets/icons/hand_plant_icon.png",
-                              height:
-                                  Responsive.isSmallPhone(context) ? 75 : 90,
-                              width: Responsive.isSmallPhone(context) ? 75 : 90,
+                              height: imageSize,
+                              width: imageSize,
                             );
                           },
                         ))
@@ -75,15 +85,14 @@ class PlantListCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: Image.file(
                           File(imageAddress!),
-                          height: Responsive.isSmallPhone(context) ? 75 : 90,
-                          width: Responsive.isSmallPhone(context) ? 75 : 90,
+                          height: imageSize,
+                          width: imageSize,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return Image.asset(
                               "assets/icons/hand_plant_icon.png",
-                              height:
-                                  Responsive.isSmallPhone(context) ? 75 : 90,
-                              width: Responsive.isSmallPhone(context) ? 75 : 90,
+                              height: imageSize,
+                              width: imageSize,
                             );
                           },
                         ))
@@ -92,8 +101,8 @@ class PlantListCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
                         "assets/icons/hand_plant_icon.png",
-                        height: Responsive.isSmallPhone(context) ? 75 : 90,
-                        width: Responsive.isSmallPhone(context) ? 75 : 90,
+                        height: imageSize,
+                        width: imageSize,
                         fit: BoxFit.cover,
                       )),
                 SizedBox(width: 10),
@@ -107,7 +116,7 @@ class PlantListCard extends StatelessWidget {
                         plantName,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: Responsive.isSmallPhone(context) ? 18 : 22,
+                            fontSize: textsize,
                             fontFamily: "Khand",
                             fontWeight: FontWeight.bold),
                       ),

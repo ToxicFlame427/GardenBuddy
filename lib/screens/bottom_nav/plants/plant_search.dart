@@ -172,7 +172,7 @@ class _PlantSearchState extends State<PlantSearch> {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     // Max eight of each child
-                                    mainAxisExtent: 120),
+                                    mainAxisExtent: Responsive.isLargeTablet(context) ? 140 : 120),
                             itemCount: GardenAPIServices.plantList?.data.length,
                             itemBuilder: (context, index) {
                               return PlantListCard(

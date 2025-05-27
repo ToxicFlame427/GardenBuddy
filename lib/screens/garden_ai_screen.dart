@@ -8,6 +8,7 @@ import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
+import 'package:garden_buddy/widgets/formatting/responsive.dart';
 import 'package:garden_buddy/widgets/objects/ai_message_format.dart';
 import 'package:garden_buddy/widgets/objects/banner_ad.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
@@ -169,6 +170,19 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double messageTextSize = 14;
+
+    // Determine compatability sizes
+    if (Responsive.isSmallPhone(context)) {
+      messageTextSize = 12;
+    } else if (Responsive.isTablet(context)) {
+      if (Responsive.isLargeTablet(context)) {
+        messageTextSize = 26;
+      } else {
+        messageTextSize = 22;
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -212,21 +226,32 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                               scrollToBottomBuilder: (scrollController) {
                                 return DefaultScrollToBottom(
                                   scrollController: scrollController,
-                                  textColor: Theme.of(context).colorScheme.primary,
+                                  textColor:
+                                      Theme.of(context).colorScheme.primary,
                                   backgroundColor: Theme.of(context).cardColor,
                                 );
                               },
                             ),
                             messageOptions: MessageOptions(
-                                currentUserContainerColor:Theme.of(context).colorScheme.primary,
-                                textColor: Theme.of(context).colorScheme.scrim,
-                                currentUserTextColor:Colors.white,
-                                messageTextBuilder: (message, previousMessage, nextMessage) =>
-                                  // Format the AI response into a nicer format
-                                  message.user == modelUser ?
-                                    AIMessageFormat(message: message.text) :
-                                    Text(message.text),
-
+                                currentUserContainerColor:
+                                    Theme.of(context).colorScheme.primary,
+                                textColor: Colors.white,
+                                currentUserTextColor:
+                                    Theme.of(context).colorScheme.scrim,
+                                messageTextBuilder: (message, previousMessage,
+                                        nextMessage) =>
+                                    // Format the AI response into a nicer format
+                                    message.user == modelUser
+                                        ? AIMessageFormat(
+                                            message: message.text,
+                                            textSize: messageTextSize,
+                                          )
+                                        : Text(
+                                            message.text,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: messageTextSize),
+                                          ),
                                 containerColor: Theme.of(context).cardColor),
                             inputOptions: InputOptions(
                                 inputDecoration: InputDecoration(

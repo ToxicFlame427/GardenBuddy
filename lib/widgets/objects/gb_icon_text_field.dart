@@ -19,14 +19,16 @@ class GbIconTextfield extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2.0),
+          borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary, width: 2.0),
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey, width: 2.0),
         ),
         label: Text(hint),
         labelStyle: const TextStyle(color: Colors.grey),
-        floatingLabelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+        floatingLabelStyle:
+            TextStyle(color: Theme.of(context).colorScheme.primary),
         suffixIcon: IconButton(
           onPressed: onPressed,
           color: Theme.of(context).colorScheme.primary,

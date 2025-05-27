@@ -1,9 +1,11 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/screens/results_screen.dart';
+import 'package:garden_buddy/widgets/formatting/responsive.dart';
 import 'package:garden_buddy/widgets/objects/credit_circle.dart';
 import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
 import 'package:garden_buddy/widgets/objects/picture_quality_card.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -144,6 +146,18 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double buttonTextSize = 14;
+    double buttonIconSize = 30;
+
+    // determine compatability sizes
+    if (Responsive.isSmallPhone(context)) {
+      buttonTextSize = 12;
+      buttonIconSize = 24;
+    } else if (Responsive.isTablet(context)) {
+      buttonTextSize = 16;
+      buttonIconSize = 36;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -209,9 +223,24 @@ class _ScannerScreenState extends State<ScannerScreen> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 Theme.of(context).colorScheme.primary),
-                        child: const Text(
-                          "Gallery",
-                          style: TextStyle(color: Colors.white),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Icon(
+                                Icons.image,
+                                color: Colors.white,
+                                size: buttonIconSize,
+                              ),
+                            ),
+                            Text(
+                              "Gallery",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: buttonTextSize),
+                            ),
+                          ],
                         )),
                     ElevatedButton(
                         onPressed: () async {
@@ -232,9 +261,22 @@ class _ScannerScreenState extends State<ScannerScreen> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 Theme.of(context).colorScheme.primary),
-                        child: const Text(
-                          "Take Picture",
-                          style: TextStyle(color: Colors.white),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Icon(
+                                Icons.camera,
+                                color: Colors.white,
+                                size: buttonIconSize,
+                              ),
+                            ),
+                            Text(
+                              "Take Picture",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: buttonTextSize),
+                            ),
+                          ],
                         ))
                   ],
                 ),

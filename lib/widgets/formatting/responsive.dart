@@ -16,7 +16,7 @@ class Responsive extends StatelessWidget {
   final Widget? tablet;
   final Widget? largeTablet;
 
-  // Functions madefor conditional statments
+  // Functions made for conditional statments requiring little changes
   static bool isSmallPhone(BuildContext context) {
     if (MediaQuery.sizeOf(context).width < smallPhoneWidthT) {
       return true;

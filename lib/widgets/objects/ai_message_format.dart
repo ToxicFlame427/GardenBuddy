@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AIMessageFormat extends StatelessWidget {
-  const AIMessageFormat({super.key, required this.message});
+  const AIMessageFormat({super.key, required this.message, required this.textSize});
 
   final String message;
+  final double textSize;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class AIMessageFormat extends StatelessWidget {
 
     return RichText(
       text: TextSpan(
-        style: TextStyle(color: Theme.of(context).colorScheme.scrim),
+        style: TextStyle(color: Theme.of(context).colorScheme.scrim, fontSize: textSize,),
         children: textSpans,
       ),
     );

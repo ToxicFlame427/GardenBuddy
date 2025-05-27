@@ -7,6 +7,16 @@ class ListCardLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Default sizes
+    double imageSize = 90;
+
+    // Conditional sizes
+    if (Responsive.isSmallPhone(context)) {
+      imageSize = 75;
+    } else if (Responsive.isLargeTablet(context)) {
+      imageSize = 110;
+    }
+
     return Card(
       color: Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -22,8 +32,8 @@ class ListCardLoading extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
-                    width: Responsive.isSmallPhone(context) ? 75 : 90,
-                    height: Responsive.isSmallPhone(context) ? 75 : 90,
+                    width: imageSize,
+                    height: imageSize,
                     color: Colors.grey,
                   ),
                 ),
@@ -58,8 +68,7 @@ class ListCardLoading extends StatelessWidget {
                 )
               ],
             ),
-          )
-        ),
+          )),
     );
   }
 }

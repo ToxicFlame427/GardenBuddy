@@ -22,6 +22,17 @@ class _FavoritePlantsState extends State<FavoritePlants> {
   List<PlantSpeciesDetails> convertedList = [];
   bool _isLoading = true;
 
+  @override
+  void initState() {
+    // If the box does not exist or the list is empty, return an empty list
+    // When the init state is changed, always get an updated favorites list
+    if (!favoritesUpdated) {
+      _loadFavorites();
+    }
+
+    super.initState();
+  }
+
   Future<void> _loadFavorites() async {
     if (!mounted) return; // Avoid calling setState if the widget is disposed
 
@@ -60,17 +71,6 @@ class _FavoritePlantsState extends State<FavoritePlants> {
     }
   }
 
-  @override
-  void initState() {
-    // If the box does not exist or the list is empty, return an empty list
-    // When the init state is changed, always get an updated favorites list
-    if (!favoritesUpdated) {
-      _loadFavorites();
-    }
-
-    super.initState();
-  }
-
   void _navigateToPlantViewer(PlantSpeciesDetails plantDetails) async {
     // Await the result from PlantSpeciesViewer
     final result = await Navigator.push(
@@ -97,8 +97,7 @@ class _FavoritePlantsState extends State<FavoritePlants> {
         builder: (ctx) {
           return ConfirmationDialog(
               title: "Clear favorites?",
-              description:
-                  "This is how you can completly delete all of your favorite plants. If you only want to delete one plant, tap on the plant card, then tap on the red heart in the top corner to remove the plant. NOTE: After clearing your favorite plants list, this data connot be recovered. Are you sure you want to do completely wipe your favorites list?",
+              description:"This is how you can completly delete all of your favorite plants. If you only want to delete one plant, tap on the plant card, then tap on the red heart in the top corner to remove the plant. NOTE: After clearing your favorite plants list, this data connot be recovered. Are you sure you want to do completely wipe your favorites list?",
               imageAsset: "assets/icons/icon.jpg",
               positiveButtonText: "Clear",
               negativeButtonText: "No",
