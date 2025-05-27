@@ -15,6 +15,7 @@ class GardenAPIServices {
   static PlantSpeciesList? plantList;
 
   static int plantsListPage = 1;
+  // This is changed at init based on screen size, on tablets - 16 plants will be fetched
   static int plantsListLength = 10;
 
   // Fetch the plant species list
@@ -43,7 +44,8 @@ class GardenAPIServices {
       debugPrint("Data retrieved successfully $json");
       return plantSpeciesListFromJson(json);
     } else {
-      debugPrint("There was a issue retrieving the data, response code ${response.statusCode}");
+      debugPrint(
+          "There was a issue retrieving the data, response code ${response.statusCode}");
       return null;
     }
   }
@@ -63,7 +65,8 @@ class GardenAPIServices {
       debugPrint("Data retrieved successfully $json");
       return PlantSpeciesDetails.fromRawJson(json);
     } else {
-      debugPrint("There was a issue retrieving the data, response code ${response.statusCode}");
+      debugPrint(
+          "There was a issue retrieving the data, response code ${response.statusCode}");
       return null;
     }
   }

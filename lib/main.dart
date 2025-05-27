@@ -15,7 +15,7 @@ Future<void> initializeStuff() async {
   MobileAds.instance.initialize();
   await PurchasesApi.init();
 
-  // Add and remove this for testing and production purposes
+  // Add and remove this for testing and production purposes, terrible. Sometimes I forget, and everyone gets a free subscription.
   enableDeveloperMode();
 
   if (!developerModeEnabled) {

@@ -1,10 +1,9 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
+import 'package:garden_buddy/models/services/garden_api_services.dart';
+import 'package:garden_buddy/widgets/formatting/responsive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Screen size thresholds
@@ -30,6 +29,9 @@ void checkScreenType(context) {
   } else {
     debugPrint("Tablet screen");
   }
+
+  // Set the length of the plants list to be adaptive to the screen size
+  GardenAPIServices.plantsListLength = Responsive.isTablet(context) ? 16 : 10;
 }
 
 Future<void> getConnectionTypes() async {
@@ -100,8 +102,6 @@ void saveCountValues() async {
 }
 
 // Checks if the day is new, if so, reset the counts
-// OK, THIS WORKS! HOWEVER, upon the first application load...
-// ...the application complains that there is no such data and sets all count values to zero until the next day
 void setCountValues() async {
   saveCurrentDay(DateTime.now());
 
@@ -126,6 +126,7 @@ void setCountValues() async {
   }
 }
 
+// These functions just read/write values to shared preferences
 Future<bool> checkIntroComplete() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getBool("introComplete") ?? false;

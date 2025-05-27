@@ -68,11 +68,11 @@ class DbService {
 
     // Download the image to the system, then get its path and save it to the DB
     if (plantDetails.data.images.isNotEmpty) {
-      imageDir = await saveImageWithPath(plantDetails.data.images[0].url);
+      imageDir = await saveImageWithPath(plantDetails.data.images[0].smallUrl);
 
       // Save the image to the system, this is for local reference
       // If the image does not download correctly, then just add the image URL to the local data
-      imageDir ??= plantDetails.data.images[0].url;
+      imageDir ??= plantDetails.data.images[0].smallUrl;
     }
 
     // Get the database instance and insert the parsed data
@@ -137,7 +137,7 @@ class DbService {
     // Convert the list of DB rows into usable class elements
     for (int i = 0; i < plants.length; i++) {
       PlantSpeciesDetails converted =
-          PlantSpeciesDetails.fromRawJson(plants[i].jsonContent);
+        PlantSpeciesDetails.fromRawJson(plants[i].jsonContent);
 
       convertedList.add(converted);
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/widgets/formatting/responsive.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ListCardLoading extends StatelessWidget {
@@ -21,8 +22,8 @@ class ListCardLoading extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
-                    width: 90,
-                    height: 90,
+                    width: Responsive.isSmallPhone(context) ? 75 : 90,
+                    height: Responsive.isSmallPhone(context) ? 75 : 90,
                     color: Colors.grey,
                   ),
                 ),

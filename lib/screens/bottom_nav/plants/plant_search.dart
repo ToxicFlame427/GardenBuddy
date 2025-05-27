@@ -117,18 +117,27 @@ class _PlantSearchState extends State<PlantSearch> {
                   // Replace the loading shimmer with unreachable response..
                   //..if the server or site cannot be reached, there is probably a better way to handle this
                   child: plantListIsLoaded != null
-                      ? ListView.builder(
-                          itemCount: 7,
-                          itemBuilder: (context, index) {
-                            return ListCardLoading();
-                          })
+                      ? Responsive(
+                          phone: ListView.builder(
+                              itemCount: 7,
+                              itemBuilder: (context, index) {
+                                return ListCardLoading();
+                              }),
+                          tablet: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, mainAxisExtent: 120),
+                              itemCount: 16,
+                              itemBuilder: (context, index) {
+                                return ListCardLoading();
+                              }),
+                        )
                       : ServerUnreachable(),
                 ),
                 child: GardenAPIServices.plantList?.data.isNotEmpty ?? true
                     ? Expanded(
                         // Responsive list
                         child: Responsive(
-                        smallPhone: Text("Smol lol"),
                         phone: ListView.builder(
                             itemCount: GardenAPIServices.plantList?.data.length,
                             itemBuilder: (context, index) {
@@ -158,12 +167,12 @@ class _PlantSearchState extends State<PlantSearch> {
                                 },
                               );
                             }),
-                        // TODO: This work great! But each tile is too big and stretches the card. Oops
                         tablet: GridView.builder(
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                            ),
+                                    crossAxisCount: 2,
+                                    // Max eight of each child
+                                    mainAxisExtent: 120),
                             itemCount: GardenAPIServices.plantList?.data.length,
                             itemBuilder: (context, index) {
                               return PlantListCard(
