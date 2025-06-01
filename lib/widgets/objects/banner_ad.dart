@@ -72,7 +72,7 @@ class _BannerAdViewState extends State<BannerAdView> {
     // If else, the test ad units still persist
 
     // Make sure that the ad does not keep making requests if it doesnt have to
-    if (!_isLoaded) {
+    if (!_isLoaded && widget.isShown) {
       loadAd();
     }
 

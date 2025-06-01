@@ -213,8 +213,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                   ? Column(children: [
                       // MARK: DONT TOUCH, REAL BANNER IDS
                       BannerAdView(
-                        androidBannerId:
-                            "ca-app-pub-6754306508338066/2146896939",
+                        androidBannerId: "ca-app-pub-6754306508338066/2146896939",
                         iOSBannerId: "ca-app-pub-6754306508338066/6325070548",
                         isTest: adTesting,
                         isShown: !PurchasesApi.subStatus,

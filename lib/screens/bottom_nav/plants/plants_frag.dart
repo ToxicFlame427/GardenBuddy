@@ -61,7 +61,7 @@ class _PlantsFragmentState extends State<PlantsFragment>
                     children: const [PlantSearch(), FavoritePlants()])),
             BannerAdView(
               androidBannerId: "ca-app-pub-6754306508338066/4358761762",
-              iOSBannerId: "",
+              iOSBannerId: "ca-app-pub-6754306508338066/9079226397",
               isTest: adTesting,
               isShown: !PurchasesApi.subStatus,
               bannerSize: AdSize.banner,

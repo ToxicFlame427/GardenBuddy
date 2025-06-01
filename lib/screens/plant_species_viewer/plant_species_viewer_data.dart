@@ -1,18 +1,22 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
     // ignore: library_prefixes
     as PlantDetailsClass;
 // ignore: implementation_imports, library_prefixes
 import 'package:flutter/src/widgets/image.dart' as NetworkImage;
+import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
 import 'package:garden_buddy/widgets/dialogs/image_info_dialog.dart';
+import 'package:garden_buddy/widgets/objects/banner_ad.dart';
 import 'package:garden_buddy/widgets/objects/bold_label_row.dart';
 import 'package:garden_buddy/widgets/objects/five_way_meter.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/objects/lifecycle_object.dart';
 import 'package:garden_buddy/widgets/objects/variation_card.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PlantSpeciesViewerData extends StatelessWidget {
@@ -111,16 +115,16 @@ class PlantSpeciesViewerData extends StatelessWidget {
                       label: plantData!.data.growingCycle,
                       onTap: () {
                         showDialog(
-                              context: context,
-                              builder: (ctx) => CustomInfoDialog(
-                                  title: "Growing Cycle",
-                                  description:
-                                      "Growing cycles are an indicator of how long the entire lifecycle of a plant takes place, typically in one of these three categories:\n\nPerennial - Lives for more than two years. Flowers and seeds over multiple seasons.\n\nBiennial - Two growing cycles, typically 2 years\n\nAnnual - One growing cycle, typically 1 year",
-                                  imageAsset: "assets/icons/icon.jpg",
-                                  buttonText: "Okay",
-                                  onClose: () {
-                                    Navigator.of(context).pop();
-                                  }));
+                            context: context,
+                            builder: (ctx) => CustomInfoDialog(
+                                title: "Growing Cycle",
+                                description:
+                                    "Growing cycles are an indicator of how long the entire lifecycle of a plant takes place, typically in one of these three categories:\n\nPerennial - Lives for more than two years. Flowers and seeds over multiple seasons.\n\nBiennial - Two growing cycles, typically 2 years\n\nAnnual - One growing cycle, typically 1 year",
+                                imageAsset: "assets/icons/icon.jpg",
+                                buttonText: "Okay",
+                                onClose: () {
+                                  Navigator.of(context).pop();
+                                }));
                       },
                     ),
                     if (!(plantData!.data.patentStatus
@@ -193,6 +197,13 @@ class PlantSpeciesViewerData extends StatelessWidget {
                     itemBuilder: (ctx, i) {
                       return Text(plantData!.data.otherNames[i]);
                     }),
+
+                BannerAdView(
+                    androidBannerId: "ca-app-pub-6754306508338066/1797528673",
+                    iOSBannerId: "ca-app-pub-6754306508338066/6837731855",
+                    isTest: adTesting,
+                    isShown: !PurchasesApi.subStatus,
+                    bannerSize: AdSize.mediumRectangle),
                 Text(
                   plantData!.data.description,
                   style: TextStyle(fontSize: 13),
@@ -292,7 +303,12 @@ class PlantSpeciesViewerData extends StatelessWidget {
                       itemBuilder: (ctx, i) {
                         return Text(plantData!.data.floweringMonths[i]);
                       }),
-
+                BannerAdView(
+                    androidBannerId: "ca-app-pub-6754306508338066/1797528673",
+                    iOSBannerId: "ca-app-pub-6754306508338066/6837731855",
+                    isTest: adTesting,
+                    isShown: !PurchasesApi.subStatus,
+                    bannerSize: AdSize.largeBanner),
                 // MARK: PLANT GUIDES
                 HorizontalRule(color: Theme.of(context).cardColor, height: 5),
                 Text(
