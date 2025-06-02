@@ -16,6 +16,9 @@ bool adTesting = false;
 bool developerModeEnabled = false;
 bool apiNoticeComplete = false;
 
+// Misc
+int currentSearchPage = 1;
+
 // Used for connectivity queries, such as detecting a slow network connection
 List<ConnectivityResult> _activeConnections = [];
 

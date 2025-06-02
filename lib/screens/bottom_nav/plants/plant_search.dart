@@ -24,7 +24,6 @@ class PlantSearch extends StatefulWidget {
 class _PlantSearchState extends State<PlantSearch> {
   final _searchBarController = TextEditingController();
   bool? plantListIsLoaded = false;
-  int currentPage = 1;
 
   String searchFilterQuery = "both";
 
@@ -32,7 +31,7 @@ class _PlantSearchState extends State<PlantSearch> {
     debugPrint(searchFilterQuery);
 
     GardenAPIServices.plantList = await GardenAPIServices.getPlantSpeciesList(
-        searchFilterQuery, _searchBarController.text, currentPage);
+        searchFilterQuery, _searchBarController.text, currentSearchPage);
 
     // Check and change according to the plant list
     // If an error occured during retrieval, then the value is null
@@ -103,7 +102,7 @@ class _PlantSearchState extends State<PlantSearch> {
                   // Before doing anything, reset the list to being null
                   setState(() {
                     // Every search must be set to a page value of 1
-                    currentPage = 1;
+                    currentSearchPage = 1;
                     plantListIsLoaded = false;
                     GardenAPIServices.plantList = null;
                   });
@@ -172,7 +171,10 @@ class _PlantSearchState extends State<PlantSearch> {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     // Max eight of each child
-                                    mainAxisExtent: Responsive.isLargeTablet(context) ? 140 : 120),
+                                    mainAxisExtent:
+                                        Responsive.isLargeTablet(context)
+                                            ? 140
+                                            : 120),
                             itemCount: GardenAPIServices.plantList?.data.length,
                             itemBuilder: (context, index) {
                               return PlantListCard(
@@ -228,7 +230,7 @@ class _PlantSearchState extends State<PlantSearch> {
                                   if (pageIsValid(0)) {
                                     // Get the plant list with the new page number
                                     setState(() {
-                                      currentPage -= 1;
+                                      currentSearchPage -= 1;
                                       plantListIsLoaded = false;
                                       GardenAPIServices.plantList = null;
                                     });
@@ -248,7 +250,7 @@ class _PlantSearchState extends State<PlantSearch> {
                                       .toDouble()
                                   : 0),
                           child: Text(
-                              "Page $currentPage of ${GardenAPIServices.plantList!.pages}"),
+                              "Page $currentSearchPage of ${GardenAPIServices.plantList!.pages}"),
                         ),
                         pageIsValid(1)
                             ? ElevatedButton(
@@ -256,7 +258,7 @@ class _PlantSearchState extends State<PlantSearch> {
                                   // Set the state to change the current page
                                   if (pageIsValid(1)) {
                                     setState(() {
-                                      currentPage += 1;
+                                      currentSearchPage += 1;
                                       plantListIsLoaded = false;
                                       GardenAPIServices.plantList = null;
                                     });
@@ -302,7 +304,7 @@ class _PlantSearchState extends State<PlantSearch> {
 
     if (direction == 1) {
       // Check for forward movement
-      if (currentPage < GardenAPIServices.plantList!.pages) {
+      if (currentSearchPage < GardenAPIServices.plantList!.pages) {
         // As long as the current page count is smaller than the total pages, allow forward movement
         return true;
       } else {
@@ -310,7 +312,7 @@ class _PlantSearchState extends State<PlantSearch> {
       }
     } else {
       // Check for backward movement
-      if (currentPage > 1) {
+      if (currentSearchPage > 1) {
         // As long as the page count is larger than 1, the allow backwards movement
         return true;
       } else {
