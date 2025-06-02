@@ -36,8 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         context: context,
         builder: (ctx) => CustomInfoDialog(
             title: "API Notice",
-            description:
-                "The API for the plants database is still in the works. Upon rlease, there are only about 20 plants in this database that can be seen by users. As the application grows, we will be adding more plant infromation to grow this database.",
+            description:"The API for the plants database is still in the works. Upon release, there are only about twenty plants in this database that can be seen by users. As the application grows, we will be adding more plant information to grow this database.",
             imageAsset: "assets/icons/icon.jpg",
             buttonText: "Dismiss",
             onClose: () {

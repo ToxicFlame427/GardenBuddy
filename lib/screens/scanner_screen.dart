@@ -1,11 +1,14 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
+import 'package:garden_buddy/models/purchases_api.dart';
+import 'package:garden_buddy/screens/manage_subscription_screen.dart';
 import 'package:garden_buddy/screens/results_screen.dart';
+import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/formatting/responsive.dart';
 import 'package:garden_buddy/widgets/objects/credit_circle.dart';
 import 'package:garden_buddy/widgets/dialogs/custom_info_dialog.dart';
 import 'package:garden_buddy/widgets/objects/picture_quality_card.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -22,6 +25,7 @@ class ScannerScreen extends StatefulWidget {
 class _ScannerScreenState extends State<ScannerScreen> {
   List<CameraDescription> cameras = [];
   CameraController? cameraController;
+  int creditsChanged = 0;
 
   @override
   void initState() {
@@ -67,6 +71,25 @@ class _ScannerScreenState extends State<ScannerScreen> {
             cameraController!.setFlashMode(FlashMode.off);
           }
         });
+      });
+    }
+  }
+
+  // This function awaits for changes to the results screen to update the credit count
+  void _navigateToResults(XFile file) async {
+    // Await the result from PlantSpeciesViewer
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ScannerResultScreen(
+                picture: file, scannerType: widget.scannerType)));
+
+    // Check if the result indicates a change and the widget is still mounted
+    if (result == true && mounted) {
+      // If credits were changed, reload the values
+      setState(() {
+        AiConstants.aiCount = AiConstants.aiCount;
+        AiConstants.healthCount = AiConstants.healthCount;
       });
     }
   }
@@ -144,6 +167,53 @@ class _ScannerScreenState extends State<ScannerScreen> {
     );
   }
 
+  void _showMissingCreditsDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmationDialog(
+            title: "Out of credits!",
+            description:
+                "It appears that you have ran out of credits to use our scanner featues. You must wait until tomorrow for one credit or you can subscribe for unlimited credits.",
+            imageAsset: "assets/icons/icon.jpg",
+            negativeButtonText: "No thanks!",
+            positiveButtonText: "Subscribe",
+            onNegative: () {
+              Navigator.pop(context);
+            },
+            onPositive: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) => const ManageSubscriptionScreen()));
+            },
+          );
+        });
+  }
+
+  // Check if the user can do another scan granted that they have no subscription and credits remain
+  bool _canDoScan() {
+    if (!PurchasesApi.subStatus) {
+      if (widget.scannerType == "Plant Identification") {
+        if (AiConstants.idCount <= 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        if (AiConstants.healthCount <= 0) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double buttonTextSize = 14;
@@ -170,7 +240,10 @@ class _ScannerScreenState extends State<ScannerScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: false,
         actions: [
-          const CreditCircle(value: 3),
+          CreditCircle(
+              value: widget.scannerType == "Plant Identification"
+                  ? AiConstants.idCount
+                  : AiConstants.healthCount),
           IconButton(
             onPressed: _showScannerDialog,
             icon: const Icon(Icons.info),
@@ -201,22 +274,21 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   children: [
                     ElevatedButton(
                         onPressed: () async {
-                          // User picks an image from gallery
-                          // Open the results screen by passing the chosen image
-                          ImagePicker picker = ImagePicker();
-                          XFile? file = await picker.pickImage(
-                              source: ImageSource.gallery);
-                          if (file != null) {
-                            await Future.delayed(const Duration(seconds: 1));
+                          if (_canDoScan()) {
+                            // User picks an image from gallery
+                            // Open the results screen by passing the chosen image
+                            ImagePicker picker = ImagePicker();
+                            XFile? file = await picker.pickImage(
+                                source: ImageSource.gallery);
+                            if (file != null) {
+                              await Future.delayed(const Duration(seconds: 1));
 
-                            if (context.mounted) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ScannerResultScreen(
-                                          picture: file,
-                                          scannerType: widget.scannerType)));
+                              if (context.mounted) {
+                                _navigateToResults(file);
+                              }
                             }
+                          } else {
+                            _showMissingCreditsDialog();
                           }
                           // Else, do nothing
                         },
@@ -244,18 +316,17 @@ class _ScannerScreenState extends State<ScannerScreen> {
                         )),
                     ElevatedButton(
                         onPressed: () async {
-                          // Image is captured
-                          // Open the results screen shortly after and pass the captured image to it
-                          XFile picture = await cameraController!.takePicture();
+                          if (_canDoScan()) {
+                            // Image is captured
+                            // Open the results screen shortly after and pass the captured image to it
+                            XFile picture =
+                                await cameraController!.takePicture();
 
-                          if (context.mounted) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ScannerResultScreen(
-                                          picture: picture,
-                                          scannerType: widget.scannerType,
-                                        )));
+                            if (context.mounted) {
+                              _navigateToResults(picture);
+                            }
+                          } else {
+                            _showMissingCreditsDialog();
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -274,7 +345,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
                             Text(
                               "Take Picture",
                               style: TextStyle(
-                                  color: Colors.white, fontSize: buttonTextSize),
+                                  color: Colors.white,
+                                  fontSize: buttonTextSize),
                             ),
                           ],
                         ))

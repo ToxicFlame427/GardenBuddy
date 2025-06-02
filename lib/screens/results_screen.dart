@@ -34,6 +34,7 @@ class _ScannerResultState extends State<ScannerResultScreen> {
   bool recievedResult = false;
   String? response;
   dynamic getter;
+  bool _creditsChanged = false;
 
   PlantIdResponse? idResponse;
   HealthAssessmentResponse? healthResponse;
@@ -76,16 +77,18 @@ class _ScannerResultState extends State<ScannerResultScreen> {
       if (widget.scannerType == "Plant Identification") {
         idResponse = PlantIdResponse.fromRawJson(response!);
         // If the user is subscribed, then subtract from the daily limit
-        if (PurchasesApi.subStatus) {
+        if (!PurchasesApi.subStatus) {
           AiConstants.idCount--;
         }
       } else {
         healthResponse = HealthAssessmentResponse.fromRawJson(response!);
         // Same check here, for health assessment
-        if (PurchasesApi.subStatus) {
+        if (!PurchasesApi.subStatus) {
           AiConstants.healthCount--;
         }
       }
+
+      _creditsChanged = true;
 
       // After the credit change, save the new count
       saveCountValues();
@@ -117,6 +120,11 @@ class _ScannerResultState extends State<ScannerResultScreen> {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         iconTheme: const IconThemeData().copyWith(color: Colors.white),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context, _creditsChanged);
+            },
+            icon: Icon(Icons.arrow_back_ios_new)),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
