@@ -338,9 +338,14 @@ _____________________________________
 Peace Lily
 Sweet Iris
 Honeysuckle
-Hosta
+Hosta - Many different hosta species belong here: list them boi!
 Lavender
-Marigold
+
+French Marigold
+African Marigold
+Signet Marigold
+Irish Lace Marigold
+
 Lilac
 California Buttercup
 Tulip
@@ -351,27 +356,30 @@ Dandelion
 //Common Sunflower
 //American Giant Sunflower
 Sunflower 'Sunny Smile'
-Sunflower 'Teddy Bear'
-Sunflower 'Firecracker'
-Sunflower 'Ring of Fire'
+//Sunflower 'Teddy Bear' - IMAGE
+//Sunflower 'Firecracker' - IMAGE
+//Sunflower 'Ring of Fire' - IMAGE
 Sunflower 'Floristan'
 Sunflower 'Sunrich Gold'
 Sunflower 'Sunrich Summer Provence'
 Sunflower 'Valentine'
 Sunflower 'Gypsy Charmer'
-Sunflower 'Autumn Beauty'
+//Sunflower 'Autumn Beauty' - IMAGE
 Sunflower 'Claret'
 Sunflower 'Giant Sungold'
 Sunflower 'Goldy'
 Sunflower 'Soraya'
-Sunflower 'Strawberry Blonde'
+//Sunflower 'Strawberry Blonde' - IMAGE
 Sunflower 'Taiyo'
-Sunflower 'Velvet Queen'
+//Sunflower 'Velvet Queen' - IMAGE
 Sunflower 'Vincent's Choice'
 Sunflower 'Evening Sun'
 Sunflower 'Arikara'
 Sunflower 'Mammoth Grey Stripe'
-Sunflower 'Russian Mammoth'
+//Sunflower 'Russian Mammoth' - IMAGE
+//Sunflower 'Lemon Eclair' - IMAGE
+//Sunflower 'Lemon Queen' - IMAGE
+//Sunflower 'Sunburst Lemon' - IMAGE
 
 Jerusalem Artichoke Sunflower
 Ten-Petaled Sunflower

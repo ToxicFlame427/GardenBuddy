@@ -21,7 +21,7 @@ Future<void> initializeStuff() async {
   if (!developerModeEnabled) {
     // Check the current sub status, as internet connection is needed to use basically any part of the application
     PurchasesApi.subStatus = await PurchasesApi.checkSubStatus(null, null);
-    PurchasesApi.subStatus = false;
+    //PurchasesApi.subStatus = false; // wtf is that doing there, OMG I can't believe I did not remove that >:( (Kept it here as evidence >:( )
   }
 
   // Initially fetch the favorite plants
