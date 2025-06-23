@@ -1,5 +1,6 @@
 # Garden Buddy
-This repository houses the publicly available code for Garden Buddy, the mobile application available on <a href="">Google Play</a> and the <a href="">Apple App Store</a>.
+<img src="https://www.toxicflame427.xyz/images/app_icons/garden_buddy.jpg" width="250" height="250"/>
+This repository houses the publicly available code for Garden Buddy, the mobile application available on <a href="https://play.google.com/store/apps/details?id=com.toxicflame427.gardenbuddy&hl=en_US&gl=US">Google Play</a> and the <a href="https://apps.apple.com/us/app/garden-buddy-plant-assistant/id6737418328?platform=iphone">Apple App Store</a>.
 I may have hidden some things in the files that can be searched for (No, this does not include the secret API keys silly, just a few easter eggs I had decided to hide for fun)
 
 ## Repository for version control
