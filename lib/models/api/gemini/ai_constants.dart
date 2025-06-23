@@ -5,10 +5,10 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 class AiConstants {
   // AI model to be used accross the entire app
   static final GenerativeModel chatModel = GenerativeModel(
-      model: "gemini-2.5-flash", apiKey: Keys.geminiApiKey);
+      model: "gemini-2.0-flash", apiKey: Keys.geminiApiKey);
 
   static final GenerativeModel plantIdModel = GenerativeModel(
-    model: "gemini-2.5-flash",
+    model: "gemini-2.0-flash",
     apiKey: Keys.geminiApiKey,
     generationConfig: GenerationConfig(
         responseMimeType: "application/json",
@@ -34,7 +34,7 @@ class AiConstants {
   );
 
   static final GenerativeModel healthAssessModel = GenerativeModel(
-    model: "gemini-2.5-flash",
+    model: "gemini-2.0-flash",
     apiKey: Keys.geminiApiKey,
     generationConfig: GenerationConfig(
         responseMimeType: "application/json",
