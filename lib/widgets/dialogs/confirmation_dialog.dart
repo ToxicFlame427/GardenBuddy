@@ -14,6 +14,7 @@ class ConfirmationDialog extends StatelessWidget {
   final String title;
   final String description;
   final String imageAsset;
+  // Button style changes based on positive text. If positive button is "Reset", the style will change
   final String positiveButtonText;
   final String negativeButtonText;
   final void Function() onNegative;
@@ -68,11 +69,11 @@ class ConfirmationDialog extends StatelessWidget {
                 ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor: WidgetStatePropertyAll(
-                            Theme.of(context).colorScheme.primary)),
+                            positiveButtonText == "Reset" ? Theme.of(context).cardColor : Theme.of(context).colorScheme.primary)),
                     onPressed: onPositive,
                     child: Text(
                       positiveButtonText,
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(color: positiveButtonText == "Reset" ? Colors.red : Colors.white),
                     ))
               ],
             )

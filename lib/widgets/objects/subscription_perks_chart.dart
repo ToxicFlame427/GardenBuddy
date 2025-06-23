@@ -9,7 +9,7 @@ class SubPerksChart extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
-        height: 230,
+        height: 260,
         decoration: BoxDecoration(
             color: Theme.of(context).cardColor.withAlpha(175),
             border: Border.all(color: Colors.black, width: 2),
@@ -23,15 +23,18 @@ class SubPerksChart extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    "Perks",
-                    style: Theme.of(context).textTheme.headlineMedium),
-                  const Text("Access to all plant data",),
+                  Text("Perks",
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  const Text(
+                    "Access to all plant data",
+                  ),
                   const Text("Access to all disease data"),
                   const Text("No advertisements"),
                   const Text("Unlimited identifications"),
                   const Text("Unlimited health assessments"),
-                  const Text("Unlimited Gardn AI prompts")
+                  const Text("Unlimited Garden AI prompts"),
+                  const Text("Save AI chats for later"),
+                  const Text("Save IDs and HAs")
                 ],
               ),
             ),
@@ -47,9 +50,8 @@ class SubPerksChart extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    "Free",
-                    style: Theme.of(context).textTheme.headlineMedium),
+                  Text("Free",
+                      style: Theme.of(context).textTheme.headlineMedium),
                   Image.asset(
                     "assets/icons/check_mark.png",
                     height: 24,
@@ -57,6 +59,16 @@ class SubPerksChart extends StatelessWidget {
                   ),
                   Image.asset(
                     "assets/icons/check_mark.png",
+                    height: 24,
+                    width: 24,
+                  ),
+                  Image.asset(
+                    "assets/icons/cross_mark.png",
+                    height: 24,
+                    width: 24,
+                  ),
+                  Image.asset(
+                    "assets/icons/cross_mark.png",
                     height: 24,
                     width: 24,
                   ),
@@ -89,9 +101,18 @@ class SubPerksChart extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "Paid",
-                      style: Theme.of(context).textTheme.headlineMedium),
+                    Text("Sub",
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    Image.asset(
+                      "assets/icons/check_mark.png",
+                      height: 24,
+                      width: 24,
+                    ),
+                    Image.asset(
+                      "assets/icons/check_mark.png",
+                      height: 24,
+                      width: 24,
+                    ),
                     Image.asset(
                       "assets/icons/check_mark.png",
                       height: 24,

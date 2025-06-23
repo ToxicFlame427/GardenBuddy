@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:garden_buddy/keys.dart';
+import 'package:garden_buddy/theming/colors.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class PurchasesApi {
@@ -56,12 +57,31 @@ class PurchasesApi {
         if (fromRestore != null && context != null) {
           if (fromRestore && context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Purchases restored: Subscription active"),
+              content: Text("Purchases restored: Subscription active",
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.scrim,
+                      fontWeight: FontWeight.bold)),
               duration: Duration(seconds: 5),
+              backgroundColor: ThemeColors.green2,
             ));
           }
         }
         subActive = true;
+      } else {
+        if (fromRestore != null && context != null) {
+          if (fromRestore && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                "Restore failed: Subscription inactive",
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.scrim,
+                    fontWeight: FontWeight.bold),
+              ),
+              duration: Duration(seconds: 5),
+              backgroundColor: Theme.of(context).cardColor,
+            ));
+          }
+        }
       }
     } catch (e) {
       // Error getting customer information
@@ -69,8 +89,14 @@ class PurchasesApi {
       if (fromRestore != null && context != null) {
         if (fromRestore && context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Restore failed: Subscription inactive"),
+            content: Text(
+              "Restore failed: Subscription inactive",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.scrim,
+                  fontWeight: FontWeight.bold),
+            ),
             duration: Duration(seconds: 5),
+            backgroundColor: Theme.of(context).cardColor,
           ));
         }
       }

@@ -149,3 +149,5 @@ void setApiNotice() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setBool("apiNoticeComplete", true);
 }
+
+// These are used to fetch saved subscription content

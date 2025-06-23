@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
+import 'package:garden_buddy/theming/colors.dart';
+import 'package:garden_buddy/widgets/objects/hyperlink.dart';
 import 'package:garden_buddy/widgets/objects/subscription_perks_chart.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,16 +20,23 @@ class ManageSubscriptionScreen extends StatefulWidget {
 class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
   List<Package>? offers;
 
-  Future fetchSubs(BuildContext context) async {
-    final offerings = await PurchasesApi.fetchOffers();
+  // This variable is simply used to check if offers were found and handle cases where they have not
+  List<Offering>? offerings;
 
-    if (offerings.isEmpty) {
+  Future fetchSubs(BuildContext context) async {
+    offerings = await PurchasesApi.fetchOffers();
+
+    if (offerings!.isEmpty) {
       debugPrint("No subscriptions found");
+
+      setState(() {
+        offerings = offerings;
+      });
     } else {
-      final offer = offerings.first;
+      final offer = offerings!.first;
       debugPrint("Offer: $offer");
 
-      final packages = offerings
+      final packages = offerings!
           .map((offer) => offer.availablePackages)
           .expand((pair) => pair)
           .toList();
@@ -104,9 +113,11 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                offers == null
-                    ? "Please wait... fetching subscriptions. Please make sure you are logged in on your mobile phones' app store."
-                    : "By subscribing to Garden Buddy you will receive certain perks! A payment of ${offers![0].storeProduct.priceString} recurs every month and automatically gets charged until cancellation. You can cancel your subscription of your app stores dashboard by clicking the cancel button below. You can cancel at anytime and your subscription will still be in effect until the next billing cycle where your perks will be removed and you will no longer be charge for the subscription Subscriptions to our service are not required. Feel free to contact us about any issues!",
+                (offers == null && offerings == null)
+                    ? "Please wait... fetching offers."
+                    : offerings!.isEmpty
+                        ? "No offers found. Please make sure you are logged into your mobile devices app store."
+                        : "By subscribing to Garden Buddy you will receive certain perks! A payment of ${offers![0].storeProduct.priceString} recurs every month and automatically gets charged until cancellation. You can cancel your subscription of your app stores dashboard by clicking the cancel button below. You can cancel at anytime and your subscription will still be in effect until the next billing cycle where your perks will be removed and you will no longer be charge for the subscription Subscriptions to our service are not required. Feel free to contact us about any issues!",
                 textAlign: TextAlign.center,
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
@@ -114,6 +125,33 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
             ),
             const Spacer(),
             const SubPerksChart(),
+            Padding(
+              padding: const EdgeInsets.all(4),
+              child: ClipRRect(
+                borderRadius: BorderRadiusGeometry.circular(5),
+                child: Container(
+                  color: ThemeColors.green1,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("If you have a promo code"),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Hyperlink(
+                            label: "Claim your promo",
+                            urlString:
+                                "https://www.toxicflame427.xyz/pages/app_pages/garden_buddy/gb_promo_guide.html")
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
               child: ElevatedButton(
@@ -123,15 +161,22 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary),
+                    backgroundColor: offers == null
+                        ? ThemeColors.primaryContainerTranslucent
+                        : !PurchasesApi.subStatus
+                            ? Theme.of(context).colorScheme.primary
+                            : ThemeColors.primaryContainerTranslucent),
                 child: SizedBox(
                     width: double.infinity,
                     child: Text(
-                      offers == null
+                      // Very ugly Ternary
+                      offers == null && offerings == null
                           ? "Please wait..."
-                          : !PurchasesApi.subStatus
-                              ? "Subscribe for ${offers![0].storeProduct.priceString}/month"
-                              : "You are already subscribed!",
+                          : offerings!.isEmpty
+                              ? "No offers found"
+                              : !PurchasesApi.subStatus
+                                  ? "Subscribe for ${offers![0].storeProduct.priceString}/month"
+                                  : "You are already subscribed!",
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.white),
                     )),
