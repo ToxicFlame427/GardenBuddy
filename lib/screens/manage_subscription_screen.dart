@@ -120,7 +120,7 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                         : "By subscribing to Garden Buddy you will receive certain perks! A payment of ${offers![0].storeProduct.priceString} recurs every month and automatically gets charged until cancellation. You can cancel your subscription of your app stores dashboard by clicking the cancel button below. You can cancel at anytime and your subscription will still be in effect until the next billing cycle where your perks will be removed and you will no longer be charge for the subscription Subscriptions to our service are not required. Feel free to contact us about any issues!",
                 textAlign: TextAlign.center,
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
               ),
             ),
             const Spacer(),
@@ -138,7 +138,12 @@ class _ManageSubscriptionState extends State<ManageSubscriptionScreen> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("If you have a promo code"),
+                        Text(
+                          "If you have a promo code",
+                          style: TextStyle(
+                            color: Colors.white
+                          ),
+                        ),
                         SizedBox(
                           width: 10,
                         ),

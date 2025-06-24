@@ -6,7 +6,6 @@ Allow saving of AI chats to device - with sub
 Allow saving of IDs and HAs to device - with sub
 Work on the plant data edit request page
 Reset app button (Its there, just make it work) - Deletes all cached data! Favorites, IDs, HAs, AI chats. KEEP THE DAY COUNT!
-Change the favorite plants page so not all favorites are loaded in one go. Make it like the search page, only show 10 then the next after a button is tapped.
 
 PARTIALLY FIXED - COULD BE IMPROVED
 Remove release jank on real devices, its not bad, but its very noticable

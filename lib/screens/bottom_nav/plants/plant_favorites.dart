@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
+import 'package:garden_buddy/models/services/garden_api_services.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/dialogs/loading_dialog.dart';
@@ -21,6 +22,9 @@ class _FavoritePlantsState extends State<FavoritePlants> {
   bool favoritesUpdated = false;
   List<PlantSpeciesDetails> convertedList = [];
   bool _isLoading = true;
+  int currentPage = 1;
+  int itemsPerPage = 10;
+  int maxPages = 1;
 
   @override
   void initState() {
@@ -33,11 +37,37 @@ class _FavoritePlantsState extends State<FavoritePlants> {
     super.initState();
   }
 
+  /* This function is used to determine whether the page can go
+  backwards or forwards based on the response it was given by the server*/
+  bool pageIsValid(int direction) {
+    // 0 = backwards/subtracting 1
+    // 1 = forward/adding 1
+
+    if (direction == 1) {
+      // Check for forward movement
+      if (currentPage < maxPages) {
+        // As long as the current page count is smaller than the total pages, allow forward movement
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      // Check for backward movement
+      if (currentPage > 1) {
+        // As long as the page count is larger than 1, the allow backwards movement
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   Future<void> _loadFavorites() async {
     if (!mounted) return; // Avoid calling setState if the widget is disposed
 
     setState(() {
       _isLoading = true;
+      currentPage = 1;
     });
 
     // This line internally updates DbService.favoritePlantsList as per your DbService logic
@@ -66,7 +96,10 @@ class _FavoritePlantsState extends State<FavoritePlants> {
     if (mounted) {
       setState(() {
         convertedList = tempConvertedList;
+        convertedList = convertedList.reversed.toList();
         _isLoading = false;
+        maxPages = (convertedList.length / 10).ceil();
+        debugPrint("Pages: $maxPages");
       });
     }
   }
@@ -128,20 +161,28 @@ class _FavoritePlantsState extends State<FavoritePlants> {
 
       setState(() {
         DbService.instance.resetValues();
+        _loadFavorites();
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Put the array in reverse order, so the most recent ones will be at the top
-    convertedList = convertedList.reversed.toList();
-
     if (_isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
+
+    // Calculate start and end index for the current page
+    int startIndex = (currentPage - 1) * itemsPerPage;
+    int endIndex = startIndex + itemsPerPage;
+    if (endIndex > convertedList.length) {
+      endIndex = convertedList.length;
+    }
+
+    List<PlantSpeciesDetails> currentPageItems =
+        convertedList.sublist(startIndex, endIndex);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -159,78 +200,134 @@ class _FavoritePlantsState extends State<FavoritePlants> {
                 child: DbService.favoritePlantsList.isNotEmpty
                     ?
                     // Responsive design targeting tablets
-                    Responsive(
-                        phone: ListView.builder(
-                            itemCount: DbService.favoritePlantsList.length,
-                            itemBuilder: (context, index) {
-                              return PlantListCard(
-                                plantName: convertedList[index].data.name,
-                                scientificName:
-                                    convertedList[index].data.scientificName,
-                                // Handle a local image address rather than a network image
-                                imageAddress: convertedList[index]
+                    Stack(children: [
+                        Responsive(
+                          phone: ListView.builder(
+                              itemCount: currentPageItems.length,
+                              itemBuilder: (context, index) {
+                                try {
+                                  return PlantListCard(
+                                    plantName:
+                                        currentPageItems[index].data.name,
+                                    scientificName: currentPageItems[index]
                                         .data
-                                        .images
-                                        .isEmpty
-                                    ? null
-                                    : convertedList[index].data.images[0].url,
-                                plantId: convertedList[index].data.apiId,
-                                onTapAction: () {
-                                  _navigateToPlantViewer(convertedList[index]);
+                                        .scientificName,
+                                    // Handle a local image address rather than a network image
+                                    imageAddress: currentPageItems[index]
+                                            .data
+                                            .images
+                                            .isEmpty
+                                        ? null
+                                        : currentPageItems[index]
+                                            .data
+                                            .images[0]
+                                            .url,
+                                    plantId: currentPageItems[index].data.apiId,
+                                    onTapAction: () {
+                                      _navigateToPlantViewer(
+                                          convertedList[index]);
+                                    },
+                                  );
+                                } catch (e) {
+                                  return SizedBox();
+                                }
+                              }),
+                          tablet: GridView.builder(
+                              itemCount: DbService.favoritePlantsList.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, mainAxisExtent: 120),
+                              itemBuilder: (context, index) {
+                                return PlantListCard(
+                                  plantName: convertedList[index].data.name,
+                                  scientificName:
+                                      convertedList[index].data.scientificName,
+                                  // Handle a local image address rather than a network image
+                                  imageAddress: convertedList[index]
+                                          .data
+                                          .images
+                                          .isEmpty
+                                      ? null
+                                      : convertedList[index].data.images[0].url,
+                                  plantId: convertedList[index].data.apiId,
+                                  onTapAction: () {
+                                    _navigateToPlantViewer(
+                                        convertedList[index]);
+                                  },
+                                );
+                              }),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                FloatingActionButton(
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                      size: 32,
+                                    ),
+                                    onPressed: () {
+                                      showDeletionDialog();
+                                    })
+                              ],
+                            )
+                          ],
+                        ),
+                      ])
+                    : NoFavorites()),
+            maxPages > 1
+                ?
+                // Buttons
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                        pageIsValid(0)
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  if (pageIsValid(0)) {
+                                    setState(() {
+                                      currentPage -= 1;
+                                    });
+                                  } else {
+                                    debugPrint(
+                                        "Page cannot move further backward");
+                                  }
                                 },
-                              );
-                            }),
-                        tablet: GridView.builder(
-                            itemCount: DbService.favoritePlantsList.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2, mainAxisExtent: 120),
-                            itemBuilder: (context, index) {
-                              return PlantListCard(
-                                plantName: convertedList[index].data.name,
-                                scientificName:
-                                    convertedList[index].data.scientificName,
-                                // Handle a local image address rather than a network image
-                                imageAddress: convertedList[index]
-                                        .data
-                                        .images
-                                        .isEmpty
-                                    ? null
-                                    : convertedList[index].data.images[0].url,
-                                plantId: convertedList[index].data.apiId,
-                                onTapAction: () {
-                                  _navigateToPlantViewer(convertedList[index]);
+                                child: Text("< Back"))
+                            : SizedBox(),
+                        Padding(
+                          padding: EdgeInsets.all(
+                              GardenAPIServices.plantList!.pages == 1
+                                  ? GardenAPIServices.plantsListLength
+                                      .toDouble()
+                                  : 0),
+                          child: Text("Page $currentPage of $maxPages"),
+                        ),
+                        pageIsValid(1)
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  // Set the state to change the current page
+                                  if (pageIsValid(1)) {
+                                    setState(() {
+                                      currentPage += 1;
+                                    });
+                                  } else {
+                                    debugPrint(
+                                        "Page cannot move further forward");
+                                  }
                                 },
-                              );
-                            }),
-                      )
-                    : NoFavorites())
+                                child: Text("Forward >"))
+                            : SizedBox()
+                      ])
+                : SizedBox()
           ],
         ),
-        // This widgets just places the action button in the bottom corner
-        if (DbService.favoritePlantsList.isNotEmpty)
-          // Only show the clear button if the list is not empty
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FloatingActionButton(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      child: Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                        size: 32,
-                      ),
-                      onPressed: () {
-                        showDeletionDialog();
-                      })
-                ],
-              )
-            ],
-          ),
       ]),
     );
   }

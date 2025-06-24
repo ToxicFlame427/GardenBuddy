@@ -155,7 +155,7 @@ class _SettingsFragmentState extends State<SettingsFragment> {
                     linkText: "Icons8",
                     url: "https://icons8.com/"),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
                   child: Text("Danger Zone",
                       style: Theme.of(context).textTheme.headlineLarge),
                 ),
