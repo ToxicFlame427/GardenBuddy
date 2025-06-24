@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:garden_buddy/gbio.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
+import 'package:garden_buddy/widgets/dialogs/loading_dialog.dart';
 import 'package:garden_buddy/widgets/objects/credit_text_object.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/objects/hyperlink.dart';
@@ -49,7 +51,10 @@ class _SettingsFragmentState extends State<SettingsFragment> {
             onNegative: () {
               Navigator.pop(context);
             },
-            onPositive: () async {}));
+            onPositive: () async {
+              Navigator.pop(context);
+              await _initAppReset();
+            }));
   }
 
   Future<void> _showRestorePurchasesDialog() async {
@@ -72,6 +77,20 @@ class _SettingsFragmentState extends State<SettingsFragment> {
                 Navigator.pop(context);
               }
             }));
+  }
+
+  Future<void> _initAppReset() async {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return LoadingDialog(loadingText: "Resetting, please wait...");
+        });
+
+    await GBIO.resetApplication();
+
+    if (mounted) {
+      Navigator.pop(context);
+    }
   }
 
   Future<void> _restorePurchases() async {

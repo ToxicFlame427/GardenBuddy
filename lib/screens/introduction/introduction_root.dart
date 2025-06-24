@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/gbio.dart';
 import 'package:garden_buddy/screens/home_screen.dart';
 
 class IntroductionRoot extends StatefulWidget {
@@ -257,7 +257,7 @@ class _IntroductionRootState extends State<IntroductionRoot> {
                       color: Theme.of(context).colorScheme.primary,
                       onPressed: () {
                         // Save that the intro was finished with shared preferences, so it can be skipped on next app launch
-                        setIntroComplete();
+                        GBIO.setIntroComplete();
                         // Move to the home screen after introduction
                         Navigator.pop(context);
                         Navigator.of(context).push(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/gbio.dart';
 import 'package:garden_buddy/screens/bottom_nav/plants/plants_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/settings_frag.dart';
 import 'package:garden_buddy/screens/bottom_nav/tools_frag.dart';
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
             imageAsset: "assets/icons/icon.jpg",
             buttonText: "Dismiss",
             onClose: () {
-              setApiNotice();
+              GBIO.setApiNotice();
               apiNoticeComplete = true;
               Navigator.of(context).pop();
             }));

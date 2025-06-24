@@ -152,7 +152,7 @@ class _FavoritePlantsState extends State<FavoritePlants> {
           return LoadingDialog(loadingText: "Clearing favorites...");
         });
 
-    await DbService.instance.nukeDatabase();
+    await DbService.instance.nukeFavoritesTable();
 
     await Future.delayed(const Duration(seconds: 2));
 
@@ -160,7 +160,7 @@ class _FavoritePlantsState extends State<FavoritePlants> {
       Navigator.of(context).pop();
 
       setState(() {
-        DbService.instance.resetValues();
+        DbService.favoritePlantsList = [];
         _loadFavorites();
       });
     }
@@ -232,8 +232,9 @@ class _FavoritePlantsState extends State<FavoritePlants> {
                                   return SizedBox();
                                 }
                               }),
+                              // TODO: Fix this to use the page system as well!
                           tablet: GridView.builder(
-                              itemCount: DbService.favoritePlantsList.length,
+                              itemCount: 20,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2, mainAxisExtent: 120),

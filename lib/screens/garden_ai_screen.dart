@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/gbio.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
@@ -88,7 +89,7 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
             // When a response is generated, subtract form the Ai credits count, for unsubscribed users and save the result
             if (!PurchasesApi.subStatus) {
               AiConstants.aiCount--;
-              saveCountValues();
+              GBIO.saveCountValues();
             }
           });
         }

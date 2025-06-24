@@ -14,7 +14,7 @@ class DbService {
 
   // Tables
   final String _favoritePlantsTable = "favorite_plants";
-  final String _aiChatHistory = "ai_chat_history";
+  final String _aiChatHistory = "ai_chats";
   final String _idHistory = "id_history";
   final String _haHistory = "ha_history";
 
@@ -67,8 +67,8 @@ class DbService {
 
     // Download the image to the system, then get its path and save it to the DB
     if (plantDetails.data.images.isNotEmpty) {
-      imageDir =
-          await GBIO.saveImageFromUrlWithPath(plantDetails.data.images[0].smallUrl);
+      imageDir = await GBIO
+          .saveImageFromUrlWithPath(plantDetails.data.images[0].smallUrl);
 
       // Save the image to the system, this is for local reference
       // If the image does not download correctly, then just add the image URL to the local data
@@ -117,7 +117,40 @@ class DbService {
   }
 
   // MARK: Danger zone!!
-  Future<void> nukeDatabase() async {
+  void deleteFavPlant(String plantName) async {
+    final db = await database;
+
+    // This map is used to fin the specific plant to delete
+    List<Map<String, dynamic>> plants = await db.query(
+      _favoritePlantsTable,
+      columns: [_favPlantPropLocalImageDir],
+      where: "$_favPlantPropName = ?",
+      whereArgs: [plantName],
+      limit: 1, // Only one plant is needed
+    );
+
+    if (plants.isNotEmpty) {
+      String? imagePath = plants.first[_favPlantPropLocalImageDir] as String?;
+
+      if (imagePath != null && imagePath.isNotEmpty && imagePath != "empty") {
+        GBIO.deleteImageWithPath(imagePath);
+        debugPrint("Deleted local image at: $imagePath");
+      } else {
+        debugPrint(
+            "No valid local image path found for $plantName or path was 'empty'.");
+      }
+    } else {
+      debugPrint("Plant with name $plantName not found for image deletion.");
+    }
+
+    await db.delete(_favoritePlantsTable,
+        where: "$_favPlantPropName = ?", whereArgs: [plantName]);
+
+    favoritePlantsList = await getFavoritePlants();
+  }
+
+  // TODO: Instead of deleting the entire database, only delete the one table here
+  Future<void> nukeFavoritesTable() async {
     final db = await database;
 
     // Map used to find all local image being saved, they cant hide from this algorithm!
@@ -150,41 +183,33 @@ class DbService {
     debugPrint("Nuking database file at: $path");
     await deleteDatabase(path);
 
-    resetValues();
+    favoritePlantsList = [];
 
     debugPrint("Database nuked and local images cleared.");
   }
 
-  void deleteFavPlant(String plantName) async {
+  // Deletes the identifictions table and all cached images associated with it
+  // TODO: Nuke ID
+  Future<void> nukeIdTable() async {}
+
+  // Deletes the health assessments table and all cached images associated with it
+  // TODO: Nuke HA
+  Future<void> nukeHaTable() async {}
+
+  // Deletes the AI chats table and all cached images associated with it
+  // TODO: Nuke chats
+  Future<void> nukeAiChatsTable() async {}
+
+  // Deletes the base database file storing all tables.
+  Future<void> nukeDatabaseFile() async {
     final db = await database;
+    String path = db.path;
 
-    // This map is used to fin the specific plant to delete
-    List<Map<String, dynamic>> plants = await db.query(
-      _favoritePlantsTable,
-      columns: [_favPlantPropLocalImageDir],
-      where: "$_favPlantPropName = ?",
-      whereArgs: [plantName],
-      limit: 1, // Only one plant is needed
-    );
+    await db.close();
 
-    if (plants.isNotEmpty) {
-      String? imagePath = plants.first[_favPlantPropLocalImageDir] as String?;
+    debugPrint("Nuking database file at: $path");
 
-      if (imagePath != null && imagePath.isNotEmpty && imagePath != "empty") {
-        GBIO.deleteImageWithPath(imagePath);
-        debugPrint("Deleted local image at: $imagePath");
-      } else {
-        debugPrint(
-            "No valid local image path found for $plantName or path was 'empty'.");
-      }
-    } else {
-      debugPrint("Plant with name $plantName not found for image deletion.");
-    }
-
-    await db.delete(_favoritePlantsTable,
-        where: "$_favPlantPropName = ?", whereArgs: [plantName]);
-
-    favoritePlantsList = await getFavoritePlants();
+    await deleteDatabase(path);
   }
 
   void resetValues() {

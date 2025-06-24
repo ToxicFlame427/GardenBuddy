@@ -5,6 +5,8 @@ New features:
 Allow saving of AI chats to device - with sub
 Allow saving of IDs and HAs to device - with sub
 Work on the plant data edit request page
+
+// IN PROGRESS
 Reset app button (Its there, just make it work) - Deletes all cached data! Favorites, IDs, HAs, AI chats. KEEP THE DAY COUNT!
 
 PARTIALLY FIXED - COULD BE IMPROVED

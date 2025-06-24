@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/gbio.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
@@ -91,7 +92,7 @@ class _ScannerResultState extends State<ScannerResultScreen> {
       _creditsChanged = true;
 
       // After the credit change, save the new count
-      saveCountValues();
+      GBIO.saveCountValues();
 
       recievedResult = true;
     });

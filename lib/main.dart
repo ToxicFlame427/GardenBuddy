@@ -1,6 +1,7 @@
 // Woke up in the morning traveling straight into the sun!
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/gbio.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/screens/home_screen.dart';
@@ -28,7 +29,7 @@ Future<void> initializeStuff() async {
   DbService.favoritePlantsList = await DbService.instance.getFavoritePlants();
 
   // Basically the mastermind of all of these day change operations
-  setCountValues();
+  GBIO.setCountValues();
 
   // Fetch the connection types to ensure internet connection
   await getConnectionTypes();
@@ -37,8 +38,8 @@ Future<void> initializeStuff() async {
 // Main app entry point
 Future main() async {
   await initializeStuff();
-  bool introComplete = await checkIntroComplete();
-  apiNoticeComplete = await checkApiNotice();
+  bool introComplete = await GBIO.checkIntroComplete();
+  apiNoticeComplete = await GBIO.checkApiNotice();
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
