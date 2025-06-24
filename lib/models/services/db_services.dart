@@ -1,14 +1,9 @@
-import 'dart:math';
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
+import 'package:garden_buddy/gbio.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 import 'package:garden_buddy/models/db_plant_row.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:http/http.dart' as http;
 
 // Used to communicate with the local database
 class DbService {
@@ -19,8 +14,12 @@ class DbService {
 
   // Tables
   final String _favoritePlantsTable = "favorite_plants";
+  final String _aiChatHistory = "ai_chat_history";
+  final String _idHistory = "id_history";
+  final String _haHistory = "ha_history";
 
   // Column properties
+  // FAVORITE PLANTS
   final String _favPlantPropId = "id";
   final String _favPlantPropName = "name";
   final String _favPlantPropJsonContent = "jsonContent";
@@ -68,7 +67,8 @@ class DbService {
 
     // Download the image to the system, then get its path and save it to the DB
     if (plantDetails.data.images.isNotEmpty) {
-      imageDir = await saveImageWithPath(plantDetails.data.images[0].smallUrl);
+      imageDir =
+          await GBIO.saveImageFromUrlWithPath(plantDetails.data.images[0].smallUrl);
 
       // Save the image to the system, this is for local reference
       // If the image does not download correctly, then just add the image URL to the local data
@@ -86,36 +86,6 @@ class DbService {
 
     // After adding a favorite plant, update the favorites array
     favoritePlantsList = await getFavoritePlants();
-  }
-
-  // This function saves an image from url and returns the local filepath and the image ID
-  Future<String?> saveImageWithPath(String url) async {
-    String? path;
-
-    debugPrint("Attempting to save image...");
-
-    // Need to be really secure with this one boi, bad data can occur!
-    try {
-      http.Response response = await http.get(Uri.parse(url));
-
-      Directory dir = await getTemporaryDirectory();
-
-      // The random seed is the current sign
-      path =
-          "${dir.path}/${Random(DateTime.now().millisecondsSinceEpoch).nextInt(1000000)}.png";
-
-      final file = File(path);
-      debugPrint("FILE SAVED TO: $file");
-      await file.writeAsBytes(response.bodyBytes);
-    } on PlatformException catch (error) {
-      // Welp, thats not good
-      debugPrint("Image save failed: $error");
-    }
-
-    debugPrint("Image saving complete, failed or not.");
-
-    // Return path
-    return path;
   }
 
   Future<List<DBPlantRow>> getFavoritePlants() async {
@@ -137,7 +107,7 @@ class DbService {
     // Convert the list of DB rows into usable class elements
     for (int i = 0; i < plants.length; i++) {
       PlantSpeciesDetails converted =
-        PlantSpeciesDetails.fromRawJson(plants[i].jsonContent);
+          PlantSpeciesDetails.fromRawJson(plants[i].jsonContent);
 
       convertedList.add(converted);
     }
@@ -163,7 +133,7 @@ class DbService {
         String? imagePath = entry[_favPlantPropLocalImageDir] as String?;
         if (imagePath != null && imagePath.isNotEmpty && imagePath != "empty") {
           // Bye bye :)
-          deleteLocalImage(imagePath);
+          GBIO.deleteImageWithPath(imagePath);
           debugPrint("Attempted deletion of cached image: $imagePath");
         }
       }
@@ -201,7 +171,7 @@ class DbService {
       String? imagePath = plants.first[_favPlantPropLocalImageDir] as String?;
 
       if (imagePath != null && imagePath.isNotEmpty && imagePath != "empty") {
-        deleteLocalImage(imagePath);
+        GBIO.deleteImageWithPath(imagePath);
         debugPrint("Deleted local image at: $imagePath");
       } else {
         debugPrint(
@@ -215,23 +185,6 @@ class DbService {
         where: "$_favPlantPropName = ?", whereArgs: [plantName]);
 
     favoritePlantsList = await getFavoritePlants();
-  }
-
-  // Dammit! Dont use the users' storage so much you fool!
-  void deleteLocalImage(String path) async {
-    try {
-      final file = File(path);
-      if (await file.exists()) {
-        // Check if the file exists
-        // If so, delete the file
-        file.deleteSync(recursive: true);
-        debugPrint("Successfully deleted file: $path");
-      } else {
-        debugPrint("File not found, could not delete: $path");
-      }
-    } catch (e) {
-      debugPrint("Error deleting file at $path: $e");
-    }
   }
 
   void resetValues() {
