@@ -100,4 +100,19 @@ class GardenAPIServices {
       return false;
     }
   }
+
+  // TODO: Work on this function
+  /*
+    Model could be:
+    {
+      "id": probably auto assigned,
+      "date": date,
+      "data": {
+        make this the same object that the plant viewer uses, just with the modified user edits
+      }
+    }
+  */
+  static Future<bool> sendPlantEditRequest() async {
+    return false;
+  }
 }

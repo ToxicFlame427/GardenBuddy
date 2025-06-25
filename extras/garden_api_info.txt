@@ -27,3 +27,6 @@ Add plant (POST): /add-plant
 
 Add Plant (POST): /add-plant-request
     - Request to add user made plant addition requests
+
+Edit Plant Request (POST): /plant-edit-request
+    - Endpoint for users of Garden Buddy to submit edit change requests for any plant document
