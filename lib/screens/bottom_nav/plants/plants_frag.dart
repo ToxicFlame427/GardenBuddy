@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/bottom_nav/plants/plant_favorites.dart';
 import 'package:garden_buddy/screens/bottom_nav/plants/plant_search.dart';
@@ -60,8 +61,8 @@ class _PlantsFragmentState extends State<PlantsFragment>
                     controller: _tabController,
                     children: const [PlantSearch(), FavoritePlants()])),
             BannerAdView(
-              androidBannerId: "ca-app-pub-6754306508338066/4358761762",
-              iOSBannerId: "ca-app-pub-6754306508338066/9079226397",
+              androidBannerId: Keys.plantsFragAdAndroid,
+              iOSBannerId: Keys.plantsFragAdiOS,
               isTest: adTesting,
               isShown: !PurchasesApi.subStatus,
               bannerSize: AdSize.banner,

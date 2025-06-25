@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 // Class for basic input/output operations - local files
 class GBIO {
@@ -112,11 +113,7 @@ class GBIO {
     debugPrint("The current day was set!");
   }
 
-/* MARK:
-  I want a way to tell the user that they have been trying to change the clock
-  This can be done by comparing the hours and day simultaneously to make sure that the hour changed as well
-*/
-// These functions are used to verify new day for unsubscribed users
+  // These functions are used to verify new day for unsubscribed users
   static Future<bool> isNewDay() async {
     // Get the saved day
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -140,7 +137,7 @@ class GBIO {
     }
   }
 
-// Saving the count values will occur after every successful result from the API
+  // Saving the count values will occur after every successful result from the API
   static void saveCountValues() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt("idCount", AiConstants.idCount);
@@ -150,7 +147,7 @@ class GBIO {
     debugPrint("Count values were saved");
   }
 
-// Checks if the day is new, if so, reset the counts
+  // Checks if the day is new, if so, reset the counts
   static void setCountValues() async {
     saveCurrentDay(DateTime.now());
 
@@ -175,7 +172,7 @@ class GBIO {
     }
   }
 
-// These functions just read/write values to shared preferences
+  // These functions just read/write values to shared preferences
   static Future<bool> checkIntroComplete() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool("introComplete") ?? false;
@@ -194,5 +191,29 @@ class GBIO {
   static void setApiNotice() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool("apiNoticeComplete", true);
+  }
+
+  static Future<void> deleteAllImagesFromTable(String table, Database db, String column) async {
+    // Map used to find all local images being saved, they cant hide from this algorithm!
+    debugPrint("Fetching all image paths from $table...");
+    List<Map<String, dynamic>> allImageEntries = await db.query(
+      table,
+      columns: [column],
+    );
+
+    // Delete each of the local images
+    if (allImageEntries.isNotEmpty) {
+      for (var entry in allImageEntries) {
+        String? imagePath = entry[column] as String?;
+        if (imagePath != null && imagePath.isNotEmpty && imagePath != "empty") {
+          // Bye bye :)
+          GBIO.deleteImageWithPath(imagePath);
+          debugPrint("Attempted deletion of cached image: $imagePath");
+        }
+      }
+      debugPrint("Finished attempting to delete all cached images.");
+    } else {
+      debugPrint("No image paths found in table $table to delete.");
+    }
   }
 }

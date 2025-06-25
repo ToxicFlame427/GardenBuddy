@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart'
     // ignore: library_prefixes
     as PlantDetailsClass;
@@ -199,8 +200,8 @@ class PlantSpeciesViewerData extends StatelessWidget {
                     }),
 
                 BannerAdView(
-                    androidBannerId: "ca-app-pub-6754306508338066/1797528673",
-                    iOSBannerId: "ca-app-pub-6754306508338066/6837731855",
+                    androidBannerId: Keys.plantViewer1AdAndroid,
+                    iOSBannerId: Keys.plantViewer1AdiOS,
                     isTest: adTesting,
                     isShown: !PurchasesApi.subStatus,
                     bannerSize: AdSize.mediumRectangle),
@@ -304,8 +305,8 @@ class PlantSpeciesViewerData extends StatelessWidget {
                         return Text(plantData!.data.floweringMonths[i]);
                       }),
                 BannerAdView(
-                    androidBannerId: "ca-app-pub-6754306508338066/1797528673",
-                    iOSBannerId: "ca-app-pub-6754306508338066/6837731855",
+                    androidBannerId: Keys.plantViewer2AdAndroid,
+                    iOSBannerId: Keys.plantViewer2AdiOS,
                     isTest: adTesting,
                     isShown: !PurchasesApi.subStatus,
                     bannerSize: AdSize.largeBanner),
@@ -353,7 +354,6 @@ class PlantSpeciesViewerData extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 // TODO: Prefered soil
-                // Prefered sunlight
                 SizedBox(
                   height: 10,
                 ),

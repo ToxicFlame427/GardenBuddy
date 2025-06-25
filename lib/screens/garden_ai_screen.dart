@@ -6,6 +6,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/gbio.dart';
+import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
@@ -214,8 +215,8 @@ class _GardenAIScreenState extends State<GardenAIScreen> {
                   ? Column(children: [
                       // MARK: DONT TOUCH, REAL BANNER IDS
                       BannerAdView(
-                        androidBannerId: "ca-app-pub-6754306508338066/2146896939",
-                        iOSBannerId: "ca-app-pub-6754306508338066/6325070548",
+                        androidBannerId: Keys.gardenAIAdAndroid,
+                        iOSBannerId: Keys.gardenAIAdiOS,
                         isTest: adTesting,
                         isShown: !PurchasesApi.subStatus,
                         bannerSize: AdSize.largeBanner,

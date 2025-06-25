@@ -44,7 +44,7 @@ class _SettingsFragmentState extends State<SettingsFragment> {
         builder: (ctx) => ConfirmationDialog(
             title: "Reset Garden Buddy?",
             description:
-                "WARNING: This function was made to give users the option to completetly reset Garden Buddy. This means every on-device file managed by Garden Buddy will be deleted. These files include all favorited plants, AI chats, saved identifications and health assessments, along with cached data such as images. This cannot be undone. Users that are subscribed: your subscription status will stay in effect, only local device data for Garden Buddy will be affected.",
+                "WARNING: This function was made to give users the option to completely reset Garden Buddy. This means every on-device file managed by Garden Buddy will be deleted. These files include all favorited plants, AI chats, saved identifications and health assessments, along with cached data such as images. This cannot be undone. Users that are subscribed: your subscription status will stay in effect, only local device data for Garden Buddy will be affected.",
             imageAsset: "assets/icons/icon.jpg",
             positiveButtonText: "Reset",
             negativeButtonText: "No thanks",

@@ -11,6 +11,7 @@ class GardenAPIServices {
   static const String _speciesListEndpoint = "plant-species-list";
   static const String _plantDetailsEndpoint = "single-plant-species";
   static const String _plantRequestEndpoint = "add-plant-request";
+  static const String _plantEditRequestEndpoint = "plant-edit-request";
 
   static PlantSpeciesList? plantList;
 

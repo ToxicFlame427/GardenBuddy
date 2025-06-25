@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/gbio.dart';
+import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
@@ -142,8 +143,8 @@ class _ScannerResultState extends State<ScannerResultScreen> {
             ),
           ),
           BannerAdView(
-              androidBannerId: "ca-app-pub-6754306508338066/1605956988",
-              iOSBannerId: "ca-app-pub-6754306508338066/7766144728",
+              androidBannerId: Keys.resultsScreenAdAndroid,
+              iOSBannerId: Keys.resultsScreenAdiOS,
               isTest: adTesting,
               isShown: !PurchasesApi.subStatus,
               bannerSize: AdSize.banner),

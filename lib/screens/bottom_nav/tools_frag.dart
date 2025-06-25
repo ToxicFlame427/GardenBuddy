@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/const.dart';
+import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/models/tool.dart';
 import 'package:garden_buddy/screens/garden_ai_screen.dart';
@@ -115,8 +116,8 @@ class ToolsFragment extends StatelessWidget {
                   }),
               // MARK: THESE ARE REAL IDS, DONT TOUCH
               BannerAdView(
-                androidBannerId: "ca-app-pub-6754306508338066/2146896939",
-                iOSBannerId: "ca-app-pub-6754306508338066/1392308067",
+                androidBannerId: Keys.toolsScreenAdAndroid,
+                iOSBannerId: Keys.toolsScreenAdiOS,
                 isTest: adTesting,
                 isShown: !PurchasesApi.subStatus,
                 bannerSize: AdSize.banner,

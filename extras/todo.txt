@@ -2,16 +2,17 @@ To-do
 
 HIGH PRIORITY
 New features:
-Allow saving of AI chats to device - with sub
-Allow saving of IDs and HAs to device - with sub
-Work on the plant data edit request page
+Allow saving of AI chats to device - with sub - DATABASE IS SETUP, WORK ON FUNCTIONALITY
+Allow saving of IDs and HAs to device - with sub - SAME GOES ^^^
+Work on the plant data edit request page - Needs quite a bit of work yet
 
 // IN PROGRESS
 Reset app button (Its there, just make it work) - Deletes all cached data! Favorites, IDs, HAs, AI chats. KEEP THE DAY COUNT!
+DONE - BUT KEEP IT HERE ^^^
 
 PARTIALLY FIXED - COULD BE IMPROVED
 Remove release jank on real devices, its not bad, but its very noticable
 Keep working on adding more plants and images to the API system, this is SUPER important.
 
 LOW PRIORITY
-Refactor code to reduce codebase - There are lots of things that could be rewritten better, just don't break anything >:(
+Refactor code to reduce codebase - There are lots of things that could be rewritten better, just don't break anything >:( - PRETTY CONSTANTLY DOING THIS
