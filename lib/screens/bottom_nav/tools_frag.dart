@@ -5,7 +5,7 @@ import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/models/tool.dart';
 import 'package:garden_buddy/screens/garden_ai_screen.dart';
 import 'package:garden_buddy/screens/plant_request_form.dart';
-import 'package:garden_buddy/screens/scanner_screen.dart';
+import 'package:garden_buddy/screens/scanner/scanner_screen.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/objects/banner_ad.dart';
 import 'package:garden_buddy/widgets/lists/tool_card.dart';

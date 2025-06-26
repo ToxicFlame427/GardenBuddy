@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
-import 'package:garden_buddy/screens/results_screen.dart';
+import 'package:garden_buddy/screens/scanner/results_screen.dart';
+import 'package:garden_buddy/screens/scanner/saved_scanner_results.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/formatting/responsive.dart';
 import 'package:garden_buddy/widgets/objects/credit_circle.dart';
@@ -314,6 +315,39 @@ class _ScannerScreenState extends State<ScannerScreen> {
                             ),
                           ],
                         )),
+                    // Button to navigate to the saved results screen
+                    // Only show this button if the user is subscribed
+                    if (PurchasesApi.subStatus)
+                      ElevatedButton(
+                          onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (ctx) => SavedScannerResults(
+                                        scannerType: widget.scannerType)));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: Icon(
+                                  Icons.save,
+                                  color: Colors.white,
+                                  size: buttonIconSize,
+                                ),
+                              ),
+                              Text(
+                                "Saved",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: buttonTextSize),
+                              ),
+                            ],
+                          )),
                     ElevatedButton(
                         onPressed: () async {
                           if (_canDoScan()) {
@@ -343,7 +377,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                               ),
                             ),
                             Text(
-                              "Take Picture",
+                              "Take",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: buttonTextSize),

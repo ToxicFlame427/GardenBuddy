@@ -17,12 +17,11 @@ Future<void> initializeStuff() async {
   await PurchasesApi.init();
 
   // Add and remove this for testing and production purposes, terrible. Sometimes I forget, and everyone gets a free subscription.
-  //enableDeveloperMode();
+  enableDeveloperMode();
 
   if (!developerModeEnabled) {
     // Check the current sub status, as internet connection is needed to use basically any part of the application
     PurchasesApi.subStatus = await PurchasesApi.checkSubStatus(null, null);
-    //PurchasesApi.subStatus = false; // wtf is that doing there, OMG I can't believe I did not remove that >:( (Kept it here as evidence >:( )
   }
 
   // Initially fetch the favorite plants

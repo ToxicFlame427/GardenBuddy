@@ -46,7 +46,7 @@ class GBIO {
     try {
       http.Response response = await http.get(Uri.parse(url));
 
-      Directory dir = await getTemporaryDirectory();
+      Directory dir = await getApplicationDocumentsDirectory();
 
       final file = File("${dir.path}/${randomizeFileName("png")}");
       debugPrint("FILE SAVED TO: $file");
@@ -64,18 +64,18 @@ class GBIO {
   }
 
   // TODO: This probably doesn't work, but just some pseudo code to see how it would work
-  static Future<String?> saveImageFromFileWithPath(XFile file) async {
+  static Future<String?> saveImageFromFileWithPath(Uint8List fileBytes) async {
     String? path;
 
     debugPrint("Attempting to save image...");
 
     // Need to be really secure with this one boi, bad data can occur!
     try {
-      Directory dir = await getTemporaryDirectory();
+      Directory dir = await getApplicationDocumentsDirectory();
 
       final file = File("${dir.path}/${randomizeFileName("png")}");
       debugPrint("FILE SAVED TO: $file");
-      await file.writeAsBytes(file.readAsBytesSync());
+      await file.writeAsBytes(fileBytes);
 
       // Set the filepath
       path = file.path;

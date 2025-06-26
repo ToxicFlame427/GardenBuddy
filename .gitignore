@@ -39,6 +39,7 @@ ios/StoreKitConfig.storekit
 ios/StoreKitTestCertificate.cer
 ios/SubscriptionKey_2C4077D5.p8
 ios/Runner/Info.plist
+ios/Runner/GoogleService-Info.plist
 android/app/src/main/AndroidManifest.xml
 
 # Nobody needs to see debug logs :)

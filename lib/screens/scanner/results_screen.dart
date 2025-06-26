@@ -9,7 +9,9 @@ import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
+import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/theming/colors.dart';
+import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/formatting/horizontal_rule.dart';
 import 'package:garden_buddy/widgets/loading/health_assess_loading.dart';
 import 'package:garden_buddy/widgets/lists/plant_id_card.dart';
@@ -40,11 +42,12 @@ class _ScannerResultState extends State<ScannerResultScreen> {
 
   PlantIdResponse? idResponse;
   HealthAssessmentResponse? healthResponse;
+  Uint8List? imageBytes;
 
   // Used to send the prompt to the Gemini model
   Future<void> sendPrompt() async {
     TextPart prompt;
-    Uint8List imagebytes = await widget.picture.readAsBytes();
+    imageBytes = await widget.picture.readAsBytes();
 
     // Determine the correct prompt to send based on what scanner is being used
     if (widget.scannerType == "Plant Identification") {
@@ -59,13 +62,13 @@ class _ScannerResultState extends State<ScannerResultScreen> {
       getter = await AiConstants.plantIdModel.generateContent([
         Content.multi(
             // Assuming that the image has a defines MIME type
-            [prompt, DataPart("image/jpeg", imagebytes)])
+            [prompt, DataPart("image/jpeg", imageBytes!)])
       ]);
     } else {
       getter = await AiConstants.healthAssessModel.generateContent([
         Content.multi(
             // Assuming that the image has a defines MIME type
-            [prompt, DataPart("image/jpeg", imagebytes)])
+            [prompt, DataPart("image/jpeg", imageBytes!)])
       ]);
     }
 
@@ -109,6 +112,29 @@ class _ScannerResultState extends State<ScannerResultScreen> {
     super.initState();
   }
 
+  void _showSaveConfirmationDialog() {
+    showDialog(
+        context: context,
+        builder: (ctx) => ConfirmationDialog(
+            title: "Save Result?\n(${widget.scannerType})",
+            description:
+                "By saving scanner results, they can be viewed again without submitting a new image for identification. These are saved directly into the application cache.",
+            imageAsset: "assets/icons/icon.jpg",
+            positiveButtonText: "Save",
+            negativeButtonText: "No thanks",
+            onNegative: () {
+              Navigator.pop(context);
+            },
+            onPositive: () async {
+              await DbService.instance.addScanResultToTable(
+                  idResponse, healthResponse, imageBytes!);
+
+              if (mounted) {
+                Navigator.pop(context);
+              }
+            }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +148,16 @@ class _ScannerResultState extends State<ScannerResultScreen> {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         iconTheme: const IconThemeData().copyWith(color: Colors.white),
+        centerTitle: false,
+        actions: [
+          // Save button, only sholw it if the user is subscribed
+          if (PurchasesApi.subStatus && (idResponse != null || healthResponse != null))
+            IconButton(
+                onPressed: () {
+                  _showSaveConfirmationDialog();
+                },
+                icon: Icon(Icons.save))
+        ],
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context, _creditsChanged);

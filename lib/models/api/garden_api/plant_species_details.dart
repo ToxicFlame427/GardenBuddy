@@ -1,8 +1,5 @@
 import 'dart:convert';
 
-String plantSpeciesDetailsToJson(PlantSpeciesDetails data) =>
-    json.encode(data.toJson());
-
 class PlantSpeciesDetails {
   Data data;
   String status;

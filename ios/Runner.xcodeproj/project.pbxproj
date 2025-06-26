@@ -16,6 +16,8 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		9C0D5E780B82C22E924F210A /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47B26F0A3496526F065575DC /* Pods_RunnerTests.framework */; };
+		EE136B322E0DA1DA00AC7C25 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE136B312E0DA1DA00AC7C25 /* FirebaseAnalytics */; };
+		EE136B342E0DA21700AC7C25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE136B332E0DA21700AC7C25 /* GoogleService-Info.plist */; };
 		EE419A5E2CD0575200BF8402 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = EE419A5D2CD0575200BF8402 /* StoreKitTestCertificate.cer */; };
 		EE419A602CD057C700BF8402 /* SubscriptionKey_2C4077D5.p8 in Resources */ = {isa = PBXBuildFile; fileRef = EE419A5F2CD057B900BF8402 /* SubscriptionKey_2C4077D5.p8 */; };
 		EE6ED1692CCC1313006FFA12 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE6ED1682CCC1313006FFA12 /* StoreKit.framework */; };
@@ -67,6 +69,7 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFE5E5E951A6E2ACE2901346 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		D1640359FCF11F06455AC18B /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
+		EE136B332E0DA21700AC7C25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE419A5C2CD054AB00BF8402 /* StoreKitConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfig.storekit; sourceTree = "<group>"; };
 		EE419A5D2CD0575200BF8402 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		EE419A5F2CD057B900BF8402 /* SubscriptionKey_2C4077D5.p8 */ = {isa = PBXFileReference; lastKnownFileType = text; path = SubscriptionKey_2C4077D5.p8; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 			files = (
 				EE6ED1692CCC1313006FFA12 /* StoreKit.framework in Frameworks */,
 				6C9A31ACB7AE75F7B7698D82 /* Pods_Runner.framework in Frameworks */,
+				EE136B322E0DA1DA00AC7C25 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +168,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				EE136B332E0DA21700AC7C25 /* GoogleService-Info.plist */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -250,6 +255,9 @@
 				Base,
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
+			packageReferences = (
+				EE136B302E0DA1DA00AC7C25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -278,6 +286,7 @@
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 				EE419A602CD057C700BF8402 /* SubscriptionKey_2C4077D5.p8 in Resources */,
+				EE136B342E0DA21700AC7C25 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,6 +808,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EE136B302E0DA1DA00AC7C25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EE136B312E0DA1DA00AC7C25 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE136B302E0DA1DA00AC7C25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 97C146E61CF9000F007C117D /* Project object */;
 }

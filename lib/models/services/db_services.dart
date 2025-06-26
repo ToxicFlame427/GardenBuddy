@@ -5,7 +5,7 @@ import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
 import 'package:garden_buddy/models/db_models/db_ai_chat.dart';
 import 'package:garden_buddy/models/db_models/db_plant_row.dart';
-import 'package:garden_buddy/models/services/db_scanner_results.dart';
+import 'package:garden_buddy/models/db_models/db_scanner_results.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -100,7 +100,7 @@ class DbService {
 
   // This function will be responsible for compiling all the data into the database
   void addFavPlant(PlantSpeciesDetails plantDetails) async {
-    String content = plantSpeciesDetailsToJson(plantDetails);
+    String content = plantDetails.toRawJson();
     debugPrint(content);
 
     String? imageDir = "empty";
@@ -190,21 +190,52 @@ class DbService {
   }
 
   // TODO: Complete functions
-  void addIdToTable(PlantIdResponse idData) {}
+  // This function is dynamic with plant ids and health assessments
+  Future<void> addScanResultToTable(PlantIdResponse? idData,
+      HealthAssessmentResponse? haData, Uint8List image) async {
+    debugPrint("Saving scan result to database...");
+    // Start by converting the details to a string
+    String content = idData != null ? idData.toRawJson() : haData!.toRawJson();
+    debugPrint(content);
 
-  Future<List<DBScannerResults>?> getIds() async {
-    return null;
+    // The image is provided as UInt8 list, save the image like that
+    String? imageDir = await GBIO.saveImageFromFileWithPath(image);
+
+    // Format the date
+    final DateTime now = DateTime.now();
+    final String formatted =
+        "${now.month}-${now.day}-${now.year} at ${now.hour}:${now.minute} ${now.timeZoneName}";
+
+    debugPrint("Saving object: $content $formatted $imageDir to database");
+
+    // Get the database instance and insert the parsed data
+    final db = await database;
+    // The primary key is automatic, there is no need to add it to the schema
+    db.insert(idData != null ? _idHistory : _haHistory,
+        {_date: formatted, _results: content, _localImageDir: imageDir});
   }
 
-  void deleteId() async {}
+  Future<List<DBScannerResults>> getSavedScanResults(String type) async {
+    final db = await database;
+    final data = await db.query(type == "Plant Identification" ? _idHistory : _haHistory);
 
-  void addHAToTable(HealthAssessmentResponse haData) {}
+    debugPrint("$data");
+    List<DBScannerResults> results = data
+        .map(
+          (e) => DBScannerResults(
+              id: e[_id] as int,
+              date: e[_date] as String,
+              results: e[_results] as String,
+              localImageDir: e[_localImageDir] as String),
+        )
+        .toList();
 
-  Future<List<DBScannerResults>?> getHAs() async {
-    return null;
+    return results;
   }
 
-  void deleteHA() async {}
+  //void deleteId() async {}
+
+  //void deleteHA() async {}
 
   void addAiChatToTable(HealthAssessmentResponse haData) {}
 
@@ -330,3 +361,5 @@ class DbService {
     favoritePlantsList = [];
   }
 }
+
+class DateFormat {}
