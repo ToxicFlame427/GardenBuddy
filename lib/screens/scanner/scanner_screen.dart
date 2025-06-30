@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
-import 'package:garden_buddy/screens/scanner/results_screen.dart';
+import 'package:garden_buddy/screens/scanner/scanner_results_screen.dart';
 import 'package:garden_buddy/screens/scanner/saved_scanner_results.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/formatting/responsive.dart';
@@ -83,7 +83,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
         context,
         MaterialPageRoute(
             builder: (context) => ScannerResultScreen(
-                picture: file, scannerType: widget.scannerType)));
+                picture: file, scannerType: widget.scannerType, fromSaved: false,)));
 
     // Check if the result indicates a change and the widget is still mounted
     if (result == true && mounted) {

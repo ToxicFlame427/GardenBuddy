@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -193,7 +192,8 @@ class GBIO {
     await prefs.setBool("apiNoticeComplete", true);
   }
 
-  static Future<void> deleteAllImagesFromTable(String table, Database db, String column) async {
+  static Future<void> deleteAllImagesFromTable(
+      String table, Database db, String column) async {
     // Map used to find all local images being saved, they cant hide from this algorithm!
     debugPrint("Fetching all image paths from $table...");
     List<Map<String, dynamic>> allImageEntries = await db.query(

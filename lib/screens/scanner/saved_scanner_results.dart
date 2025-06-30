@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/db_models/db_scanner_results.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
+import 'package:garden_buddy/widgets/lists/saved_result_card.dart';
+import 'package:garden_buddy/widgets/objects/no_saved_results.dart';
 
 class SavedScannerResults extends StatefulWidget {
   final String scannerType;
@@ -52,18 +54,65 @@ class _SavedScannerResultsState extends State<SavedScannerResults> {
           centerTitle: false,
           iconTheme: const IconThemeData().copyWith(color: Colors.white),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // TODO: Finish this widget tree boi! This is a basic skeleton of what it should look like.
-            if (isLoaded)
-              if (results.isEmpty)
-                Text("There are no results")
-              else
-                Text("Data is found, display it here")
-            else
-              Text("Loading...")
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SafeArea(
+            child: Stack(children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  // TODO: Finish this widget tree boi! This is a basic skeleton of what it should look like.
+                  if (isLoaded)
+                    if (results.isEmpty)
+                      // Nothing has been saved
+                      NoSavedResults()
+                    else
+                      // Saved data was found, display it
+                      Expanded(
+                        child: GridView.builder(
+                            itemCount: results.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2),
+                            itemBuilder: (ctx, index) {
+                              return SavedResultCard(
+                                resultObject: results[index],
+                                scannerType: widget.scannerType,
+                              );
+                            }),
+                      )
+                  else
+                    // The database results are still loading
+                    Text("Loading...")
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if (results.isNotEmpty)
+                        FloatingActionButton(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 32,
+                            ),
+                            onPressed: () {
+                              // TODO: Clear the list of saved results
+                            })
+                    ],
+                  )
+                ],
+              )
+            ]),
+          ),
         ));
   }
 }

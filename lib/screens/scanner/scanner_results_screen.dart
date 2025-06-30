@@ -8,6 +8,7 @@ import 'package:garden_buddy/keys.dart';
 import 'package:garden_buddy/models/api/gemini/ai_constants.dart';
 import 'package:garden_buddy/models/api/gemini/health_assessment_response.dart';
 import 'package:garden_buddy/models/api/gemini/plant_id_response.dart';
+import 'package:garden_buddy/models/db_models/db_scanner_results.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/theming/colors.dart';
@@ -23,10 +24,16 @@ import 'package:image_picker/image_picker.dart';
 
 class ScannerResultScreen extends StatefulWidget {
   const ScannerResultScreen(
-      {super.key, required this.picture, required this.scannerType});
+      {super.key,
+      required this.picture,
+      required this.scannerType,
+      required this.fromSaved,
+      this.resultsObject});
 
   final String scannerType;
   final XFile picture;
+  final bool fromSaved;
+  final DBScannerResults? resultsObject;
 
   @override
   State<ScannerResultScreen> createState() {
@@ -102,11 +109,29 @@ class _ScannerResultState extends State<ScannerResultScreen> {
     });
   }
 
+  Future<void> getImageSavedBytes() async {
+    imageBytes = await widget.picture.readAsBytes();
+  }
+
   @override
   void initState() {
+    recievedResult = widget.fromSaved;
+
     // Run the correct prompt based on what scanner type is passed in
-    if (!recievedResult) {
+    if (!recievedResult && !widget.fromSaved) {
       sendPrompt();
+    }
+
+    // If the results screen was navigated from the saved rsults screen, adapt the list to format the results
+    if (widget.fromSaved) {
+      getImageSavedBytes();
+
+      if (widget.scannerType == "Plant Identification") {
+        idResponse = PlantIdResponse.fromRawJson(widget.resultsObject!.results);
+      } else {
+        healthResponse =
+            HealthAssessmentResponse.fromRawJson(widget.resultsObject!.results);
+      }
     }
 
     super.initState();
@@ -140,7 +165,7 @@ class _ScannerResultState extends State<ScannerResultScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "${widget.scannerType} Results",
+          "${widget.scannerType} Results${widget.fromSaved ? " - Saved" : ""}",
           style: TextStyle(
               color: Colors.white,
               fontFamily: "Khand",
@@ -151,7 +176,8 @@ class _ScannerResultState extends State<ScannerResultScreen> {
         centerTitle: false,
         actions: [
           // Save button, only sholw it if the user is subscribed
-          if (PurchasesApi.subStatus && (idResponse != null || healthResponse != null))
+          if (PurchasesApi.subStatus &&
+              (idResponse != null || healthResponse != null))
             IconButton(
                 onPressed: () {
                   _showSaveConfirmationDialog();
