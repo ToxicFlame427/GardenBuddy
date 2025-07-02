@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/db_models/db_scanner_results.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
+import 'package:garden_buddy/screens/scanner/scanner_results_screen.dart';
+import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/lists/saved_result_card.dart';
 import 'package:garden_buddy/widgets/objects/no_saved_results.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SavedScannerResults extends StatefulWidget {
   final String scannerType;
@@ -39,6 +42,54 @@ class _SavedScannerResultsState extends State<SavedScannerResults> {
     debugPrint("$results");
   }
 
+  void _navigateToOfflineResults(DBScannerResults resultObject) async {
+    // Await the result from PlantSpeciesViewer
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (ctx) => ScannerResultScreen(
+                picture: XFile(resultObject.localImageDir),
+                scannerType: widget.scannerType,
+                fromSaved: true,
+                resultsObject: resultObject,
+              )),
+    );
+
+    // Check if the result indicates a change and the widget is still mounted
+    if (result == true && mounted) {
+      // If results were changed, reload the list
+      _loadResults();
+    }
+  }
+
+  void _showClearSavedResultsDialog() {
+    showDialog(
+        context: context,
+        builder: (ctx) => ConfirmationDialog(
+            title: "Clear Saved Results?\n(${widget.scannerType})",
+            description:
+                "This action cannot be undone. This will clear all of the saved results of this particular type from your device. Do you want to proceed?",
+            imageAsset: "assets/icons/icon.jpg",
+            positiveButtonText: "Clear",
+            negativeButtonText: "No thanks",
+            onNegative: () {
+              Navigator.pop(context);
+            },
+            onPositive: () async {
+              if (widget.scannerType == "Plant Identification") {
+                await DbService.instance.nukeIdTable();
+              } else {
+                await DbService.instance.nukeHaTable();
+              }
+
+              _loadResults();
+
+              if (mounted) {
+                Navigator.pop(context);
+              }
+            }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +113,6 @@ class _SavedScannerResultsState extends State<SavedScannerResults> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  // TODO: Finish this widget tree boi! This is a basic skeleton of what it should look like.
                   if (isLoaded)
                     if (results.isEmpty)
                       // Nothing has been saved
@@ -79,12 +129,15 @@ class _SavedScannerResultsState extends State<SavedScannerResults> {
                               return SavedResultCard(
                                 resultObject: results[index],
                                 scannerType: widget.scannerType,
+                                onTap: () {
+                                  _navigateToOfflineResults(results[index]);
+                                },
                               );
                             }),
                       )
                   else
                     // The database results are still loading
-                    Text("Loading...")
+                    Center(child: Text("Fetching saved data..."))
                 ],
               ),
               Column(
@@ -105,7 +158,7 @@ class _SavedScannerResultsState extends State<SavedScannerResults> {
                               size: 32,
                             ),
                             onPressed: () {
-                              // TODO: Clear the list of saved results
+                              _showClearSavedResultsDialog();
                             })
                     ],
                   )

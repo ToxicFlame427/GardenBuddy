@@ -46,6 +46,7 @@ class _ScannerResultState extends State<ScannerResultScreen> {
   String? response;
   dynamic getter;
   bool _creditsChanged = false;
+  bool _savedChanged = false;
 
   PlantIdResponse? idResponse;
   HealthAssessmentResponse? healthResponse;
@@ -160,79 +161,122 @@ class _ScannerResultState extends State<ScannerResultScreen> {
             }));
   }
 
+  void _showDeleteConfirmationDialog() {
+    showDialog(
+        context: context,
+        builder: (ctx) => ConfirmationDialog(
+            title: "Delete Result?\n(${widget.scannerType})",
+            description:
+                "This action cannot be undone. This will remove this one saved result from you devices cache. Do you want to proceeed?",
+            imageAsset: "assets/icons/icon.jpg",
+            positiveButtonText: "Delete",
+            negativeButtonText: "No thanks",
+            onNegative: () {
+              Navigator.pop(context);
+            },
+            onPositive: () async {
+              await DbService.instance.deleteSavedResult(
+                  widget.resultsObject!.id, widget.scannerType);
+
+              setState(() {
+                _savedChanged = true;
+              });
+
+              if (mounted) {
+                Navigator.pop(context);
+              }
+            }));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "${widget.scannerType} Results${widget.fromSaved ? " - Saved" : ""}",
-          style: TextStyle(
-              color: Colors.white,
-              fontFamily: "Khand",
-              fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        iconTheme: const IconThemeData().copyWith(color: Colors.white),
-        centerTitle: false,
-        actions: [
-          // Save button, only sholw it if the user is subscribed
-          if (PurchasesApi.subStatus &&
-              (idResponse != null || healthResponse != null))
-            IconButton(
-                onPressed: () {
-                  _showSaveConfirmationDialog();
-                },
-                icon: Icon(Icons.save))
-        ],
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context, _creditsChanged);
-            },
-            icon: Icon(Icons.arrow_back_ios_new)),
-      ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20)),
-            child: Image.file(
-              File(widget.picture.path),
-              height: 175,
-              width: double.maxFinite,
-              fit: BoxFit.cover,
-            ),
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) => {
+        if (!didPop)
+          {
+            // TODO: Not a big deal, but this does not work
+            if (mounted) {Navigator.pop(context, _savedChanged)}
+          }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "${widget.scannerType} Results${widget.fromSaved ? " - Saved" : ""}",
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Khand",
+                fontWeight: FontWeight.bold),
           ),
-          BannerAdView(
-              androidBannerId: Keys.resultsScreenAdAndroid,
-              iOSBannerId: Keys.resultsScreenAdiOS,
-              isTest: adTesting,
-              isShown: !PurchasesApi.subStatus,
-              bannerSize: AdSize.banner),
-          // MARK: This hierarchy of conditionals is weird, it feels wrong for Flutter...
-          // Display the data based on if the result was recieved or not
-          if (recievedResult)
-            // Depending on the scanner type, show data
-            if (widget.scannerType == "Plant Identification")
-              // Check if data is present
-              if (idResponse!.idItems.isNotEmpty)
-                _PlantIdResultsWidget(data: idResponse!)
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          iconTheme: const IconThemeData().copyWith(color: Colors.white),
+          centerTitle: false,
+          actions: [
+            // Save button, only sholw it if the user is subscribed
+            if (PurchasesApi.subStatus &&
+                (idResponse != null || healthResponse != null) &&
+                !widget.fromSaved)
+              IconButton(
+                  onPressed: () {
+                    _showSaveConfirmationDialog();
+                  },
+                  icon: Icon(Icons.save)),
+            if (widget.fromSaved)
+              IconButton(
+                  onPressed: () {
+                    _showDeleteConfirmationDialog();
+                  },
+                  icon: Icon(Icons.delete))
+          ],
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context, _creditsChanged);
+              },
+              icon: Icon(Icons.arrow_back_ios_new)),
+        ),
+        body: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+              child: Image.file(
+                File(widget.picture.path),
+                height: 175,
+                width: double.maxFinite,
+                fit: BoxFit.cover,
+              ),
+            ),
+            BannerAdView(
+                androidBannerId: Keys.resultsScreenAdAndroid,
+                iOSBannerId: Keys.resultsScreenAdiOS,
+                isTest: adTesting,
+                isShown: !PurchasesApi.subStatus,
+                bannerSize: AdSize.banner),
+            // MARK: This hierarchy of conditionals is weird, it feels wrong for Flutter...
+            // Display the data based on if the result was recieved or not
+            if (recievedResult)
+              // Depending on the scanner type, show data
+              if (widget.scannerType == "Plant Identification")
+                // Check if data is present
+                if (idResponse!.idItems.isNotEmpty)
+                  _PlantIdResultsWidget(data: idResponse!)
+                else
+                  _NoDataWidget()
+              else
+              // Check if data can be displayed correctly
+              if (healthResponse!.issueDescription != "No Plant")
+                _HealthAssessResultsWidget(data: healthResponse!)
               else
                 _NoDataWidget()
             else
-            // Check if data can be displayed correctly
-            if (healthResponse!.issueDescription != "No Plant")
-              _HealthAssessResultsWidget(data: healthResponse!)
+            // When loading, display the corresponding loading screen
+            if (widget.scannerType == "Plant Identification")
+              PlantIdLoading()
             else
-              _NoDataWidget()
-          else
-          // When loading, display the corresponding loading screen
-          if (widget.scannerType == "Plant Identification")
-            PlantIdLoading()
-          else
-            HealthAssessLoading()
-        ],
+              HealthAssessLoading()
+          ],
+        ),
       ),
     );
   }

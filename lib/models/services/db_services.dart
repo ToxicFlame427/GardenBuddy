@@ -189,7 +189,6 @@ class DbService {
     favoritePlantsList = await getFavoritePlants();
   }
 
-  // TODO: Complete functions
   // This function is dynamic with plant ids and health assessments
   Future<void> addScanResultToTable(PlantIdResponse? idData,
       HealthAssessmentResponse? haData, Uint8List image) async {
@@ -233,17 +232,43 @@ class DbService {
     return results;
   }
 
-  //void deleteId() async {}
+  Future<void> deleteSavedResult(int idNum, String scannerType) async {
+    final db = await database;
 
-  //void deleteHA() async {}
+    // This map is used to fin the specific record
+    List<Map<String, dynamic>> results = await db.query(
+      scannerType == "Plant Identification" ? _idHistory : _haHistory,
+      columns: [_localImageDir],
+      where: "$_id = ?",
+      whereArgs: [idNum],
+      limit: 1, // Only the one is needed
+    );
 
-  void addAiChatToTable(HealthAssessmentResponse haData) {}
+    if (results.isNotEmpty) {
+      String? imagePath = results.first[_localImageDir] as String?;
 
-  Future<List<DBAiChat>?> getAiChats() async {
-    return null;
+      if (imagePath != null && imagePath.isNotEmpty && imagePath != "empty") {
+        GBIO.deleteImageWithPath(imagePath);
+        debugPrint("Deleted local image at: $imagePath");
+      } else {
+        debugPrint(
+            "No valid local image path found for id number $idNum or path was 'empty'.");
+      }
+    } else {
+      debugPrint("Record with id number $idNum not found for image deletion.");
+    }
+
+    await db.delete(scannerType == "Plant Identification" ? _idHistory : _haHistory,
+        where: "$_id = ?", whereArgs: [idNum]);
   }
 
-  void deleteAiChat() async {}
+  // void addAiChatToTable() {}
+
+  // Future<List<DBAiChat>?> getAiChats() async {
+  //   return null;
+  // }
+
+  // void deleteAiChat() async {}
 
   Future<void> nukeFavoritesTable() async {
     final db = await database;
@@ -271,7 +296,6 @@ class DbService {
   }
 
   // Deletes the identifictions table and all cached images associated with it
-  // TODO: Nuke ID
   Future<void> nukeIdTable() async {
     final db = await database;
 
@@ -297,7 +321,6 @@ class DbService {
   }
 
   // Deletes the health assessments table and all cached images associated with it
-  // TODO: Nuke HA
   Future<void> nukeHaTable() async {
     final db = await database;
 
@@ -323,7 +346,6 @@ class DbService {
   }
 
   // Deletes the AI chats table and all cached images associated with it
-  // TODO: Nuke chats
   Future<void> nukeAiChatsTable() async {
     final db = await database;
 
@@ -361,5 +383,3 @@ class DbService {
     favoritePlantsList = [];
   }
 }
-
-class DateFormat {}

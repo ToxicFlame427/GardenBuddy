@@ -2,15 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:garden_buddy/models/db_models/db_scanner_results.dart';
-import 'package:garden_buddy/screens/scanner/scanner_results_screen.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SavedResultCard extends StatelessWidget {
   const SavedResultCard(
-      {super.key, required this.resultObject, required this.scannerType});
+      {super.key,
+      required this.resultObject,
+      required this.scannerType,
+      required this.onTap});
 
   final DBScannerResults resultObject;
   final String scannerType;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +21,7 @@ class SavedResultCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-            return ScannerResultScreen(
-              picture: XFile(resultObject.localImageDir),
-              scannerType: scannerType,
-              fromSaved: true,
-              resultsObject: resultObject,
-            );
-          }));
+          onTap();
         },
         child: Padding(
           padding: const EdgeInsets.all(12),

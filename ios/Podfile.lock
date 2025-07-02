@@ -20,10 +20,10 @@ PODS:
     - FlutterMacOS
   - permission_handler_apple (9.3.0):
     - Flutter
-  - purchases_flutter (8.10.3):
+  - purchases_flutter (8.10.4):
     - Flutter
-    - PurchasesHybridCommon (= 13.37.0)
-  - PurchasesHybridCommon (13.37.0):
+    - PurchasesHybridCommon (= 13.38.1)
+  - PurchasesHybridCommon (13.38.1):
     - RevenueCat (= 5.29.0)
   - RevenueCat (5.29.0)
   - shared_preferences_foundation (0.0.1):
@@ -105,8 +105,8 @@ SPEC CHECKSUMS:
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
-  purchases_flutter: 9191525a18bf11df40eb303047d507dd64cccb25
-  PurchasesHybridCommon: 1583b4532763b795f8ae61913102d6ef9ed556a8
+  purchases_flutter: 4b19bac8c1337732b768d0aa6386db14ca8cfc1f
+  PurchasesHybridCommon: 5a46c67f78680dee9289783edbcebd983ff7bd9c
   RevenueCat: 5fa12c42c14b390dd2423897e925f407f474b8fa
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0

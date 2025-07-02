@@ -69,11 +69,20 @@ class ConfirmationDialog extends StatelessWidget {
                 ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor: WidgetStatePropertyAll(
-                            positiveButtonText == "Reset" ? Theme.of(context).cardColor : Theme.of(context).colorScheme.primary)),
+                            (positiveButtonText == "Reset" ||
+                                    positiveButtonText == "Clear" ||
+                                    positiveButtonText == "Delete")
+                                ? Theme.of(context).cardColor
+                                : Theme.of(context).colorScheme.primary)),
                     onPressed: onPositive,
                     child: Text(
                       positiveButtonText,
-                      style: TextStyle(color: positiveButtonText == "Reset" ? Colors.red : Colors.white),
+                      style: TextStyle(
+                          color: (positiveButtonText == "Reset" ||
+                                  positiveButtonText == "Clear" ||
+                                  positiveButtonText == "Delete")
+                              ? Colors.red
+                              : Colors.white),
                     ))
               ],
             )

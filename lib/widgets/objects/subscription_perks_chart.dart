@@ -33,7 +33,7 @@ class SubPerksChart extends StatelessWidget {
                   const Text("Unlimited identifications"),
                   const Text("Unlimited health assessments"),
                   const Text("Unlimited Garden AI prompts"),
-                  const Text("Save AI chats for later"),
+                  //const Text("Save AI chats for later"),
                   const Text("Save IDs and HAs")
                 ],
               ),
@@ -82,11 +82,11 @@ class SubPerksChart extends StatelessWidget {
                     height: 24,
                     width: 24,
                   ),
-                  Image.asset(
-                    "assets/icons/cross_mark.png",
-                    height: 24,
-                    width: 24,
-                  ),
+                  // Image.asset(
+                  //   "assets/icons/cross_mark.png",
+                  //   height: 24,
+                  //   width: 24,
+                  // ),
                   Image.asset(
                     "assets/icons/cross_mark.png",
                     height: 24,
@@ -133,11 +133,11 @@ class SubPerksChart extends StatelessWidget {
                       height: 24,
                       width: 24,
                     ),
-                    Image.asset(
-                      "assets/icons/check_mark.png",
-                      height: 24,
-                      width: 24,
-                    ),
+                    // Image.asset(
+                    //   "assets/icons/check_mark.png",
+                    //   height: 24,
+                    //   width: 24,
+                    // ),
                     Image.asset(
                       "assets/icons/check_mark.png",
                       height: 24,
