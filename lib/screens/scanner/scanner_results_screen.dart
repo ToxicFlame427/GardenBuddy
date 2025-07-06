@@ -155,7 +155,20 @@ class _ScannerResultState extends State<ScannerResultScreen> {
               await DbService.instance.addScanResultToTable(
                   idResponse, healthResponse, imageBytes!);
 
+              setState(() {
+                _savedChanged = true;
+              });
+
               if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("${widget.scannerType} saved!",
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.scrim,
+                          fontWeight: FontWeight.bold)),
+                  duration: Duration(seconds: 2),
+                  backgroundColor: ThemeColors.green2,
+                ));
+
                 Navigator.pop(context);
               }
             }));
@@ -183,22 +196,26 @@ class _ScannerResultState extends State<ScannerResultScreen> {
               });
 
               if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("${widget.scannerType} deleted!",
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.scrim,
+                          fontWeight: FontWeight.bold)),
+                  duration: Duration(seconds: 2),
+                  backgroundColor: ThemeColors.green2,
+                ));
+
+                // Pop dialog
                 Navigator.pop(context);
+                // Pop the results screen
+                Navigator.pop(context, _savedChanged);
               }
             }));
   }
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvokedWithResult: (didPop, result) => {
-        if (!didPop)
-          {
-            // TODO: Not a big deal, but this does not work
-            if (mounted) {Navigator.pop(context, _savedChanged)}
-          }
-      },
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text(
             "${widget.scannerType} Results${widget.fromSaved ? " - Saved" : ""}",
@@ -277,7 +294,6 @@ class _ScannerResultState extends State<ScannerResultScreen> {
               HealthAssessLoading()
           ],
         ),
-      ),
     );
   }
 }

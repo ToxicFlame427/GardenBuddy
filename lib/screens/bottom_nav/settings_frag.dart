@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:garden_buddy/gbio.dart';
 import 'package:garden_buddy/models/purchases_api.dart';
 import 'package:garden_buddy/screens/manage_subscription_screen.dart';
+import 'package:garden_buddy/theming/colors.dart';
 import 'package:garden_buddy/widgets/dialogs/confirmation_dialog.dart';
 import 'package:garden_buddy/widgets/dialogs/loading_dialog.dart';
 import 'package:garden_buddy/widgets/objects/credit_text_object.dart';
@@ -90,6 +91,16 @@ class _SettingsFragmentState extends State<SettingsFragment> {
 
     if (mounted) {
       Navigator.pop(context);
+
+      // Show that the aqpp reset was successful
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Application successfully reset!",
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.scrim,
+                fontWeight: FontWeight.bold)),
+        duration: Duration(seconds: 2),
+        backgroundColor: ThemeColors.green2,
+      ));
     }
   }
 

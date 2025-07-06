@@ -28,7 +28,7 @@ class SubPerksChart extends StatelessWidget {
                   const Text(
                     "Access to all plant data",
                   ),
-                  const Text("Access to all disease data"),
+                  //const Text("Access to all disease data"),
                   const Text("No advertisements"),
                   const Text("Unlimited identifications"),
                   const Text("Unlimited health assessments"),
@@ -57,11 +57,11 @@ class SubPerksChart extends StatelessWidget {
                     height: 24,
                     width: 24,
                   ),
-                  Image.asset(
-                    "assets/icons/check_mark.png",
-                    height: 24,
-                    width: 24,
-                  ),
+                  // Image.asset(
+                  //   "assets/icons/check_mark.png",
+                  //   height: 24,
+                  //   width: 24,
+                  // ),
                   Image.asset(
                     "assets/icons/cross_mark.png",
                     height: 24,
@@ -108,11 +108,11 @@ class SubPerksChart extends StatelessWidget {
                       height: 24,
                       width: 24,
                     ),
-                    Image.asset(
-                      "assets/icons/check_mark.png",
-                      height: 24,
-                      width: 24,
-                    ),
+                    // Image.asset(
+                    //   "assets/icons/check_mark.png",
+                    //   height: 24,
+                    //   width: 24,
+                    // ),
                     Image.asset(
                       "assets/icons/check_mark.png",
                       height: 24,

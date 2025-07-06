@@ -62,7 +62,6 @@ class GBIO {
     return path;
   }
 
-  // TODO: This probably doesn't work, but just some pseudo code to see how it would work
   static Future<String?> saveImageFromFileWithPath(Uint8List fileBytes) async {
     String? path;
 

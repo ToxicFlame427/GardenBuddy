@@ -3,7 +3,6 @@ import 'package:garden_buddy/const.dart';
 import 'package:garden_buddy/models/api/garden_api/plant_species_details.dart';
 import 'package:garden_buddy/models/services/db_services.dart';
 import 'package:garden_buddy/models/services/garden_api_services.dart';
-import 'package:garden_buddy/screens/plant_edit_request.dart';
 import 'package:garden_buddy/screens/plant_species_viewer/plant_species_viewer_data.dart';
 import 'package:garden_buddy/widgets/loading/plant_viewer_loading.dart';
 
@@ -139,16 +138,17 @@ class _PlantSpeciesViewerState extends State<PlantSpeciesViewer> {
                 fontWeight: FontWeight.bold),
           ),
           actions: [
-            if (plantDataIsLoaded && widget.offlineDetails == null)
-              IconButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                    return PlantEditRequestScreen(plantDetails: plantDetails!);
-                  }));
-                },
-                icon: Icon(Icons.edit_document),
-                color: Colors.white,
-              ),
+            // TODO: Make sure to implement the plant edit request feature
+            // if (plantDataIsLoaded && widget.offlineDetails == null)
+            //   IconButton(
+            //     onPressed: () {
+            //       Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+            //         return PlantEditRequestScreen(plantDetails: plantDetails!);
+            //       }));
+            //     },
+            //     icon: Icon(Icons.edit_document),
+            //     color: Colors.white,
+            //   ),
             // Only show the favorite button if the plant data is loaded
             if (plantDataIsLoaded)
               IconButton(

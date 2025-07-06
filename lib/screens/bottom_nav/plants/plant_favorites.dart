@@ -232,7 +232,7 @@ class _FavoritePlantsState extends State<FavoritePlants> {
                                   return SizedBox();
                                 }
                               }),
-                              // TODO: Fix this to use the page system as well!
+                          // TODO: Fix this to use the page system as well!
                           tablet: GridView.builder(
                               itemCount: 20,
                               gridDelegate:
