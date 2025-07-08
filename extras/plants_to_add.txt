@@ -11,11 +11,11 @@ Arugula
 Asparagus
 Babys Breath
 Banana
-Banana Pepper
+//Banana Pepper
 Basil
 Bean
-Beet
-Bell Pepper
+//Beet
+//Bell Pepper
 Bird of paradise
 Black Cherry
 Black Cumin
@@ -82,7 +82,7 @@ Carrot 'St. Valery'
 //Basil Mint
 
 Cauliflower
-Cayenne Pepper
+//Cayenne Pepper
 Chamomile
 Chives
 
@@ -144,14 +144,17 @@ European Plum
 Fennel
 Field Mustard
 Garlic
-Ghost Pepper
+//Ghost Pepper
 Ginger
 Gooseberry
 Green Bean
-Habanero
+//Habanero
 Honeyberry
 Huckleberry
-Jalapeno
+//Jalapeno
+//Serrano Pepper
+//Fresno Pepper
+//Carolina Reaper
 Jujube
 Kiwi
 Kohlrabi
@@ -241,7 +244,7 @@ Pumpkin 'Valenciano'
 Pumpkin 'Warty Goblin'
 Pumpkin 'White Pie'
 
-Radish
+//Radish
 Raspberry
 Red Cabbage
 Red Currant

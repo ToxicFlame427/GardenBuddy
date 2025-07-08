@@ -46,7 +46,7 @@ class _SavedScannerResultsState extends State<SavedScannerResults> {
     // Await the result from PlantSpeciesViewer
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(
+      MaterialPageRoute( 
           builder: (ctx) => ScannerResultScreen(
                 picture: XFile(resultObject.localImageDir),
                 scannerType: widget.scannerType,
